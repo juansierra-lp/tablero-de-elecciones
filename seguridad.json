@@ -1,0 +1,157 @@
+{
+  "meta": {
+    "fecha_actualizacion": "2026-05-27",
+    "fuente_principal": "MOE - Misión de Observación Electoral",
+    "fuentes_secundarias": [
+      "Defensoría del Pueblo - Alertas Tempranas",
+      "Asocapitales",
+      "Policía Nacional"
+    ],
+    "url_informe": "https://moe.org.co/mapa-de-riesgo-por-factores-de-violencia-actualizacion-eleccion-presidencial-2026/"
+  },
+  "resumen_nacional": {
+    "municipios_riesgo_extremo": 139,
+    "municipios_riesgo_total": 386,
+    "departamentos_afectados": 31,
+    "hechos_violencia_2025_2026": 565,
+    "asesinatos_lideres": 335,
+    "incremento_vs_2022": "+18.9% asesinatos",
+    "observadores_MOE": 2523,
+    "municipios_observados": 452,
+    "cobertura_potencial_electoral": "77%"
+  },
+  "subregiones_criticas": [
+    {
+      "nombre": "Arauca",
+      "nivel": "extremo",
+      "factor_principal": "Disidencias FARC + ELN. Frontera con Venezuela.",
+      "departamentos": ["Arauca"]
+    },
+    {
+      "nombre": "Nordeste antioqueño y sur de Bolívar",
+      "nivel": "extremo",
+      "factor_principal": "Clan del Golfo. Economías ilegales (minería, coca).",
+      "departamentos": ["Antioquia", "Bolívar"]
+    },
+    {
+      "nombre": "Andén Pacífico",
+      "nivel": "extremo",
+      "factor_principal": "Frente Comuneros del Sur, ELN, narcotráfico.",
+      "departamentos": ["Chocó", "Valle", "Cauca", "Nariño"]
+    },
+    {
+      "nombre": "Norte del Cauca",
+      "nivel": "extremo",
+      "factor_principal": "Disidencias EMC. Territorio indígena.",
+      "departamentos": ["Cauca"]
+    },
+    {
+      "nombre": "Suroriente colombiano",
+      "nivel": "alto",
+      "factor_principal": "Estado Mayor Central. Zonas rurales dispersas.",
+      "departamentos": ["Meta", "Caquetá", "Guaviare"]
+    },
+    {
+      "nombre": "Medio y bajo Putumayo",
+      "nivel": "extremo",
+      "factor_principal": "Carolina Ramírez + Comandos de Frontera.",
+      "departamentos": ["Putumayo"]
+    },
+    {
+      "nombre": "Catatumbo",
+      "nivel": "extremo",
+      "factor_principal": "ELN. Crisis humanitaria reciente.",
+      "departamentos": ["Norte de Santander"]
+    }
+  ],
+  "riesgo_por_departamento": {
+    "ARAUCA":          { "nivel": "extremo",     "municipios_riesgo": 7,  "score": 95 },
+    "CAUCA":           { "nivel": "extremo",     "municipios_riesgo": 32, "score": 92 },
+    "NARINO":          { "nivel": "extremo",     "municipios_riesgo": 28, "score": 90 },
+    "NORTE_SANTANDER": { "nivel": "extremo",     "municipios_riesgo": 18, "score": 88 },
+    "CHOCO":           { "nivel": "extremo",     "municipios_riesgo": 20, "score": 87 },
+    "ANTIOQUIA":       { "nivel": "extremo",     "municipios_riesgo": 34, "score": 85 },
+    "PUTUMAYO":        { "nivel": "extremo",     "municipios_riesgo": 11, "score": 84 },
+    "VALLE":           { "nivel": "alto",        "municipios_riesgo": 18, "score": 75 },
+    "BOLIVAR":         { "nivel": "alto",        "municipios_riesgo": 22, "score": 72 },
+    "META":            { "nivel": "alto",        "municipios_riesgo": 14, "score": 70 },
+    "CAQUETA":         { "nivel": "alto",        "municipios_riesgo": 10, "score": 68 },
+    "GUAVIARE":        { "nivel": "alto",        "municipios_riesgo": 4,  "score": 67 },
+    "BOGOTA":          { "nivel": "alto",        "municipios_riesgo": 1,  "score": 65 },
+    "SANTANDER":       { "nivel": "medio",       "municipios_riesgo": 12, "score": 55 },
+    "CORDOBA":         { "nivel": "medio",       "municipios_riesgo": 14, "score": 53 },
+    "CESAR":           { "nivel": "medio",       "municipios_riesgo": 10, "score": 50 },
+    "TOLIMA":          { "nivel": "medio",       "municipios_riesgo": 9,  "score": 48 },
+    "HUILA":           { "nivel": "medio",       "municipios_riesgo": 7,  "score": 45 },
+    "MAGDALENA":       { "nivel": "medio",       "municipios_riesgo": 8,  "score": 42 },
+    "SUCRE":           { "nivel": "medio",       "municipios_riesgo": 6,  "score": 40 },
+    "LA_GUAJIRA":      { "nivel": "medio",       "municipios_riesgo": 5,  "score": 40 },
+    "ATLANTICO":       { "nivel": "bajo",        "municipios_riesgo": 3,  "score": 30 },
+    "VICHADA":         { "nivel": "medio",       "municipios_riesgo": 3,  "score": 38 },
+    "BOYACA":          { "nivel": "bajo",        "municipios_riesgo": 4,  "score": 25 },
+    "CUNDINAMARCA":    { "nivel": "bajo",        "municipios_riesgo": 6,  "score": 28 },
+    "CALDAS":          { "nivel": "bajo",        "municipios_riesgo": 3,  "score": 22 },
+    "RISARALDA":       { "nivel": "bajo",        "municipios_riesgo": 2,  "score": 20 },
+    "QUINDIO":         { "nivel": "bajo",        "municipios_riesgo": 1,  "score": 18 },
+    "CASANARE":        { "nivel": "bajo",        "municipios_riesgo": 3,  "score": 28 },
+    "AMAZONAS":        { "nivel": "bajo",        "municipios_riesgo": 1,  "score": 20 },
+    "GUAINIA":         { "nivel": "medio",       "municipios_riesgo": 2,  "score": 35 },
+    "VAUPES":          { "nivel": "medio",       "municipios_riesgo": 1,  "score": 33 },
+    "SAN_ANDRES":      { "nivel": "bajo",        "municipios_riesgo": 0,  "score": 15 }
+  },
+  "novedades_recientes": [
+    {
+      "fecha": "2026-05-26",
+      "lugar": "Cubarral, Meta",
+      "tipo": "homicidio",
+      "descripcion": "Asesinado coordinador de campaña de De la Espriella en el municipio."
+    },
+    {
+      "fecha": "2026-05-25",
+      "lugar": "Rionegro, Antioquia",
+      "tipo": "agresión",
+      "descripcion": "Agresión al expresidente Álvaro Uribe y su familia en su finca."
+    },
+    {
+      "fecha": "2026-05-24",
+      "lugar": "Bogotá",
+      "tipo": "vandalismo",
+      "descripcion": "Vandalizada sede de campaña de Paloma Valencia."
+    },
+    {
+      "fecha": "2026-05-23",
+      "lugar": "Varios municipios",
+      "tipo": "amenazas",
+      "descripcion": "De la Espriella canceló manifestaciones por amenazas de atentado."
+    },
+    {
+      "fecha": "2026-05-22",
+      "lugar": "Norte de Santander",
+      "tipo": "masacre",
+      "descripcion": "Ataque armado deja 6 víctimas, entre ellas un líder social."
+    }
+  ],
+  "impacto_logistico": {
+    "votantes_afectados": 4500000,
+    "porcentaje_censo_nacional": 11,
+    "puestos_votacion_riesgo": 1247,
+    "departamentos_militarizados": ["Arauca", "Cauca", "Nariño", "Norte de Santander", "Chocó", "Putumayo"],
+    "vias_con_alerta": [
+      "Vía Panamericana (tramo Popayán-Pasto)",
+      "Catatumbo (Cúcuta-Ocaña)",
+      "Pacífico Nariñense (Tumaco-Pasto)",
+      "Bajo Cauca antioqueño"
+    ]
+  },
+  "historico_violencia_electoral": {
+    "ciclo_2022": {
+      "municipios_riesgo": 131,
+      "municipios_riesgo_extremo": 49
+    },
+    "ciclo_2026": {
+      "municipios_riesgo": 170,
+      "municipios_riesgo_extremo": 81,
+      "delta_porcentual": "+29.7% riesgo total, +65.3% riesgo extremo"
+    }
+  }
+}
