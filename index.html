@@ -1451,7 +1451,7 @@
       </div>
       <div style="text-align:right;">
         <div style="font-family:'JetBrains Mono', monospace; font-size:10px; color:var(--ink-dim); letter-spacing:0.18em;" id="countdown-label">FALTAN</div>
-        <div style="font-family:'JetBrains Mono', monospace; font-size:48px; font-weight:700; color:var(--accent); line-height:1; letter-spacing:-0.04em;" id="countdown-days">5</div>
+        <div style="font-family:'JetBrains Mono', monospace; font-size:48px; font-weight:700; color:var(--accent); line-height:1; letter-spacing:-0.04em;" id="countdown-days">—</div>
         <div style="font-family:'JetBrains Mono', monospace; font-size:10px; color:var(--ink-dim); letter-spacing:0.18em; margin-top:2px;" id="countdown-unit">DÍAS · 1ª VUELTA</div>
       </div>
     </div>
@@ -2409,24 +2409,28 @@ function selectDept(code) {
   `;
 }
 
-// === CARGA Y APLICACIÓN DE DATOS DESDE JSON ===
+// === CARGA Y APLICACIÓN DE DATOS DESDE JSON (OPCIONAL) ===
+// Si los JSON existen, los usa. Si no, el dashboard funciona igual con los datos del HTML.
 let DATOS = null;
 let SEGURIDAD = null;
 
 async function cargarDatos() {
   try {
     const [resD, resS] = await Promise.all([
-      fetch('datos.json?t=' + Date.now()),
-      fetch('seguridad.json?t=' + Date.now())
+      fetch('datos.json?t=' + Date.now()).catch(() => null),
+      fetch('seguridad.json?t=' + Date.now()).catch(() => null)
     ]);
-    if (!resD.ok || !resS.ok) throw new Error('JSON no encontrado');
-    DATOS = await resD.json();
-    SEGURIDAD = await resS.json();
-    aplicarDatos();
-    aplicarSeguridad();
-    return true;
+    if (resD && resD.ok) {
+      DATOS = await resD.json();
+      aplicarDatos();
+    }
+    if (resS && resS.ok) {
+      SEGURIDAD = await resS.json();
+      aplicarSeguridad();
+    }
+    return (DATOS !== null || SEGURIDAD !== null);
   } catch (err) {
-    console.warn('No se pudieron cargar JSON, usando datos por defecto:', err);
+    console.info('JSON externos no disponibles, usando datos del HTML:', err.message);
     return false;
   }
 }
@@ -2666,17 +2670,22 @@ async function manualRefresh() {
     }, i * 15);
   });
 
-  // RE-CARGAR JSON desde el servidor (con cache-busting)
-  const ok = await cargarDatos();
+  // RE-CARGAR JSON desde el servidor (con cache-busting). Si no hay JSON, no pasa nada.
+  await cargarDatos();
 
   setTimeout(() => {
-    if (ok) {
-      const fecha = (DATOS && DATOS.meta) ? DATOS.meta.fecha_actualizacion : 'desconocida';
-      const fuente = (DATOS && DATOS.meta) ? DATOS.meta.fuente_principal : '';
-      alert('✓ Datos sincronizados desde JSON\n\nFecha de datos: ' + fecha + '\nFuente: ' + fuente + '\n\nLos porcentajes, escenarios, mapa y bloque de seguridad fueron repintados.');
-    } else {
-      alert('⚠ No se pudo cargar datos.json o seguridad.json.\n\nVerifica que los archivos estén en la misma carpeta que el HTML.\nSi abriste el archivo con doble clic (file://), tu navegador puede bloquear fetch local. Usa: python3 -m http.server 8000 y abre http://localhost:8000');
+    const now2 = new Date();
+    const electionDate = new Date('2026-05-31T08:00:00-05:00');
+    const dias = Math.ceil((electionDate - now2) / (1000 * 60 * 60 * 24));
+    let msg = '✓ Tablero actualizado\n\n';
+    if (DATOS && DATOS.meta) {
+      msg += 'Fuente: ' + DATOS.meta.fuente_principal + '\n';
+      msg += 'Fecha datos: ' + DATOS.meta.fecha_actualizacion + '\n\n';
     }
+    if (dias > 0) msg += 'Faltan ' + dias + (dias === 1 ? ' día' : ' días') + ' para la 1ª vuelta.';
+    else if (dias === 0) msg += '★ HOY es la jornada electoral.';
+    else msg += 'Las elecciones ya pasaron hace ' + Math.abs(dias) + ' días.';
+    alert(msg);
   }, 800);
 }
 
