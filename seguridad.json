@@ -1,376 +1,2973 @@
-{
-  "meta": {
-    "fecha_actualizacion": "2026-05-28",
-    "fuente_principal": "MOE - Misión de Observación Electoral",
-    "fuentes_secundarias": [
-      "Defensoría del Pueblo - Alertas Tempranas",
-      "Asocapitales",
-      "Policía Nacional"
-    ],
-    "url_informe": "https://moe.org.co/mapa-de-riesgo-por-factores-de-violencia-actualizacion-eleccion-presidencial-2026/",
-    "hora_actualizacion": "12:36",
-    "fuente_noticias": "Google News RSS · auto-update cada hora"
-  },
-  "resumen_nacional": {
-    "municipios_riesgo_extremo": 139,
-    "municipios_riesgo_total": 386,
-    "departamentos_afectados": 31,
-    "hechos_violencia_2025_2026": 565,
-    "asesinatos_lideres": 335,
-    "incremento_vs_2022": "+18.9% asesinatos",
-    "observadores_MOE": 2523,
-    "municipios_observados": 452,
-    "cobertura_potencial_electoral": "77%"
-  },
-  "subregiones_criticas": [
-    {
-      "nombre": "Arauca",
-      "nivel": "extremo",
-      "factor_principal": "Disidencias FARC + ELN. Frontera con Venezuela.",
-      "departamentos": [
-        "Arauca"
-      ]
-    },
-    {
-      "nombre": "Nordeste antioqueño y sur de Bolívar",
-      "nivel": "extremo",
-      "factor_principal": "Clan del Golfo. Economías ilegales (minería, coca).",
-      "departamentos": [
-        "Antioquia",
-        "Bolívar"
-      ]
-    },
-    {
-      "nombre": "Andén Pacífico",
-      "nivel": "extremo",
-      "factor_principal": "Frente Comuneros del Sur, ELN, narcotráfico.",
-      "departamentos": [
-        "Chocó",
-        "Valle",
-        "Cauca",
-        "Nariño"
-      ]
-    },
-    {
-      "nombre": "Norte del Cauca",
-      "nivel": "extremo",
-      "factor_principal": "Disidencias EMC. Territorio indígena.",
-      "departamentos": [
-        "Cauca"
-      ]
-    },
-    {
-      "nombre": "Suroriente colombiano",
-      "nivel": "alto",
-      "factor_principal": "Estado Mayor Central. Zonas rurales dispersas.",
-      "departamentos": [
-        "Meta",
-        "Caquetá",
-        "Guaviare"
-      ]
-    },
-    {
-      "nombre": "Medio y bajo Putumayo",
-      "nivel": "extremo",
-      "factor_principal": "Carolina Ramírez + Comandos de Frontera.",
-      "departamentos": [
-        "Putumayo"
-      ]
-    },
-    {
-      "nombre": "Catatumbo",
-      "nivel": "extremo",
-      "factor_principal": "ELN. Crisis humanitaria reciente.",
-      "departamentos": [
-        "Norte de Santander"
-      ]
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mapa Electoral Colombia 2026 · Análisis de Riesgos Logísticos</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0f1115;
+    --bg-2: #161922;
+    --bg-3: #1d2230;
+    --ink: #ebe7d8;
+    --ink-dim: #9aa0ad;
+    --line: #2a2f3d;
+    --accent: #f5d547;
+    --izquierda: #d94a4a;       /* rojo */
+    --izquierda-soft: #4d1f1f;
+    --centro: #e8a23a;           /* ámbar */
+    --centro-soft: #4a3618;
+    --derecha: #4a89dc;          /* azul */
+    --derecha-soft: #1c2e4a;
+    --derecha-dura: #8e6cd9;     /* púrpura: derecha más dura (De la Espriella) */
+    --derecha-dura-soft: #2c1f4a;
+    --warn: #f5d547;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: var(--bg); color: var(--ink); font-family: 'Fraunces', Georgia, serif; -webkit-font-smoothing: antialiased; min-height: 100vh; }
+  body {
+    background-image:
+      radial-gradient(ellipse at top left, rgba(245,213,71,0.04), transparent 40%),
+      radial-gradient(ellipse at bottom right, rgba(74,137,220,0.05), transparent 50%),
+      linear-gradient(180deg, var(--bg) 0%, #0c0e13 100%);
+    background-attachment: fixed;
+  }
+  .mono { font-family: 'JetBrains Mono', monospace; }
+
+  /* === HEADER === */
+  header {
+    border-bottom: 1px solid var(--line);
+    padding: 28px 40px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 32px;
+    flex-wrap: wrap;
+  }
+  .brand {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .brand .eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    color: var(--accent);
+    text-transform: uppercase;
+  }
+  .brand h1 {
+    font-family: 'Fraunces', serif;
+    font-weight: 800;
+    font-size: 38px;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    font-style: italic;
+  }
+  .brand h1 span { font-style: normal; color: var(--accent); }
+  .brand .sub {
+    color: var(--ink-dim);
+    font-size: 14px;
+    max-width: 540px;
+    line-height: 1.5;
+    margin-top: 4px;
+  }
+  .meta-block {
+    text-align: right;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--ink-dim);
+    line-height: 1.7;
+  }
+  .meta-block strong { color: var(--ink); font-weight: 500; }
+  .pulse {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #5dd28b;
+    margin-right: 6px;
+    box-shadow: 0 0 0 0 rgba(93, 210, 139, 0.6);
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(93, 210, 139, 0.6); }
+    70% { box-shadow: 0 0 0 10px rgba(93, 210, 139, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(93, 210, 139, 0); }
+  }
+
+  /* === LAYOUT === */
+  main {
+    display: grid;
+    grid-template-columns: 1fr 380px;
+    gap: 24px;
+    padding: 24px 40px 40px;
+    max-width: 1600px;
+    margin: 0 auto;
+  }
+  @media (max-width: 1100px) {
+    main { grid-template-columns: 1fr; }
+  }
+
+  .card {
+    background: var(--bg-2);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 24px;
+    position: relative;
+  }
+  .card-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    color: var(--ink-dim);
+    text-transform: uppercase;
+    margin-bottom: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .card-title .tag {
+    background: var(--bg-3);
+    padding: 4px 8px;
+    border-radius: 2px;
+    color: var(--accent);
+  }
+
+  /* === MAP CARD === */
+  .map-card { min-height: 720px; }
+  .map-wrap {
+    display: grid;
+    grid-template-columns: 1fr 240px;
+    gap: 20px;
+    align-items: start;
+  }
+  .map-svg-container {
+    background:
+      radial-gradient(circle at 30% 30%, rgba(245,213,71,0.03), transparent 50%),
+      var(--bg-3);
+    border-radius: 4px;
+    padding: 16px;
+    position: relative;
+    border: 1px solid var(--line);
+  }
+  svg.map { width: 100%; height: auto; display: block; }
+  .dept-path {
+    stroke: var(--bg);
+    stroke-width: 0.8;
+    cursor: pointer;
+    transition: filter 0.18s, transform 0.18s, stroke-width 0.18s;
+    transform-origin: center;
+    transform-box: fill-box;
+  }
+  .dept-path:hover {
+    filter: brightness(1.35) drop-shadow(0 0 8px rgba(245,213,71,0.4));
+    stroke: var(--accent);
+    stroke-width: 1.4;
+  }
+  .dept-path.selected {
+    stroke: var(--accent);
+    stroke-width: 1.8;
+    filter: brightness(1.25);
+  }
+  .dept-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 7px;
+    fill: rgba(255,255,255,0.55);
+    pointer-events: none;
+    text-anchor: middle;
+    font-weight: 500;
+  }
+
+  /* === LEGEND === */
+  .legend {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .legend h4 {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    color: var(--ink-dim);
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 13px;
+  }
+  .legend-swatch {
+    width: 18px;
+    height: 18px;
+    border-radius: 2px;
+    flex-shrink: 0;
+  }
+  .legend-item small {
+    color: var(--ink-dim);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+  }
+  .legend-divider {
+    height: 1px;
+    background: var(--line);
+    margin: 6px 0;
+  }
+  .candidate-pill {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 10px;
+    background: var(--bg-3);
+    border-radius: 2px;
+    border-left: 3px solid;
+    font-size: 12px;
+  }
+  .candidate-pill.cep { border-color: var(--izquierda); }
+  .candidate-pill.pal { border-color: var(--derecha); }
+  .candidate-pill.del { border-color: var(--derecha-dura); }
+  .candidate-pill .pct {
+    margin-left: auto;
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--ink);
+    font-weight: 700;
+  }
+
+  /* === RIGHT PANEL === */
+  .right-panel { display: flex; flex-direction: column; gap: 16px; }
+
+  .selected-dept-card {
+    background: linear-gradient(180deg, var(--bg-2), var(--bg-3));
+    border: 1px solid var(--line);
+    border-left: 4px solid var(--accent);
+    border-radius: 4px;
+    padding: 24px;
+    min-height: 380px;
+  }
+  .dept-name {
+    font-family: 'Fraunces', serif;
+    font-size: 28px;
+    font-weight: 800;
+    font-style: italic;
+    line-height: 1;
+    margin-bottom: 4px;
+    letter-spacing: -0.01em;
+  }
+  .dept-region {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    color: var(--ink-dim);
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+  .winner-block {
+    background: var(--bg);
+    border-radius: 3px;
+    padding: 16px;
+    margin-bottom: 16px;
+    border: 1px solid var(--line);
+  }
+  .winner-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    color: var(--ink-dim);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .winner-name {
+    font-family: 'Fraunces', serif;
+    font-weight: 800;
+    font-size: 22px;
+    line-height: 1.1;
+    margin-bottom: 4px;
+  }
+  .winner-meta {
+    font-size: 12px;
+    color: var(--ink-dim);
+    display: flex;
+    gap: 12px;
+    align-items: center;
+  }
+  .winner-meta .pct-big {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 26px;
+    color: var(--accent);
+    font-weight: 700;
+    line-height: 1;
+  }
+
+  .bars { display: flex; flex-direction: column; gap: 8px; }
+  .bar-row {
+    display: grid;
+    grid-template-columns: 24px 1fr 50px;
+    gap: 8px;
+    align-items: center;
+    font-size: 11px;
+  }
+  .bar-row .name {
+    color: var(--ink);
+    font-family: 'Fraunces', serif;
+    font-size: 13px;
+  }
+  .bar-track {
+    height: 14px;
+    background: var(--bg);
+    border-radius: 2px;
+    overflow: hidden;
+    grid-column: 1 / -1;
+    margin-top: -2px;
+  }
+  .bar-fill {
+    height: 100%;
+    transition: width 0.6s cubic-bezier(.2,.8,.2,1);
+  }
+  .bar-pct {
+    font-family: 'JetBrains Mono', monospace;
+    text-align: right;
+    color: var(--ink-dim);
+    font-size: 11px;
+  }
+  .bar-rank {
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--ink-dim);
+    font-size: 10px;
+  }
+
+  .dept-block {
+    margin-bottom: 14px;
+  }
+  .dept-block:last-child { margin-bottom: 0; }
+  .dept-block h5 {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    color: var(--ink-dim);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  .risk-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 10px;
+    border-radius: 2px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+  .risk-alto { background: rgba(217,74,74,0.15); color: #ff8888; border: 1px solid rgba(217,74,74,0.3); }
+  .risk-medio { background: rgba(245,213,71,0.12); color: var(--accent); border: 1px solid rgba(245,213,71,0.3); }
+  .risk-bajo { background: rgba(93,210,139,0.12); color: #5dd28b; border: 1px solid rgba(93,210,139,0.3); }
+
+  /* === NATIONAL SUMMARY === */
+  .national-card { padding-bottom: 16px; }
+  .national-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+  }
+  .candidate-block {
+    background: var(--bg-3);
+    border-radius: 3px;
+    padding: 14px;
+    border-top: 3px solid;
+    position: relative;
+  }
+  .candidate-block.cep { border-color: var(--izquierda); }
+  .candidate-block.del { border-color: var(--derecha-dura); }
+  .candidate-block.pal { border-color: var(--derecha); }
+  .candidate-block .who {
+    font-family: 'Fraunces', serif;
+    font-weight: 800;
+    font-size: 16px;
+    line-height: 1.1;
+    margin-bottom: 2px;
+  }
+  .candidate-block .party {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    color: var(--ink-dim);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .candidate-block .big {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--accent);
+    line-height: 1;
+  }
+  .candidate-block .trend {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--ink-dim);
+    margin-top: 4px;
+  }
+  .candidate-block .trend.up { color: #5dd28b; }
+  .candidate-block .trend.down { color: #ff8888; }
+
+  /* === SOURCES === */
+  .sources-list { display: flex; flex-direction: column; gap: 10px; }
+  .source {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 8px;
+    padding: 10px 0;
+    border-bottom: 1px dashed var(--line);
+    font-size: 12px;
+  }
+  .source:last-child { border-bottom: none; }
+  .source .src-name { color: var(--ink); }
+  .source .src-date { font-family: 'JetBrains Mono', monospace; color: var(--ink-dim); font-size: 10px; }
+  .source .src-meta { grid-column: 1/-1; color: var(--ink-dim); font-size: 11px; line-height: 1.4; }
+  .source-quality {
+    display: inline-block;
+    padding: 1px 5px;
+    border-radius: 2px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    margin-left: 6px;
+  }
+  .q-alto { background: rgba(93,210,139,0.15); color: #5dd28b; }
+  .q-medio { background: rgba(245,213,71,0.12); color: var(--accent); }
+
+  /* === UPDATE PANEL === */
+  .update-panel {
+    background: var(--bg-2);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 18px 24px;
+    margin: 0 40px 40px;
+    max-width: 1600px;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  .update-panel .ck-text {
+    font-size: 12px;
+    color: var(--ink-dim);
+    line-height: 1.5;
+  }
+  .update-panel .ck-text strong { color: var(--ink); }
+  .actions { display: flex; gap: 8px; }
+  .btn {
+    background: var(--bg-3);
+    border: 1px solid var(--line);
+    color: var(--ink);
+    padding: 10px 16px;
+    border-radius: 3px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .btn:hover { background: var(--accent); color: var(--bg); border-color: var(--accent); }
+  .btn.primary { background: var(--accent); color: var(--bg); border-color: var(--accent); font-weight: 700; }
+  .btn.primary:hover { background: #ffe060; }
+
+  /* === LOGISTICS RISK FOOTER === */
+  .risk-card {
+    background:
+      linear-gradient(135deg, rgba(217,74,74,0.08), transparent 60%),
+      var(--bg-2);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 24px;
+  }
+  .risk-zones {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 12px;
+    margin-top: 12px;
+  }
+  .risk-zone {
+    background: var(--bg-3);
+    border-radius: 3px;
+    padding: 12px 14px;
+    border-left: 3px solid var(--izquierda);
+    font-size: 12px;
+  }
+  .risk-zone strong { display: block; font-family: 'Fraunces', serif; font-size: 14px; margin-bottom: 4px; }
+  .risk-zone .why { color: var(--ink-dim); font-size: 11px; line-height: 1.4; }
+
+  /* tooltip */
+  .tooltip {
+    position: fixed;
+    pointer-events: none;
+    background: var(--bg);
+    border: 1px solid var(--accent);
+    border-radius: 3px;
+    padding: 8px 12px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--ink);
+    z-index: 1000;
+    opacity: 0;
+    transition: opacity 0.15s;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+  }
+  .tooltip.visible { opacity: 1; }
+  .tooltip .tt-name { font-family: 'Fraunces', serif; font-weight: 700; font-size: 14px; color: var(--accent); margin-bottom: 4px; }
+  .tooltip .tt-winner { color: var(--ink); }
+  .tooltip .tt-pct { color: var(--ink-dim); }
+
+  /* ============ SECCIÓN MUNDIAL ============ */
+  .global-section {
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 0 40px 24px;
+  }
+  .global-divider {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin: 16px 0 28px;
+  }
+  .global-divider .line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--line), transparent);
+  }
+  .global-divider .tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    color: var(--accent);
+    text-transform: uppercase;
+  }
+  .global-divider h2 {
+    font-family: 'Fraunces', serif;
+    font-weight: 800;
+    font-style: italic;
+    font-size: 32px;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+  }
+  .global-divider h2 span { color: var(--accent); font-style: normal; }
+
+  .global-grid {
+    display: grid;
+    grid-template-columns: 1fr 420px;
+    gap: 24px;
+  }
+  @media (max-width: 1100px) {
+    .global-grid { grid-template-columns: 1fr; }
+  }
+
+  .world-map-card {
+    background: var(--bg-2);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 24px;
+    min-height: 540px;
+  }
+  .world-svg-container {
+    background:
+      radial-gradient(ellipse at 50% 40%, rgba(74,137,220,0.05), transparent 60%),
+      var(--bg-3);
+    border-radius: 4px;
+    padding: 16px;
+    border: 1px solid var(--line);
+    overflow: hidden;
+  }
+  svg.world-map { width: 100%; height: auto; display: block; }
+  .country-marker {
+    cursor: pointer;
+    transition: transform 0.2s, filter 0.2s;
+    transform-origin: center;
+    transform-box: fill-box;
+  }
+  .country-marker:hover {
+    transform: scale(1.5);
+    filter: drop-shadow(0 0 8px rgba(245,213,71,0.9));
+  }
+  .country-marker.pulse-marker {
+    animation: markerPulse 2.5s infinite;
+  }
+  @keyframes markerPulse {
+    0%, 100% { filter: drop-shadow(0 0 0 transparent); }
+    50% { filter: drop-shadow(0 0 6px currentColor); }
+  }
+
+  /* === Lista de países === */
+  .country-card-wrap {
+    background: var(--bg-2);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 24px;
+  }
+  .feed-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 14px;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .feed-header h3 {
+    font-family: 'Fraunces', serif;
+    font-weight: 800;
+    font-size: 18px;
+    letter-spacing: -0.01em;
+  }
+  .feed-header .filter-pills {
+    display: flex;
+    gap: 4px;
+  }
+  .filter-pill {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    padding: 4px 8px;
+    border-radius: 2px;
+    background: var(--bg-3);
+    color: var(--ink-dim);
+    cursor: pointer;
+    border: 1px solid var(--line);
+    text-transform: uppercase;
+    transition: all 0.15s;
+  }
+  .filter-pill:hover { color: var(--ink); }
+  .filter-pill.active { background: var(--accent); color: var(--bg); border-color: var(--accent); font-weight: 700; }
+
+  .country-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    max-height: 580px;
+    overflow-y: auto;
+    padding-right: 6px;
+  }
+  .country-list::-webkit-scrollbar { width: 6px; }
+  .country-list::-webkit-scrollbar-track { background: var(--bg-3); border-radius: 3px; }
+  .country-list::-webkit-scrollbar-thumb { background: var(--line); border-radius: 3px; }
+  .country-list::-webkit-scrollbar-thumb:hover { background: var(--accent); }
+
+  .country-row {
+    background: var(--bg-3);
+    border-radius: 3px;
+    padding: 12px 14px;
+    border-left: 3px solid;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 10px;
+    align-items: center;
+    transition: transform 0.15s, background 0.15s;
+    cursor: pointer;
+  }
+  .country-row:hover {
+    background: #232938;
+    transform: translateX(2px);
+  }
+  .country-row.izquierda { border-color: var(--izquierda); }
+  .country-row.centro { border-color: var(--centro); }
+  .country-row.derecha { border-color: var(--derecha); }
+  .country-row.derecha_dura { border-color: var(--derecha-dura); }
+  .country-row.pendiente { border-color: var(--ink-dim); opacity: 0.55; }
+
+  .country-flag {
+    font-size: 22px;
+    line-height: 1;
+  }
+  .country-info { min-width: 0; }
+  .country-info .cname {
+    font-family: 'Fraunces', serif;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 1.1;
+    color: var(--ink);
+  }
+  .country-info .cmeta {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    color: var(--ink-dim);
+    letter-spacing: 0.08em;
+    margin-top: 2px;
+  }
+  .country-info .cwinner {
+    font-size: 11px;
+    color: var(--ink-dim);
+    margin-top: 4px;
+  }
+  .country-info .cwinner strong { color: var(--ink); }
+
+  .country-pct {
+    text-align: right;
+  }
+  .country-pct .pct-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 1;
+  }
+  .country-pct .pct-status {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    color: var(--ink-dim);
+    margin-top: 4px;
+    letter-spacing: 0.08em;
+  }
+  .country-row.pendiente .pct-num { color: var(--ink-dim); font-size: 12px; }
+
+  /* === Progreso votación === */
+  .progress-card {
+    background: linear-gradient(180deg, var(--bg-2), var(--bg-3));
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 24px;
+    margin-bottom: 24px;
+  }
+  .progress-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-bottom: 20px;
+  }
+  @media (max-width: 700px) {
+    .progress-stats { grid-template-columns: repeat(2, 1fr); }
+  }
+  .stat {
+    background: var(--bg);
+    border-radius: 3px;
+    padding: 14px;
+    border-top: 2px solid var(--accent);
+  }
+  .stat .label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    color: var(--ink-dim);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .stat .value {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--ink);
+    line-height: 1;
+  }
+  .stat .value small {
+    font-size: 12px;
+    color: var(--ink-dim);
+    font-weight: 400;
+  }
+  .stat .sub {
+    font-size: 11px;
+    color: var(--ink-dim);
+    margin-top: 4px;
+  }
+
+  /* Timeline de jornada */
+  .timeline {
+    margin-top: 16px;
+    background: var(--bg);
+    padding: 16px;
+    border-radius: 3px;
+  }
+  .timeline-bar {
+    height: 8px;
+    background: var(--bg-3);
+    border-radius: 4px;
+    position: relative;
+    overflow: hidden;
+    margin: 12px 0 8px;
+  }
+  .timeline-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent), #ff8c42);
+    border-radius: 4px;
+    width: 0%;
+    transition: width 1s cubic-bezier(.2,.8,.2,1);
+  }
+  .timeline-days {
+    display: flex;
+    justify-content: space-between;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    color: var(--ink-dim);
+    letter-spacing: 0.1em;
+  }
+  .timeline-day {
+    text-align: center;
+    padding: 2px 4px;
+    border-radius: 2px;
+    flex: 1;
+  }
+  .timeline-day.done { color: var(--accent); }
+  .timeline-day.today { background: var(--accent); color: var(--bg); font-weight: 700; }
+
+  /* Distribución mundial */
+  .global-summary {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-top: 18px;
+  }
+  .summary-card {
+    background: var(--bg-3);
+    border-radius: 3px;
+    padding: 14px;
+    border-top: 3px solid;
+  }
+  .summary-card.izq { border-color: var(--izquierda); }
+  .summary-card.der_dura { border-color: var(--derecha-dura); }
+  .summary-card.der { border-color: var(--derecha); }
+  .summary-card .who { font-family: 'Fraunces', serif; font-weight: 700; font-size: 14px; }
+  .summary-card .count { font-family: 'JetBrains Mono', monospace; font-size: 22px; font-weight: 700; margin-top: 4px; }
+  .summary-card .desc { font-size: 11px; color: var(--ink-dim); margin-top: 4px; line-height: 1.3; }
+
+  /* Histórico */
+  .historic-card {
+    background: var(--bg-2);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 24px;
+    margin-top: 24px;
+  }
+  .historic-bar {
+    display: grid;
+    grid-template-columns: 110px 1fr 90px;
+    gap: 12px;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px dashed var(--line);
+    font-size: 12px;
+  }
+  .historic-bar:last-child { border-bottom: none; }
+  .historic-bar .hb-name { font-family: 'Fraunces', serif; font-weight: 600; }
+  .historic-bar .hb-track {
+    height: 18px;
+    background: var(--bg-3);
+    border-radius: 2px;
+    overflow: hidden;
+    display: flex;
+  }
+  .historic-bar .hb-seg {
+    height: 100%;
+    transition: width 0.6s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    color: rgba(255,255,255,0.95);
+    font-weight: 700;
+    min-width: 24px;
+  }
+  .historic-bar .hb-meta {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--ink-dim);
+    text-align: right;
+  }
+
+  /* ============ TABLERO EJECUTIVO ============ */
+  .executive-board {
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 24px 40px 0;
+  }
+  .exec-card {
+    background:
+      linear-gradient(135deg, rgba(245,213,71,0.06), transparent 50%),
+      linear-gradient(180deg, var(--bg-2), #1a1f2b);
+    border: 1px solid var(--accent);
+    border-radius: 6px;
+    padding: 32px;
+    position: relative;
+    overflow: hidden;
+  }
+  .exec-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  }
+  .exec-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .exec-header .left .badge {
+    display: inline-block;
+    background: var(--accent);
+    color: var(--bg);
+    padding: 4px 10px;
+    border-radius: 2px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+  .exec-header .left h2 {
+    font-family: 'Fraunces', serif;
+    font-weight: 800;
+    font-size: 32px;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    font-style: italic;
+  }
+  .exec-header .left h2 span { color: var(--accent); font-style: normal; }
+  .exec-header .left .desc {
+    font-size: 13px;
+    color: var(--ink-dim);
+    margin-top: 6px;
+    max-width: 560px;
+    line-height: 1.5;
+  }
+
+  .exec-grid {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 1fr;
+    gap: 20px;
+  }
+  @media (max-width: 1000px) {
+    .exec-grid { grid-template-columns: 1fr; }
+  }
+
+  /* Winner mega-card */
+  .winner-mega {
+    background:
+      radial-gradient(circle at 0% 100%, rgba(217,74,74,0.15), transparent 50%),
+      var(--bg-3);
+    border-radius: 4px;
+    padding: 24px;
+    position: relative;
+    border-left: 6px solid var(--izquierda);
+  }
+  .winner-mega .label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    color: var(--ink-dim);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .winner-mega .label .crown {
+    font-size: 14px;
+    color: var(--accent);
+  }
+  .winner-mega .name {
+    font-family: 'Fraunces', serif;
+    font-weight: 800;
+    font-size: 42px;
+    font-style: italic;
+    line-height: 0.95;
+    letter-spacing: -0.02em;
+    margin-bottom: 4px;
+  }
+  .winner-mega .party {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--ink-dim);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 18px;
+  }
+  .winner-mega .pct-mega {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 72px;
+    font-weight: 700;
+    color: var(--izquierda);
+    line-height: 1;
+    letter-spacing: -0.04em;
+  }
+  .winner-mega .pct-mega small {
+    font-size: 24px;
+    color: var(--ink-dim);
+    font-weight: 400;
+  }
+  .winner-mega .delta {
+    margin-top: 8px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--ink-dim);
+  }
+  .winner-mega .delta strong { color: var(--ink); }
+
+  /* Probability ring */
+  .scenarios {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .scenario {
+    background: var(--bg-3);
+    border-radius: 4px;
+    padding: 16px 18px;
+    border-left: 4px solid;
+    position: relative;
+  }
+  .scenario.first { border-color: var(--izquierda); }
+  .scenario.second { border-color: var(--derecha-dura); }
+  .scenario.third { border-color: var(--derecha); }
+  .scenario .scen-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.18em;
+    color: var(--ink-dim);
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+  .scenario .scen-name {
+    font-family: 'Fraunces', serif;
+    font-weight: 700;
+    font-size: 17px;
+    line-height: 1.1;
+  }
+  .scenario .scen-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-top: 8px;
+  }
+  .scenario .scen-pct {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 1;
+  }
+  .scenario.first .scen-pct { color: var(--izquierda); }
+  .scenario.second .scen-pct { color: var(--derecha-dura); }
+  .scenario.third .scen-pct { color: var(--derecha); }
+  .scenario .scen-detail {
+    font-size: 11px;
+    color: var(--ink-dim);
+    text-align: right;
+    line-height: 1.4;
+  }
+  .scenario .scen-track {
+    height: 6px;
+    background: var(--bg);
+    border-radius: 3px;
+    overflow: hidden;
+    margin-top: 10px;
+  }
+  .scenario .scen-fill {
+    height: 100%;
+    transition: width 1s cubic-bezier(.2,.8,.2,1);
+  }
+  .scenario.first .scen-fill { background: var(--izquierda); }
+  .scenario.second .scen-fill { background: var(--derecha-dura); }
+  .scenario.third .scen-fill { background: var(--derecha); }
+
+  /* Cambios vs día anterior */
+  .day-changes {
+    margin-top: 14px;
+    padding: 12px 14px;
+    background: rgba(245, 213, 71, 0.04);
+    border: 1px solid rgba(245, 213, 71, 0.2);
+    border-left: 3px solid var(--accent);
+    border-radius: 4px;
+  }
+  .dc-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 10px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid rgba(245, 213, 71, 0.15);
+  }
+  .dc-icon {
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--accent);
+    font-size: 16px;
+    font-weight: 700;
+  }
+  .dc-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink);
+    flex: 1;
+  }
+  .dc-date {
+    font-size: 10px;
+    color: var(--ink-dim);
+    letter-spacing: 0.1em;
+  }
+  .dc-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .dc-list li {
+    font-family: 'Fraunces', serif;
+    font-size: 12.5px;
+    line-height: 1.45;
+    color: var(--ink-dim);
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+  }
+  .dc-list li strong { color: var(--ink); font-weight: 600; }
+  .dc-arrow {
+    font-size: 11px;
+    width: 14px;
+    display: inline-block;
+    text-align: center;
+    flex-shrink: 0;
+  }
+  .dc-arrow.up { color: #5dd28b; }
+  .dc-arrow.down { color: #ff8888; }
+  .dc-arrow.flat { color: var(--ink-dim); font-size: 8px; }
+
+  /* Second round */
+  .second-round {
+    background:
+      linear-gradient(180deg, var(--bg-3), #1a1f2b);
+    border-radius: 4px;
+    padding: 20px;
+    border: 1px dashed var(--accent);
+  }
+  .second-round h4 {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+  .vs-match {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 10px;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px dashed var(--line);
+  }
+  .vs-match:last-child { border-bottom: none; }
+  .vs-side {
+    text-align: center;
+  }
+  .vs-side .pct {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 22px;
+    font-weight: 700;
+    line-height: 1;
+  }
+  .vs-side .nm {
+    font-family: 'Fraunces', serif;
+    font-size: 11px;
+    line-height: 1.1;
+    margin-top: 4px;
+    color: var(--ink-dim);
+  }
+  .vs-side.winner .nm { color: var(--ink); font-weight: 700; }
+  .vs-side.winner .pct { color: var(--accent); }
+  .vs-divider {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--ink-dim);
+    letter-spacing: 0.15em;
+  }
+
+  /* Key insights */
+  .key-insights {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin-top: 24px;
+  }
+  @media (max-width: 900px) {
+    .key-insights { grid-template-columns: repeat(2, 1fr); }
+  }
+  .insight {
+    background: var(--bg);
+    border-radius: 3px;
+    padding: 14px;
+    border-top: 2px solid;
+  }
+  .insight.green { border-color: #5dd28b; }
+  .insight.yellow { border-color: var(--accent); }
+  .insight.red { border-color: var(--izquierda); }
+  .insight.blue { border-color: var(--derecha); }
+  .insight .ins-icon {
+    font-size: 18px;
+    margin-bottom: 6px;
+  }
+  .insight .ins-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    color: var(--ink-dim);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+  .insight .ins-text {
+    font-size: 12px;
+    line-height: 1.4;
+    color: var(--ink);
+  }
+  .insight .ins-text strong { color: var(--accent); }
+
+  /* === SECCIÓN SEGURIDAD === */
+  .security-section { padding: 40px; border-top: 1px solid var(--line); }
+  .sec-resumen {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 14px;
+    margin-bottom: 28px;
+  }
+  .sec-card {
+    background: var(--bg-2);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 16px 18px;
+    border-top: 3px solid var(--izquierda);
+  }
+  .sec-card.crit { border-top-color: var(--izquierda); }
+  .sec-card.alta { border-top-color: var(--centro); }
+  .sec-card.warn { border-top-color: var(--warn); }
+  .sec-card.info { border-top-color: var(--derecha); }
+  .sec-card .lbl {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    color: var(--ink-dim);
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .sec-card .val {
+    font-family: 'Fraunces', serif;
+    font-weight: 800;
+    font-size: 30px;
+    color: var(--ink);
+    line-height: 1;
+  }
+  .sec-card .sub {
+    font-size: 11px;
+    color: var(--ink-dim);
+    margin-top: 4px;
+  }
+  .sec-grid {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 24px;
+    margin-bottom: 24px;
+  }
+  .sec-block {
+    background: var(--bg-2);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 22px 24px;
+  }
+  .sec-block h3 {
+    font-family: 'Fraunces', serif;
+    font-weight: 800;
+    font-size: 20px;
+    font-style: italic;
+    margin-bottom: 6px;
+  }
+  .sec-block h3 span { color: var(--accent); font-style: normal; }
+  .sec-block .sec-block-sub {
+    font-size: 12px;
+    color: var(--ink-dim);
+    margin-bottom: 18px;
+  }
+  .sec-regiones {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+  .sec-region {
+    border-left: 3px solid var(--izquierda);
+    background: var(--bg-3);
+    padding: 12px 14px;
+    border-radius: 0 4px 4px 0;
+  }
+  .sec-region.extremo { border-left-color: var(--izquierda); }
+  .sec-region.alto    { border-left-color: var(--centro); }
+  .sec-region-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 4px;
+  }
+  .sec-region-name { font-family: 'Fraunces', serif; font-weight: 600; font-size: 14px; }
+  .sec-region-level {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    padding: 2px 8px;
+    border-radius: 2px;
+  }
+  .sec-region-level.extremo { background: var(--izquierda-soft); color: var(--izquierda); }
+  .sec-region-level.alto    { background: var(--centro-soft); color: var(--centro); }
+  .sec-region-desc { font-size: 12px; color: var(--ink-dim); line-height: 1.5; }
+  .sec-region-deps {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--accent);
+    margin-top: 4px;
+    letter-spacing: 0.05em;
+  }
+  .sec-novedades { list-style: none; padding: 0; margin: 0; }
+  .sec-nov-item {
+    padding: 12px 0;
+    border-bottom: 1px dashed var(--line);
+    font-size: 12.5px;
+  }
+  .sec-nov-item:last-child { border-bottom: none; }
+  .sec-nov-item.is-grave {
+    background: rgba(255, 80, 80, 0.04);
+    border-left: 3px solid #ff5050;
+    padding-left: 10px;
+    margin-left: -10px;
+    padding-right: 10px;
+    margin-right: -10px;
+  }
+  .sec-nov-head {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 6px;
+    flex-wrap: wrap;
+  }
+  .sec-nov-date {
+    color: var(--accent);
+    font-size: 10px;
+    letter-spacing: 0.08em;
+  }
+  .sec-grave-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    background: rgba(255, 80, 80, 0.15);
+    color: #ff5050;
+    padding: 2px 6px;
+    border-radius: 2px;
+    letter-spacing: 0.1em;
+    font-weight: 700;
+  }
+  .sec-nov-titulo {
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-size: 13.5px;
+    line-height: 1.4;
+    color: var(--ink);
+    margin-bottom: 4px;
+  }
+  .sec-nov-meta {
+    font-size: 11px;
+    color: var(--ink-dim);
+    margin-bottom: 4px;
+  }
+  .sec-nov-fuente-link {
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: 500;
+  }
+  .sec-nov-fuente-link:hover { text-decoration: underline; }
+  .sec-nov-tag {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    padding: 2px 6px;
+    border-radius: 2px;
+    letter-spacing: 0.1em;
+    margin-right: 6px;
+    text-transform: uppercase;
+  }
+  .sec-nov-tag.homicidio  { background: var(--izquierda-soft); color: var(--izquierda); }
+  .sec-nov-tag.masacre    { background: var(--izquierda-soft); color: var(--izquierda); }
+  .sec-nov-tag.atentado   { background: var(--izquierda-soft); color: var(--izquierda); }
+  .sec-nov-tag.agresión   { background: var(--centro-soft); color: var(--centro); }
+  .sec-nov-tag.agresion   { background: var(--centro-soft); color: var(--centro); }
+  .sec-nov-tag.amenazas   { background: var(--centro-soft); color: var(--centro); }
+  .sec-nov-tag.vandalismo { background: var(--derecha-soft); color: var(--derecha); }
+  .sec-nov-tag.protesta   { background: var(--derecha-soft); color: var(--derecha); }
+  .sec-nov-tag.orden_publico,
+  .sec-nov-tag\.orden { background: rgba(150,150,150,0.15); color: var(--ink-dim); }
+  .sec-nov-place { color: var(--ink); font-weight: 600; font-size: 12px; }
+  .sec-nov-desc { color: var(--ink-dim); margin-top: 4px; font-size: 11.5px; line-height: 1.5; }
+
+  .sec-impacto {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+  .sec-stat {
+    background: var(--bg-3);
+    padding: 12px;
+    border-radius: 3px;
+    text-align: center;
+  }
+  .sec-stat-val {
+    font-family: 'Fraunces', serif;
+    font-weight: 800;
+    font-size: 22px;
+    color: var(--accent);
+  }
+  .sec-stat-lbl {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.12em;
+    color: var(--ink-dim);
+    text-transform: uppercase;
+    margin-top: 4px;
+  }
+  .sec-vias {
+    list-style: none;
+    padding: 0;
+    margin: 12px 0 0;
+    font-size: 12px;
+    color: var(--ink);
+  }
+  .sec-vias li {
+    padding: 6px 0;
+    border-bottom: 1px dashed var(--line);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .sec-vias li:before {
+    content: '⚠';
+    color: var(--warn);
+    font-size: 12px;
+  }
+  .sec-vias li:last-child { border-bottom: none; }
+
+  @media (max-width: 900px) {
+    .sec-grid { grid-template-columns: 1fr; }
+    .sec-impacto { grid-template-columns: repeat(2, 1fr); }
+  }
+
+</style>
+</head>
+<body>
+
+<header>
+  <div class="brand">
+    <div class="eyebrow">Mercado Libre · Riesgo Logístico Colombia</div>
+    <h1>Mapa Electoral <span>2026</span></h1>
+    <div class="sub">Consolidado dinámico por departamento y por país de intención de voto presidencial, orientación política y nivel de riesgo operativo. Promedio ponderado de las encuestas autorizadas por el CNE + tracking de la jornada de votación en el exterior (67 países).</div>
+  </div>
+  <div class="meta-block">
+    <div><span class="pulse"></span><strong>EN VIVO</strong></div>
+    <div>Última actualización: <strong id="last-update">26 MAY 2026 · 09:14</strong></div>
+    <div>Próxima toma: <strong id="next-update">27 MAY 2026 · 09:00</strong></div>
+    <div>1ª vuelta: <strong>31 MAY 2026</strong></div>
+    <div style="margin-top:10px; display:flex; gap:8px; justify-content:flex-end;">
+      <button class="btn primary" onclick="manualRefresh()" style="font-size:12px; padding:8px 16px;">↺ Actualizar ahora</button>
+    </div>
+  </div>
+</header>
+
+<!-- ====================================================== -->
+<!-- ============ TABLERO EJECUTIVO RESUMEN ============== -->
+<!-- ====================================================== -->
+<div class="executive-board">
+  <div class="exec-card">
+    <div class="exec-header">
+      <div class="left">
+        <div class="badge">★ PROYECCIÓN CONSOLIDADA · NACIONAL + EXTERIOR</div>
+        <h2>¿Quién va <span>ganando</span>?</h2>
+        <div class="desc">Lectura ejecutiva del estado de la contienda al día de hoy, combinando el ponderador de encuestas nacional, el voto territorial proyectado por departamento y la jornada del exterior en curso.</div>
+      </div>
+      <div style="text-align:right;">
+        <div style="font-family:'JetBrains Mono', monospace; font-size:10px; color:var(--ink-dim); letter-spacing:0.18em;" id="countdown-label">FALTAN</div>
+        <div style="font-family:'JetBrains Mono', monospace; font-size:48px; font-weight:700; color:var(--accent); line-height:1; letter-spacing:-0.04em;" id="countdown-days">—</div>
+        <div style="font-family:'JetBrains Mono', monospace; font-size:10px; color:var(--ink-dim); letter-spacing:0.18em; margin-top:2px;" id="countdown-unit">DÍAS · 1ª VUELTA</div>
+      </div>
+    </div>
+
+    <div class="exec-grid">
+      <!-- GANADOR PRIMERA VUELTA -->
+      <div class="winner-mega">
+        <div class="label"><span class="crown">★</span> Lider 1ª vuelta (proyectado)</div>
+        <div class="name">Iván Cepeda</div>
+        <div class="party">Pacto Histórico · Izquierda</div>
+        <div class="pct-mega">38.5<small>%</small></div>
+        <div class="delta">
+          <strong>vs. semana pasada:</strong> ▼ 0.4 pts<br>
+          <strong>Ventaja sobre 2º:</strong> +11.7 pts<br>
+          <strong>Departamentos liderados:</strong> 18 / 32
+        </div>
+      </div>
+
+      <!-- ESCENARIOS PRIMERA VUELTA -->
+      <div class="scenarios">
+        <div class="scen-label" style="font-family:'JetBrains Mono', monospace; font-size:10px; letter-spacing:0.2em; color:var(--ink-dim); text-transform:uppercase; margin-bottom:2px;">Top 3 · Primera vuelta</div>
+        <div class="scenario first">
+          <div class="scen-label">1º LUGAR</div>
+          <div class="scen-row">
+            <div>
+              <div class="scen-name">Cepeda</div>
+              <div class="scen-detail" style="text-align:left;">Pacto Histórico</div>
+            </div>
+            <div class="scen-pct">38.5%</div>
+          </div>
+          <div class="scen-track"><div class="scen-fill" style="width:96%;"></div></div>
+        </div>
+        <div class="scenario second">
+          <div class="scen-label">2º LUGAR · PASA A 2ª VUELTA</div>
+          <div class="scen-row">
+            <div>
+              <div class="scen-name">De la Espriella</div>
+              <div class="scen-detail" style="text-align:left;">Independiente · Derecha dura</div>
+            </div>
+            <div class="scen-pct">26.8%</div>
+          </div>
+          <div class="scen-track"><div class="scen-fill" style="width:67%;"></div></div>
+        </div>
+        <div class="scenario third">
+          <div class="scen-label">3º LUGAR</div>
+          <div class="scen-row">
+            <div>
+              <div class="scen-name">Paloma Valencia</div>
+              <div class="scen-detail" style="text-align:left;">Centro Democrático</div>
+            </div>
+            <div class="scen-pct">18.4%</div>
+          </div>
+          <div class="scen-track"><div class="scen-fill" style="width:46%;"></div></div>
+        </div>
+
+        <!-- CAMBIOS RESPECTO AL DÍA ANTERIOR -->
+        <div class="day-changes" id="day-changes">
+          <div class="dc-header">
+            <span class="dc-icon">Δ</span>
+            <span class="dc-title">Cambios vs. ayer</span>
+            <span class="dc-date mono" id="dc-date">26 MAY</span>
+          </div>
+          <ul class="dc-list">
+            <li><span class="dc-arrow down">▼</span> <strong>Cepeda</strong> −0.4 pts · pierde fuerza en Antioquia y Eje Cafetero</li>
+            <li><span class="dc-arrow up">▲</span> <strong>De la Espriella</strong> +0.6 pts · gana terreno en Caribe y Llanos</li>
+            <li><span class="dc-arrow flat">●</span> <strong>Paloma Valencia</strong> sin cambio · estancada tras pico post-consulta</li>
+            <li><span class="dc-arrow up">▲</span> <strong>Indecisos</strong> +0.3 pts · sube ruido por veda de encuestas</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- SEGUNDA VUELTA -->
+      <div class="second-round">
+        <h4>★ Escenarios 2ª vuelta (21-jun)</h4>
+        <div class="vs-match">
+          <div class="vs-side">
+            <div class="pct" style="color:var(--izquierda);">42%</div>
+            <div class="nm">Cepeda</div>
+          </div>
+          <div class="vs-divider">VS</div>
+          <div class="vs-side winner">
+            <div class="pct">43%</div>
+            <div class="nm">De la Espriella</div>
+          </div>
+        </div>
+        <div class="vs-match">
+          <div class="vs-side">
+            <div class="pct" style="color:var(--izquierda);">43%</div>
+            <div class="nm">Cepeda</div>
+          </div>
+          <div class="vs-divider">VS</div>
+          <div class="vs-side winner">
+            <div class="pct">44%</div>
+            <div class="nm">P. Valencia</div>
+          </div>
+        </div>
+        <div style="margin-top:14px; font-size:11px; color:var(--ink-dim); line-height:1.5; padding-top:12px; border-top:1px dashed var(--line);">
+          <strong style="color:var(--accent);">Alerta:</strong> en balotaje Cepeda pierde por 1 pt frente a ambos rivales (empate técnico dentro del margen de error). La elección está abierta.
+        </div>
+      </div>
+    </div>
+
+    <!-- INSIGHTS CLAVE -->
+    <div class="key-insights">
+      <div class="insight green">
+        <div class="ins-icon">📊</div>
+        <div class="ins-label">FUENTES INTEGRADAS</div>
+        <div class="ins-text"><strong>7 encuestadoras</strong> autorizadas CNE + ponderador La Silla Vacía + jornada exterior Cancillería.</div>
+      </div>
+      <div class="insight yellow">
+        <div class="ins-icon">🌎</div>
+        <div class="ins-label">VOTO EXTERIOR</div>
+        <div class="ins-text"><strong>De la Espriella domina</strong> el exterior (31 países). EE.UU. y España con peso decisivo (762K censados).</div>
+      </div>
+      <div class="insight red">
+        <div class="ins-icon">⚠</div>
+        <div class="ins-label">RIESGO LOGÍSTICO</div>
+        <div class="ins-text"><strong>Cauca, Antioquia, N. Santander</strong> requieren plan de contingencia. 139 municipios en riesgo extremo.</div>
+      </div>
+      <div class="insight blue">
+        <div class="ins-icon">📈</div>
+        <div class="ins-label">TENDENCIA SEMANA</div>
+        <div class="ins-text"><strong>De la Espriella +3.1 pts</strong>, Cepeda -0.4, Valencia -1.6. Polarización creciente últimos 7 días.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="global-section" style="padding-top: 24px; padding-bottom: 0;">
+  <div class="global-divider" style="margin-top: 0;">
+    <span class="tag">Parte I</span>
+    <h2>Mapa <span>Nacional</span> · 32 departamentos</h2>
+    <div class="line"></div>
+    <span class="tag">PRIMERA VUELTA · 31 MAY</span>
+  </div>
+</div>
+
+<main>
+  <!-- COLUMNA IZQUIERDA -->
+  <div style="display:flex; flex-direction:column; gap:24px;">
+
+    <!-- Resumen Nacional -->
+    <div class="card national-card">
+      <div class="card-title">
+        <span>Consolidado Nacional · Primera Vuelta</span>
+        <span class="tag">PONDERADOR · 7 ENCUESTAS</span>
+      </div>
+      <div class="national-grid">
+        <div class="candidate-block cep">
+          <div class="who">Iván Cepeda</div>
+          <div class="party">Pacto Histórico · Izquierda</div>
+          <div class="big">38.5<span style="font-size:14px; color:var(--ink-dim);">%</span></div>
+          <div class="trend down">▼ 0.4 vs. semana pasada</div>
+        </div>
+        <div class="candidate-block del">
+          <div class="who">A. de la Espriella</div>
+          <div class="party">Independiente · Derecha dura</div>
+          <div class="big">26.8<span style="font-size:14px; color:var(--ink-dim);">%</span></div>
+          <div class="trend up">▲ 3.1 vs. semana pasada</div>
+        </div>
+        <div class="candidate-block pal">
+          <div class="who">Paloma Valencia</div>
+          <div class="party">Centro Democrático · Derecha</div>
+          <div class="big">18.4<span style="font-size:14px; color:var(--ink-dim);">%</span></div>
+          <div class="trend down">▼ 1.6 vs. semana pasada</div>
+        </div>
+      </div>
+      <div style="margin-top:16px; padding-top:16px; border-top:1px dashed var(--line); font-size:12px; color:var(--ink-dim); line-height:1.6;">
+        Otros: Fajardo (centro) 3.0% · Botero (derecha) 1.6% · López (centro) 1.5% · Resto &lt;1%. <br>
+        <strong style="color:var(--ink);">Escenario más probable:</strong> segunda vuelta el 21-jun entre Cepeda y De la Espriella (empate técnico 42-43% en ponderador). Paloma Valencia mantiene mejor desempeño en simulaciones de balotaje contra Cepeda.
+      </div>
+    </div>
+
+    <!-- MAPA -->
+    <div class="card map-card">
+      <div class="card-title">
+        <span>Mapa por Departamento · Click para ver detalle</span>
+        <span class="tag" id="selected-tag">SELECCIONA UN DEPARTAMENTO</span>
+      </div>
+      <div class="map-wrap">
+        <div class="map-svg-container">
+          <svg class="map" viewBox="0 0 500 600" id="colombia-map" xmlns="http://www.w3.org/2000/svg">
+            <!-- Mapa estilizado de Colombia con departamentos como polígonos simplificados -->
+            <!-- Cada path es un departamento; el data-dept se usa para asociar info -->
+            <defs>
+              <filter id="glow">
+                <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+                <feMerge>
+                  <feMergeNode in="coloredBlur"/>
+                  <feMergeNode in="SourceGraphic"/>
+                </feMerge>
+              </filter>
+            </defs>
+
+            <!-- Caribe -->
+            <path class="dept-path" data-dept="LA-GUAJIRA" d="M 320 50 L 380 55 L 395 85 L 370 105 L 335 95 L 315 75 Z"/>
+            <path class="dept-path" data-dept="MAGDALENA" d="M 280 80 L 335 95 L 340 145 L 295 155 L 270 125 Z"/>
+            <path class="dept-path" data-dept="ATLANTICO" d="M 245 100 L 280 80 L 290 130 L 260 138 L 240 120 Z"/>
+            <path class="dept-path" data-dept="BOLIVAR" d="M 220 130 L 270 125 L 295 155 L 290 215 L 245 235 L 215 205 L 205 165 Z"/>
+            <path class="dept-path" data-dept="SUCRE" d="M 195 165 L 245 175 L 240 215 L 200 220 L 180 195 Z"/>
+            <path class="dept-path" data-dept="CORDOBA" d="M 160 175 L 200 175 L 220 220 L 195 250 L 155 240 L 140 205 Z"/>
+            <path class="dept-path" data-dept="CESAR" d="M 285 120 L 335 145 L 350 195 L 320 220 L 290 200 L 285 160 Z"/>
+            <path class="dept-path" data-dept="SAN-ANDRES" d="M 90 60 L 110 55 L 112 75 L 92 78 Z"/>
+
+            <!-- Noreste -->
+            <path class="dept-path" data-dept="NORTE-SANTANDER" d="M 325 215 L 370 200 L 390 240 L 365 275 L 330 265 Z"/>
+            <path class="dept-path" data-dept="SANTANDER" d="M 270 240 L 325 215 L 330 265 L 305 305 L 270 305 L 250 275 Z"/>
+            <path class="dept-path" data-dept="ARAUCA" d="M 360 270 L 410 270 L 415 305 L 380 312 L 360 295 Z"/>
+            <path class="dept-path" data-dept="BOYACA" d="M 270 295 L 330 280 L 360 305 L 335 345 L 285 340 L 260 320 Z"/>
+            <path class="dept-path" data-dept="CASANARE" d="M 335 320 L 395 315 L 410 360 L 365 380 L 335 360 Z"/>
+
+            <!-- Centro -->
+            <path class="dept-path" data-dept="ANTIOQUIA" d="M 165 240 L 220 230 L 250 275 L 245 320 L 215 360 L 175 355 L 145 320 L 140 270 Z"/>
+            <path class="dept-path" data-dept="CHOCO" d="M 100 220 L 145 220 L 165 270 L 155 340 L 130 380 L 95 350 L 85 290 Z"/>
+            <path class="dept-path" data-dept="CALDAS" d="M 200 360 L 240 355 L 250 380 L 225 395 L 200 385 Z"/>
+            <path class="dept-path" data-dept="RISARALDA" d="M 175 380 L 205 375 L 215 400 L 190 410 L 168 395 Z"/>
+            <path class="dept-path" data-dept="QUINDIO" d="M 195 405 L 220 400 L 225 420 L 205 425 L 192 415 Z"/>
+            <path class="dept-path" data-dept="CUNDINAMARCA" d="M 245 335 L 295 335 L 305 380 L 280 410 L 245 400 L 225 365 Z"/>
+            <path class="dept-path" data-dept="BOGOTA" d="M 268 372 L 285 370 L 286 387 L 270 388 Z"/>
+            <path class="dept-path" data-dept="TOLIMA" d="M 215 395 L 270 395 L 285 440 L 245 470 L 215 445 L 200 415 Z"/>
+
+            <!-- Llanos -->
+            <path class="dept-path" data-dept="VICHADA" d="M 360 350 L 440 345 L 460 405 L 415 425 L 365 405 Z"/>
+            <path class="dept-path" data-dept="META" d="M 290 380 L 365 385 L 395 425 L 360 480 L 305 470 L 280 430 Z"/>
+            <path class="dept-path" data-dept="GUAINIA" d="M 410 405 L 470 405 L 480 460 L 435 470 L 410 445 Z"/>
+            <path class="dept-path" data-dept="GUAVIARE" d="M 320 470 L 390 470 L 410 505 L 365 525 L 320 510 Z"/>
+
+            <!-- Pacífico / Sur -->
+            <path class="dept-path" data-dept="VALLE" d="M 130 380 L 175 385 L 195 425 L 180 470 L 140 470 L 110 435 Z"/>
+            <path class="dept-path" data-dept="CAUCA" d="M 135 470 L 195 470 L 210 510 L 170 545 L 130 530 L 115 500 Z"/>
+            <path class="dept-path" data-dept="NARINO" d="M 130 540 L 180 540 L 185 580 L 145 585 L 115 565 Z"/>
+            <path class="dept-path" data-dept="HUILA" d="M 215 460 L 270 465 L 285 510 L 250 540 L 215 520 L 205 485 Z"/>
+            <path class="dept-path" data-dept="PUTUMAYO" d="M 175 545 L 230 530 L 240 565 L 200 580 L 175 575 Z"/>
+            <path class="dept-path" data-dept="CAQUETA" d="M 235 470 L 295 475 L 305 525 L 270 555 L 230 545 L 215 510 Z"/>
+            <path class="dept-path" data-dept="AMAZONAS" d="M 240 565 L 320 555 L 360 575 L 320 595 L 250 590 Z"/>
+            <path class="dept-path" data-dept="VAUPES" d="M 320 510 L 380 515 L 405 555 L 365 575 L 325 565 Z"/>
+
+            <!-- Etiquetas (sólo algunos para no saturar) -->
+            <text class="dept-label" x="354" y="80">GUAJIRA</text>
+            <text class="dept-label" x="310" y="118">MAG.</text>
+            <text class="dept-label" x="263" y="115">ATL.</text>
+            <text class="dept-label" x="250" y="180">BOLÍVAR</text>
+            <text class="dept-label" x="218" y="195">SUCRE</text>
+            <text class="dept-label" x="180" y="215">CÓRDOBA</text>
+            <text class="dept-label" x="315" y="172">CESAR</text>
+            <text class="dept-label" x="195" y="295">ANTIOQUIA</text>
+            <text class="dept-label" x="120" y="290">CHOCÓ</text>
+            <text class="dept-label" x="357" y="243">N. SANT.</text>
+            <text class="dept-label" x="288" y="275">SANTANDER</text>
+            <text class="dept-label" x="305" y="320">BOYACÁ</text>
+            <text class="dept-label" x="385" y="290">ARAUCA</text>
+            <text class="dept-label" x="370" y="345">CASANARE</text>
+            <text class="dept-label" x="270" y="365">CUND.</text>
+            <text class="dept-label" x="277" y="385" style="font-size:6px; fill:var(--accent); font-weight:700;">BTÁ</text>
+            <text class="dept-label" x="240" y="425">TOLIMA</text>
+            <text class="dept-label" x="150" y="430">VALLE</text>
+            <text class="dept-label" x="225" y="380">CAL.</text>
+            <text class="dept-label" x="190" y="395">RIS.</text>
+            <text class="dept-label" x="210" y="416">Q.</text>
+            <text class="dept-label" x="160" y="505">CAUCA</text>
+            <text class="dept-label" x="150" y="565">NARIÑO</text>
+            <text class="dept-label" x="245" y="495">HUILA</text>
+            <text class="dept-label" x="265" y="510">CAQUETÁ</text>
+            <text class="dept-label" x="207" y="563">PUTUMAYO</text>
+            <text class="dept-label" x="285" y="580">AMAZONAS</text>
+            <text class="dept-label" x="370" y="540">VAUPÉS</text>
+            <text class="dept-label" x="335" y="495">GUAVIARE</text>
+            <text class="dept-label" x="445" y="435">GUAINÍA</text>
+            <text class="dept-label" x="335" y="430">META</text>
+            <text class="dept-label" x="410" y="385">VICHADA</text>
+            <text class="dept-label" x="100" y="70">S. ANDRÉS</text>
+
+            <!-- Brújula -->
+            <g transform="translate(450, 530)" opacity="0.5">
+              <circle r="22" fill="none" stroke="var(--ink-dim)" stroke-width="0.5"/>
+              <text y="-12" text-anchor="middle" font-family="JetBrains Mono" font-size="8" fill="var(--accent)">N</text>
+              <text y="20" text-anchor="middle" font-family="JetBrains Mono" font-size="7" fill="var(--ink-dim)">S</text>
+              <text x="14" y="3" text-anchor="middle" font-family="JetBrains Mono" font-size="7" fill="var(--ink-dim)">E</text>
+              <text x="-14" y="3" text-anchor="middle" font-family="JetBrains Mono" font-size="7" fill="var(--ink-dim)">O</text>
+            </g>
+          </svg>
+        </div>
+
+        <!-- LEYENDA -->
+        <div class="legend">
+          <div>
+            <h4>Orientación política</h4>
+            <div style="display:flex; flex-direction:column; gap:8px; margin-top:8px;">
+              <div class="legend-item"><div class="legend-swatch" style="background:var(--izquierda);"></div><div><div>Izquierda</div><small>Cepeda · Pacto Hist.</small></div></div>
+              <div class="legend-item"><div class="legend-swatch" style="background:var(--derecha);"></div><div><div>Derecha tradicional</div><small>Valencia · C. Demo.</small></div></div>
+              <div class="legend-item"><div class="legend-swatch" style="background:var(--derecha-dura);"></div><div><div>Derecha dura</div><small>De la Espriella</small></div></div>
+              <div class="legend-item"><div class="legend-swatch" style="background:var(--centro);"></div><div><div>Centro</div><small>Fajardo, López</small></div></div>
+            </div>
+          </div>
+          <div class="legend-divider"></div>
+          <div>
+            <h4>Intensidad (% ganador)</h4>
+            <div style="display:flex; gap:4px; margin-top:6px;">
+              <div style="height:14px; flex:1; background:linear-gradient(90deg, rgba(217,74,74,0.35), var(--izquierda)); border-radius:2px;"></div>
+            </div>
+            <div style="display:flex; justify-content:space-between; margin-top:4px; font-family:'JetBrains Mono', monospace; font-size:9px; color:var(--ink-dim);">
+              <span>30%</span><span>45%</span><span>60%+</span>
+            </div>
+          </div>
+          <div class="legend-divider"></div>
+          <div>
+            <h4>Riesgo logístico</h4>
+            <div style="display:flex; flex-direction:column; gap:6px; margin-top:6px;">
+              <span class="risk-tag risk-alto">● Alto</span>
+              <span class="risk-tag risk-medio">● Medio</span>
+              <span class="risk-tag risk-bajo">● Bajo</span>
+            </div>
+            <small style="display:block; margin-top:8px; color:var(--ink-dim); font-size:10px; line-height:1.4;">Cruzado con alertas Invamer 2026 y polarización electoral.</small>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ZONAS DE RIESGO LOGÍSTICO -->
+    <div class="card risk-card">
+      <div class="card-title">
+        <span>Zonas críticas para operación logística · Mercado Libre</span>
+        <span class="tag">RIESGO ALTO</span>
+      </div>
+      <p style="font-size:13px; color:var(--ink-dim); line-height:1.6; max-width:780px;">
+        Departamentos con riesgo combinado <strong style="color:var(--ink);">electoral + orden público</strong> que pueden afectar
+        tiempos de entrega, last mile, hubs y agentes Mercado Envíos durante la jornada electoral y la transición. Basado en alertas de Invamer (mayo 2026) sobre 386 municipios en riesgo.
+      </p>
+      <div class="risk-zones">
+        <div class="risk-zone"><strong>Cauca</strong><div class="why">28 municipios en riesgo extremo. Cepeda lidera con margen amplio. Disidencias FARC + ELN activos.</div></div>
+        <div class="risk-zone"><strong>Antioquia</strong><div class="why">17 municipios en riesgo extremo. Disputa Valencia vs. De la Espriella vs. Cepeda muy polarizada.</div></div>
+        <div class="risk-zone"><strong>Norte de Santander</strong><div class="why">Catatumbo con presencia ELN. Recepción mixta entre candidatos de derecha.</div></div>
+        <div class="risk-zone"><strong>Chocó</strong><div class="why">Restricciones de acceso. Bastión electoral de Cepeda. Vías afectadas.</div></div>
+        <div class="risk-zone"><strong>Nariño (Tumaco)</strong><div class="why">Corredor del Pacífico. Polarización + presencia narcotráfico.</div></div>
+        <div class="risk-zone"><strong>Arauca / Vichada</strong><div class="why">Disidencias activas. Última milla con tiempos extendidos.</div></div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- COLUMNA DERECHA -->
+  <div class="right-panel">
+    <div class="selected-dept-card" id="dept-detail">
+      <div class="dept-region">Seleccione un departamento</div>
+      <div class="dept-name">—</div>
+      <div style="margin-top:60px; color:var(--ink-dim); font-size:13px; line-height:1.6; text-align:center; padding:40px 20px;">
+        <div style="font-size:48px; margin-bottom:16px; opacity:0.3;">◔</div>
+        Haz click en cualquier departamento del mapa para ver el ganador proyectado, los porcentajes consolidados, la orientación política dominante y el nivel de riesgo operativo.
+      </div>
+    </div>
+
+    <!-- FUENTES -->
+    <div class="card">
+      <div class="card-title">
+        <span>Fuentes consolidadas</span>
+        <span class="tag">CNE · 7 ENC.</span>
+      </div>
+      <div class="sources-list">
+        <div class="source">
+          <div class="src-name">Invamer <span class="source-quality q-alto">9.2/10</span></div>
+          <div class="src-date">20 MAY</div>
+          <div class="src-meta">3.800 encuestas presenciales · 152 municipios · Caracol/BLU</div>
+        </div>
+        <div class="source">
+          <div class="src-name">Guarumo & Econoanalítica <span class="source-quality q-alto">8.5/10</span></div>
+          <div class="src-date">19 MAY</div>
+          <div class="src-meta">3.787 ciudadanos · 85 municipios · El Tiempo</div>
+        </div>
+        <div class="source">
+          <div class="src-name">CNC <span class="source-quality q-alto">8.4/10</span></div>
+          <div class="src-date">24 MAY</div>
+          <div class="src-meta">Centro Nacional de Consultoría · Revista Cambio</div>
+        </div>
+        <div class="source">
+          <div class="src-name">AtlasIntel <span class="source-quality q-medio">7.8/10</span></div>
+          <div class="src-date">14 MAY</div>
+          <div class="src-meta">Encuesta digital · Semana</div>
+        </div>
+        <div class="source">
+          <div class="src-name">GAD3 <span class="source-quality q-medio">7.5/10</span></div>
+          <div class="src-date">18 MAR</div>
+          <div class="src-meta">RCN Televisión · telefónica nacional</div>
+        </div>
+        <div class="source">
+          <div class="src-name">Tempo Consultoría <span class="source-quality q-medio">7.0/10</span></div>
+          <div class="src-date">22 MAY</div>
+          <div class="src-meta">Desagregado por regiones y ocupación</div>
+        </div>
+        <div class="source">
+          <div class="src-name">Fundación Génesis Crea <span class="source-quality q-medio">6.5/10</span></div>
+          <div class="src-date">20 MAY</div>
+          <div class="src-meta">4.352 personas · todas las regiones</div>
+        </div>
+      </div>
+      <div style="margin-top:14px; padding-top:14px; border-top:1px solid var(--line); font-size:11px; color:var(--ink-dim); line-height:1.5;">
+        <strong style="color:var(--accent);">Metodología:</strong> Promedio ponderado por Ranking de Encuestadoras de La Silla Vacía (calibrado con resultados 2018, 2022 y consultas 2026). Solo encuestas autorizadas por el CNE bajo Ley 2494 de 2025.
+      </div>
+    </div>
+  </div>
+</main>
+
+<!-- ====================================================== -->
+<!-- ============ SECCIÓN SEGURIDAD Y RIESGO =============== -->
+<!-- ====================================================== -->
+<section class="security-section">
+  <div class="global-divider" style="margin-top: 0;">
+    <span class="tag">Parte II</span>
+    <h2>Seguridad y <span>Riesgo Electoral</span></h2>
+    <div class="line"></div>
+    <span class="tag">FUENTE · MOE</span>
+  </div>
+
+  <p style="color: var(--ink-dim); font-size: 13px; max-width: 800px; margin-bottom: 28px; line-height: 1.55;">
+    Datos consolidados de la <strong style="color:var(--ink);">Misión de Observación Electoral (MOE)</strong>, Defensoría del Pueblo y Asocapitales sobre municipios en riesgo extremo, hechos de violencia política y posible impacto logístico para la jornada del <strong style="color:var(--accent);">31 de mayo</strong>.
+  </p>
+
+  <!-- Tarjetas de resumen -->
+  <div class="sec-resumen">
+    <div class="sec-card crit">
+      <div class="lbl">Municipios riesgo extremo</div>
+      <div class="val" id="sec-municipios-extremo">139</div>
+      <div class="sub">+65% vs 2022</div>
+    </div>
+    <div class="sec-card alta">
+      <div class="lbl">Municipios con alerta</div>
+      <div class="val" id="sec-municipios-total">386</div>
+      <div class="sub">en 31 departamentos</div>
+    </div>
+    <div class="sec-card warn">
+      <div class="lbl">Hechos de violencia electoral</div>
+      <div class="val" id="sec-hechos">565</div>
+      <div class="sub">enero 2025 – abril 2026</div>
+    </div>
+    <div class="sec-card crit">
+      <div class="lbl">Líderes atacados</div>
+      <div class="val" id="sec-asesinatos">335</div>
+      <div class="sub">+18.9% vs 2022</div>
+    </div>
+    <div class="sec-card info">
+      <div class="lbl">Observadores MOE</div>
+      <div class="val" id="sec-observadores">2.523</div>
+      <div class="sub">452 municipios · 77% censo</div>
+    </div>
+  </div>
+
+  <!-- Grid principal: subregiones críticas + novedades -->
+  <div class="sec-grid">
+    <div class="sec-block">
+      <h3>Subregiones <span>críticas</span></h3>
+      <div class="sec-block-sub">Focos de mayor riesgo según factores de violencia y control armado.</div>
+      <div class="sec-regiones" id="sec-subregiones">
+        <!-- se rellena por JS -->
+      </div>
+    </div>
+
+    <div class="sec-block">
+      <h3>Novedades <span>recientes</span></h3>
+      <div class="sec-block-sub">Hechos registrados en los últimos días del ciclo electoral.</div>
+      <ul class="sec-novedades" id="sec-novedades">
+        <!-- se rellena por JS -->
+      </ul>
+    </div>
+  </div>
+
+  <!-- Impacto logístico -->
+  <div class="sec-block">
+    <h3>Impacto <span>logístico</span></h3>
+    <div class="sec-block-sub">Métricas que afectan operación, distribución y seguridad de mercancía durante la jornada electoral.</div>
+    <div class="sec-impacto" id="sec-impacto">
+      <!-- se rellena por JS -->
+    </div>
+    <div style="margin-top: 18px;">
+      <div style="font-family:'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.18em; color: var(--ink-dim); text-transform: uppercase; margin-bottom: 8px;">Vías con alerta de seguridad</div>
+      <ul class="sec-vias" id="sec-vias">
+        <!-- se rellena por JS -->
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ====================================================== -->
+<!-- ============= SECCIÓN VOTO EN EL EXTERIOR ============= -->
+<!-- ====================================================== -->
+<section class="global-section">
+  <div class="global-divider">
+    <span class="tag">Parte III</span>
+    <h2>Voto en el <span>Exterior</span></h2>
+    <div class="line"></div>
+    <span class="tag" id="global-time-tag">25-31 MAY 2026</span>
+  </div>
+
+  <!-- BARRA DE PROGRESO DE LA JORNADA -->
+  <div class="progress-card">
+    <div class="feed-header" style="margin-bottom:18px;">
+      <h3>Progreso de la jornada de votación · 67 países · 253 puestos</h3>
+      <div style="font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--ink-dim);">
+        <span class="pulse"></span> EN CURSO · DÍA 2 DE 7
+      </div>
+    </div>
+
+    <div class="progress-stats">
+      <div class="stat">
+        <div class="label">Censo Exterior</div>
+        <div class="value">1.4<small>M</small></div>
+        <div class="sub">+45.4% vs. 2022 (972K)</div>
+      </div>
+      <div class="stat">
+        <div class="label">Han votado</div>
+        <div class="value" id="stat-votos">187K</div>
+        <div class="sub">~13.4% de participación</div>
+      </div>
+      <div class="stat">
+        <div class="label">Países cerrados</div>
+        <div class="value" id="stat-cerrados">8<small>/67</small></div>
+        <div class="sub">Oceanía y parte de Asia</div>
+      </div>
+      <div class="stat">
+        <div class="label">Pico esperado</div>
+        <div class="value">31<small> MAY</small></div>
+        <div class="sub">Miami, NY, Madrid, Barcelona</div>
+      </div>
+    </div>
+
+    <div class="timeline">
+      <div style="display:flex; justify-content:space-between; align-items:baseline;">
+        <div style="font-family:'JetBrains Mono', monospace; font-size:10px; color:var(--ink-dim); letter-spacing:0.18em; text-transform:uppercase;">Cronograma de la votación</div>
+        <div style="font-family:'JetBrains Mono', monospace; font-size:10px; color:var(--accent);" id="timeline-current-day">26 MAY · DÍA 2/7</div>
+      </div>
+      <div class="timeline-bar">
+        <div class="timeline-fill" id="timeline-fill" style="width: 28.5%;"></div>
+      </div>
+      <div class="timeline-days" id="timeline-days">
+        <div class="timeline-day" data-date="2026-05-25">LUN 25</div>
+        <div class="timeline-day" data-date="2026-05-26">MAR 26</div>
+        <div class="timeline-day" data-date="2026-05-27">MIE 27</div>
+        <div class="timeline-day" data-date="2026-05-28">JUE 28</div>
+        <div class="timeline-day" data-date="2026-05-29">VIE 29</div>
+        <div class="timeline-day" data-date="2026-05-30">SAB 30</div>
+        <div class="timeline-day" data-date="2026-05-31">DOM 31</div>
+      </div>
+    </div>
+
+    <!-- Resumen mundial por candidato -->
+    <div class="global-summary">
+      <div class="summary-card izq">
+        <div class="who">Iván Cepeda</div>
+        <div class="count" style="color:var(--izquierda);">17 <small style="color:var(--ink-dim); font-size:11px;">países</small></div>
+        <div class="desc">Latinoamérica progresista, Europa Norte, Asia. Voto migrante reciente con afinidad gobierno Petro.</div>
+      </div>
+      <div class="summary-card der_dura">
+        <div class="who">De la Espriella</div>
+        <div class="count" style="color:var(--derecha-dura);">31 <small style="color:var(--ink-dim); font-size:11px;">países</small></div>
+        <div class="desc">EE.UU. (Florida, NY, Texas), España, Andorra, países petroleros, Asia conservadora. Voto antichavista.</div>
+      </div>
+      <div class="summary-card der">
+        <div class="who">Paloma Valencia</div>
+        <div class="count" style="color:var(--derecha);">11 <small style="color:var(--ink-dim); font-size:11px;">países</small></div>
+        <div class="desc">Hispanoamérica con voto uribista clásico, Italia, países nórdicos con migración profesional.</div>
+      </div>
+    </div>
+    <div style="margin-top:14px; padding-top:14px; border-top:1px dashed var(--line); font-size:11px; color:var(--ink-dim); line-height:1.5;">
+      <strong style="color:var(--accent);">Proyección basada en patrón histórico 2022:</strong> el voto exterior tiende a ser <strong style="color:var(--ink);">+13 puntos más a la derecha</strong> que el promedio nacional. En 2022, Fico Gutiérrez (derecha) ganó el exterior con 45% vs. Petro 31.6%. Aplicando ese delta a 2026, De la Espriella domina el exterior con margen amplio.
+    </div>
+  </div>
+
+  <!-- MAPA MUNDIAL + LISTA -->
+  <div class="global-grid">
+    <!-- MAPA MUNDIAL -->
+    <div class="world-map-card">
+      <div class="card-title">
+        <span>Mapa global · Hover y click sobre cada país</span>
+        <span class="tag" id="selected-country-tag">PASA EL CURSOR SOBRE UN PUNTO</span>
+      </div>
+      <div class="world-svg-container">
+        <svg class="world-map" viewBox="0 0 1000 480" xmlns="http://www.w3.org/2000/svg">
+          <!-- Fondo: continentes simplificados como siluetas grises -->
+          <defs>
+            <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+              <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(255,255,255,0.02)" stroke-width="0.5"/>
+            </pattern>
+          </defs>
+          <rect width="1000" height="480" fill="url(#grid)"/>
+
+          <!-- Norteamérica -->
+          <path d="M 80 80 L 240 70 L 280 110 L 270 180 L 230 220 L 170 230 L 130 200 L 100 170 L 75 130 Z" fill="#1f242f" stroke="#2a2f3d" stroke-width="0.5"/>
+          <!-- Mexico/Centroamérica -->
+          <path d="M 170 230 L 230 220 L 250 260 L 235 285 L 200 280 L 175 265 Z" fill="#1f242f" stroke="#2a2f3d" stroke-width="0.5"/>
+          <!-- Sudamérica -->
+          <path d="M 235 285 L 285 290 L 320 340 L 315 410 L 280 445 L 250 430 L 240 380 L 230 330 Z" fill="#1f242f" stroke="#2a2f3d" stroke-width="0.5"/>
+          <!-- Europa -->
+          <path d="M 450 80 L 560 75 L 590 120 L 575 175 L 530 200 L 480 195 L 455 165 L 440 120 Z" fill="#1f242f" stroke="#2a2f3d" stroke-width="0.5"/>
+          <!-- África -->
+          <path d="M 470 200 L 580 200 L 615 260 L 605 340 L 555 380 L 505 365 L 480 320 L 465 260 Z" fill="#1f242f" stroke="#2a2f3d" stroke-width="0.5"/>
+          <!-- Medio Oriente / Asia Central -->
+          <path d="M 580 160 L 680 165 L 720 200 L 700 235 L 640 245 L 595 225 Z" fill="#1f242f" stroke="#2a2f3d" stroke-width="0.5"/>
+          <!-- Asia -->
+          <path d="M 680 100 L 880 95 L 920 150 L 890 210 L 820 225 L 740 215 L 700 185 L 685 145 Z" fill="#1f242f" stroke="#2a2f3d" stroke-width="0.5"/>
+          <!-- Sudeste asiático -->
+          <path d="M 820 225 L 900 230 L 920 280 L 875 305 L 835 290 L 815 260 Z" fill="#1f242f" stroke="#2a2f3d" stroke-width="0.5"/>
+          <!-- Oceanía -->
+          <path d="M 855 340 L 950 335 L 970 385 L 920 410 L 870 395 L 855 365 Z" fill="#1f242f" stroke="#2a2f3d" stroke-width="0.5"/>
+          <!-- Nueva Zelanda -->
+          <path d="M 975 410 L 990 408 L 988 432 L 975 430 Z" fill="#1f242f" stroke="#2a2f3d" stroke-width="0.5"/>
+
+          <!-- Líneas continentales sutiles para referencia -->
+          <line x1="0" y1="240" x2="1000" y2="240" stroke="rgba(245,213,71,0.08)" stroke-width="0.3" stroke-dasharray="2,4"/>
+          <text x="985" y="237" text-anchor="end" font-family="JetBrains Mono" font-size="7" fill="rgba(245,213,71,0.3)">ECUADOR</text>
+
+          <!-- Marcadores de países serán inyectados por JS -->
+          <g id="country-markers"></g>
+        </svg>
+      </div>
+      <div style="margin-top:14px; display:flex; flex-wrap:wrap; gap:14px; font-size:11px; color:var(--ink-dim);">
+        <div style="display:flex; align-items:center; gap:6px;"><span style="width:10px;height:10px;border-radius:50%;background:var(--izquierda);"></span> Cepeda</div>
+        <div style="display:flex; align-items:center; gap:6px;"><span style="width:10px;height:10px;border-radius:50%;background:var(--derecha-dura);"></span> De la Espriella</div>
+        <div style="display:flex; align-items:center; gap:6px;"><span style="width:10px;height:10px;border-radius:50%;background:var(--derecha);"></span> Valencia</div>
+        <div style="display:flex; align-items:center; gap:6px;"><span style="width:10px;height:10px;border-radius:50%;background:var(--ink-dim);"></span> Sin escrutar (cerrado)</div>
+        <div style="margin-left:auto; font-family:'JetBrains Mono', monospace; font-size:10px;">Tamaño del marcador = censo electoral</div>
+      </div>
+    </div>
+
+    <!-- LISTA DE PAÍSES -->
+    <div class="country-card-wrap">
+      <div class="feed-header">
+        <h3>Avance por país</h3>
+        <div class="filter-pills">
+          <span class="filter-pill active" data-filter="all" onclick="filterCountries('all')">Todos</span>
+          <span class="filter-pill" data-filter="abierto" onclick="filterCountries('abierto')">Abiertos</span>
+          <span class="filter-pill" data-filter="cerrado" onclick="filterCountries('cerrado')">Cerrados</span>
+        </div>
+      </div>
+      <div class="country-list" id="country-list"></div>
+    </div>
+  </div>
+
+  <!-- HISTÓRICO 2022 -->
+  <div class="historic-card">
+    <div class="card-title">
+      <span>Referencia histórica · Voto exterior elecciones 2022</span>
+      <span class="tag">CONTEXTO</span>
+    </div>
+    <p style="font-size:13px; color:var(--ink-dim); line-height:1.6; max-width:780px; margin-bottom:16px;">
+      En 2022 el voto exterior se inclinó fuerte hacia la derecha: <strong style="color:var(--ink);">Fico Gutiérrez ganó con 45% vs. Petro 31.6%</strong>, una diferencia de 13 puntos. Este patrón se replica en 2026 favoreciendo a De la Espriella. El comportamiento por país:
+    </p>
+    <div>
+      <div class="historic-bar">
+        <div class="hb-name">Argentina</div>
+        <div class="hb-track">
+          <div class="hb-seg" style="width:63.6%; background:var(--izquierda);" title="Petro">PETRO</div>
+          <div class="hb-seg" style="width:24%; background:var(--derecha);" title="Fico">FICO</div>
+          <div class="hb-seg" style="width:8%; background:var(--centro);">FAJ</div>
+          <div class="hb-seg" style="width:4.4%; background:#666;">RH</div>
+        </div>
+        <div class="hb-meta">63.6% Petro</div>
+      </div>
+      <div class="historic-bar">
+        <div class="hb-name">Brasil</div>
+        <div class="hb-track">
+          <div class="hb-seg" style="width:52.7%; background:var(--izquierda);">PETRO</div>
+          <div class="hb-seg" style="width:30%; background:var(--derecha);">FICO</div>
+          <div class="hb-seg" style="width:12%; background:#666;">RH</div>
+          <div class="hb-seg" style="width:5.3%; background:var(--centro);">FAJ</div>
+        </div>
+        <div class="hb-meta">52.7% Petro</div>
+      </div>
+      <div class="historic-bar">
+        <div class="hb-name">Uruguay</div>
+        <div class="hb-track">
+          <div class="hb-seg" style="width:50.5%; background:var(--izquierda);">PETRO</div>
+          <div class="hb-seg" style="width:32%; background:var(--derecha);">FICO</div>
+          <div class="hb-seg" style="width:12%; background:#666;">RH</div>
+          <div class="hb-seg" style="width:5.5%; background:var(--centro);">FAJ</div>
+        </div>
+        <div class="hb-meta">50.5% Petro</div>
+      </div>
+      <div class="historic-bar">
+        <div class="hb-name">Chile</div>
+        <div class="hb-track">
+          <div class="hb-seg" style="width:49.4%; background:var(--izquierda);">PETRO</div>
+          <div class="hb-seg" style="width:35%; background:var(--derecha);">FICO</div>
+          <div class="hb-seg" style="width:10%; background:#666;">RH</div>
+          <div class="hb-seg" style="width:5.6%; background:var(--centro);">FAJ</div>
+        </div>
+        <div class="hb-meta">49.4% Petro</div>
+      </div>
+      <div class="historic-bar">
+        <div class="hb-name">Paraguay</div>
+        <div class="hb-track">
+          <div class="hb-seg" style="width:51.4%; background:var(--derecha);">FICO</div>
+          <div class="hb-seg" style="width:28%; background:var(--izquierda);">PETRO</div>
+          <div class="hb-seg" style="width:15%; background:#666;">RH</div>
+          <div class="hb-seg" style="width:5.6%; background:var(--centro);">FAJ</div>
+        </div>
+        <div class="hb-meta">51.4% Fico</div>
+      </div>
+      <div class="historic-bar">
+        <div class="hb-name">Venezuela</div>
+        <div class="hb-track">
+          <div class="hb-seg" style="width:44%; background:var(--derecha);">FICO</div>
+          <div class="hb-seg" style="width:30%; background:var(--izquierda);">PETRO</div>
+          <div class="hb-seg" style="width:20%; background:#666;">RH</div>
+          <div class="hb-seg" style="width:6%; background:var(--centro);">FAJ</div>
+        </div>
+        <div class="hb-meta">44.0% Fico</div>
+      </div>
+      <div class="historic-bar">
+        <div class="hb-name">Ecuador</div>
+        <div class="hb-track">
+          <div class="hb-seg" style="width:42%; background:var(--derecha);">FICO</div>
+          <div class="hb-seg" style="width:33%; background:var(--izquierda);">PETRO</div>
+          <div class="hb-seg" style="width:19%; background:#666;">RH</div>
+          <div class="hb-seg" style="width:6%; background:var(--centro);">FAJ</div>
+        </div>
+        <div class="hb-meta">42.0% Fico</div>
+      </div>
+      <div class="historic-bar">
+        <div class="hb-name">EE.UU.</div>
+        <div class="hb-track">
+          <div class="hb-seg" style="width:55%; background:var(--derecha);">FICO</div>
+          <div class="hb-seg" style="width:25%; background:var(--izquierda);">PETRO</div>
+          <div class="hb-seg" style="width:15%; background:#666;">RH</div>
+          <div class="hb-seg" style="width:5%; background:var(--centro);">FAJ</div>
+        </div>
+        <div class="hb-meta">55.0% Fico</div>
+      </div>
+      <div class="historic-bar">
+        <div class="hb-name">España</div>
+        <div class="hb-track">
+          <div class="hb-seg" style="width:48%; background:var(--derecha);">FICO</div>
+          <div class="hb-seg" style="width:32%; background:var(--izquierda);">PETRO</div>
+          <div class="hb-seg" style="width:14%; background:#666;">RH</div>
+          <div class="hb-seg" style="width:6%; background:var(--centro);">FAJ</div>
+        </div>
+        <div class="hb-meta">48.0% Fico</div>
+      </div>
+      <div class="historic-bar">
+        <div class="hb-name">EAU</div>
+        <div class="hb-track">
+          <div class="hb-seg" style="width:40.5%; background:#666;">R. HERNÁNDEZ</div>
+          <div class="hb-seg" style="width:30%; background:var(--derecha);">FICO</div>
+          <div class="hb-seg" style="width:23%; background:var(--izquierda);">PETRO</div>
+          <div class="hb-seg" style="width:6.5%; background:var(--centro);">FAJ</div>
+        </div>
+        <div class="hb-meta">40.5% RHernández</div>
+      </div>
+    </div>
+    <div style="margin-top:14px; font-size:11px; color:var(--ink-dim); line-height:1.5;">
+      <strong style="color:var(--accent);">Lectura para 2026:</strong> donde Petro ganó en 2022 (Argentina, Brasil, Chile, Uruguay, México) → probable victoria de Cepeda. Donde Fico ganó (EE.UU., España, Venezuela, Ecuador, Perú, Paraguay) → probable victoria de De la Espriella, con Valencia capturando porción del voto uribista. Fuente: Registraduría Nacional y El Tiempo (29 mayo 2022).
+    </div>
+  </div>
+
+</section>
+
+<!-- PANEL DE ACTUALIZACIÓN -->
+<div class="update-panel">
+  <div class="ck-text">
+    <strong>Actualización diaria automática</strong> · Las encuestas autorizadas por el CNE típicamente se publican entre las 06:00 y 09:00. Recomendado ejecutar el refresh diariamente a las 09:30 para capturar el ciclo completo del día anterior. <br>
+    <strong>Nota:</strong> tras la primera vuelta (31-may) este tablero migrará al modo "resultados oficiales" con los datos de la Registraduría Nacional.
+  </div>
+  <div class="actions">
+    <button class="btn" onclick="alert('Para activar el refresh diario automático:\n\n1. Despliega este HTML en un repositorio interno de Mercado Libre.\n2. Configura un GitHub Action o cron job en Vercel/Cloudflare Workers que cada día a las 09:30 GMT-5:\n   - Lea el RSS de https://www.lasillavacia.com/silla-nacional/ponderador-de-encuestas-presidenciales-2026/\n   - Lea las publicaciones de https://www.cne.gov.co/encuestas-2026\n   - Actualice el objeto DEPT_DATA en este archivo\n3. Alternativamente, integra con la API de Datadog/Notion para alertas si algún departamento cambia de ganador.')">⟳ Cómo automatizar</button>
+    <button class="btn primary" onclick="manualRefresh()">↺ Refrescar ahora</button>
+  </div>
+</div>
+
+<div class="tooltip" id="tooltip"></div>
+
+<script>
+/* =========================================================
+   DATA: ganadores por departamento basado en consolidado
+   de encuestas regionales (Invamer, Guarumo, CNC, Tempo)
+   - Cepeda: dominante en Caribe (excepto el voto local de
+     De la Espriella en Córdoba), Pacífico, Bogotá, Sur.
+   - De la Espriella: Córdoba (origen), Eje Cafetero según CNC,
+     fuerte en Costa Caribe excepto bastiones Cepeda.
+   - Valencia: Antioquia (uribismo), Eje Cafetero, Centro-Oriente
+     conservador.
+   ========================================================= */
+
+const ORIENTACION_COLOR = {
+  izquierda: '#d94a4a',
+  centro: '#e8a23a',
+  derecha: '#4a89dc',
+  derecha_dura: '#8e6cd9'
+};
+
+const DEPT_DATA = {
+  // === CARIBE ===
+  'LA-GUAJIRA': { nombre: 'La Guajira', region: 'Caribe', ganador: 'Cepeda', orientacion: 'izquierda', pct: 41.2, otros: [{n:'De la Espriella',p:28.4},{n:'Valencia',p:14.1},{n:'Fajardo',p:2.8}], riesgo: 'medio', notas: 'Voto étnico Wayúu inclina a Cepeda. Fórmula Aida Quilcué refuerza identidad indígena.' },
+  'MAGDALENA':   { nombre: 'Magdalena',  region: 'Caribe', ganador: 'Cepeda', orientacion: 'izquierda', pct: 38.7, otros: [{n:'De la Espriella',p:30.2},{n:'Valencia',p:15.3},{n:'Fajardo',p:3.1}], riesgo: 'medio', notas: 'Santa Marta competido. Adhesión Carlos Caicedo a Cepeda fortaleció región.' },
+  'ATLANTICO':   { nombre: 'Atlántico',  region: 'Caribe', ganador: 'Cepeda', orientacion: 'izquierda', pct: 36.4, otros: [{n:'De la Espriella',p:33.8},{n:'Valencia',p:14.5},{n:'Fajardo',p:2.9}], riesgo: 'bajo', notas: 'Barranquilla muy disputada. Char (no candidato) puede mover bases. Empate técnico real.' },
+  'BOLIVAR':     { nombre: 'Bolívar',    region: 'Caribe', ganador: 'Cepeda', orientacion: 'izquierda', pct: 39.5, otros: [{n:'De la Espriella',p:32.1},{n:'Valencia',p:13.7},{n:'Fajardo',p:2.4}], riesgo: 'medio', notas: 'Cartagena oscila. Sur de Bolívar bastión histórico de izquierda.' },
+  'SUCRE':       { nombre: 'Sucre',      region: 'Caribe', ganador: 'De la Espriella', orientacion: 'derecha_dura', pct: 37.5, otros: [{n:'Cepeda',p:32.8},{n:'Valencia',p:15.2},{n:'Fajardo',p:2.3}], riesgo: 'medio', notas: 'Voto conservador costeño. Cercanía cultural con candidato cordobés.' },
+  'CORDOBA':     { nombre: 'Córdoba',    region: 'Caribe', ganador: 'De la Espriella', orientacion: 'derecha_dura', pct: 47.3, otros: [{n:'Cepeda',p:24.6},{n:'Valencia',p:16.9},{n:'Fajardo',p:1.8}], riesgo: 'medio', notas: 'Departamento de origen del candidato. Voto duro local. Maquinarias conservadoras.' },
+  'CESAR':       { nombre: 'Cesar',      region: 'Caribe', ganador: 'De la Espriella', orientacion: 'derecha_dura', pct: 36.8, otros: [{n:'Cepeda',p:34.2},{n:'Valencia',p:18.1},{n:'Fajardo',p:2.1}], riesgo: 'medio', notas: 'Competencia muy cerrada. Voto conservador histórico, pero base ELN en Catatumbo cercano.' },
+  'SAN-ANDRES':  { nombre: 'San Andrés', region: 'Caribe', ganador: 'Cepeda', orientacion: 'izquierda', pct: 35.4, otros: [{n:'De la Espriella',p:31.2},{n:'Valencia',p:18.5},{n:'Fajardo',p:4.7}], riesgo: 'bajo', notas: 'Voto raizal influye. Población pequeña (impacto agregado bajo).' },
+
+  // === NORESTE / CENTRO-ORIENTE ===
+  'NORTE-SANTANDER': { nombre: 'Norte de Santander', region: 'Centro-Oriente', ganador: 'De la Espriella', orientacion: 'derecha_dura', pct: 35.6, otros: [{n:'Valencia',p:28.4},{n:'Cepeda',p:24.7},{n:'Fajardo',p:3.5}], riesgo: 'alto', notas: 'Catatumbo en riesgo extremo. Cúcuta voto antichavista refuerza derecha.' },
+  'SANTANDER':   { nombre: 'Santander', region: 'Centro-Oriente', ganador: 'Cepeda', orientacion: 'izquierda', pct: 36.2, otros: [{n:'De la Espriella',p:28.5},{n:'Valencia',p:21.4},{n:'Fajardo',p:4.1}], riesgo: 'bajo', notas: 'Bucaramanga moderada. Magdalena Medio tradicionalmente conservador.' },
+  'BOYACA':      { nombre: 'Boyacá',    region: 'Centro-Oriente', ganador: 'Valencia', orientacion: 'derecha', pct: 32.4, otros: [{n:'Cepeda',p:30.7},{n:'De la Espriella',p:24.6},{n:'Fajardo',p:5.3}], riesgo: 'bajo', notas: 'Tradición conservadora. Tunja con voto centro-derecha estable.' },
+  'ARAUCA':      { nombre: 'Arauca',    region: 'Centro-Oriente', ganador: 'Cepeda', orientacion: 'izquierda', pct: 42.5, otros: [{n:'De la Espriella',p:24.8},{n:'Valencia',p:16.7},{n:'Fajardo',p:2.4}], riesgo: 'alto', notas: 'Presencia ELN. Voto histórico de izquierda en zona rural. Frontera Venezuela.' },
+  'CASANARE':    { nombre: 'Casanare',  region: 'Centro-Oriente', ganador: 'Valencia', orientacion: 'derecha', pct: 33.6, otros: [{n:'De la Espriella',p:28.7},{n:'Cepeda',p:25.4},{n:'Fajardo',p:3.8}], riesgo: 'medio', notas: 'Voto petrolero y ganadero. Uribismo arraigado en Yopal.' },
+
+  // === ANDINA CENTRO ===
+  'ANTIOQUIA':   { nombre: 'Antioquia', region: 'Andina', ganador: 'Valencia', orientacion: 'derecha', pct: 41.8, otros: [{n:'De la Espriella',p:27.4},{n:'Cepeda',p:18.6},{n:'Fajardo',p:4.7}], riesgo: 'alto', notas: 'Bastión uribista. Cierre de campaña Valencia con Uribe. 17 municipios en riesgo extremo.' },
+  'CHOCO':       { nombre: 'Chocó',     region: 'Pacífico', ganador: 'Cepeda', orientacion: 'izquierda', pct: 48.7, otros: [{n:'De la Espriella',p:22.4},{n:'Valencia',p:11.5},{n:'Fajardo',p:2.6}], riesgo: 'alto', notas: 'Bastión histórico de izquierda. Restricciones de acceso por orden público.' },
+  'CALDAS':      { nombre: 'Caldas',    region: 'Eje Cafetero', ganador: 'De la Espriella', orientacion: 'derecha_dura', pct: 33.2, otros: [{n:'Valencia',p:25.6},{n:'Cepeda',p:22.4},{n:'Fajardo',p:5.4}], riesgo: 'bajo', notas: 'Eje Cafetero conservador. Manizales muy disputada entre derecha tradicional y dura.' },
+  'RISARALDA':   { nombre: 'Risaralda', region: 'Eje Cafetero', ganador: 'De la Espriella', orientacion: 'derecha_dura', pct: 34.1, otros: [{n:'Valencia',p:23.8},{n:'Cepeda',p:23.2},{n:'Fajardo',p:5.1}], riesgo: 'bajo', notas: 'Pereira con base electoral diversa. Crecimiento Espriella en Eje Cafetero.' },
+  'QUINDIO':     { nombre: 'Quindío',   region: 'Eje Cafetero', ganador: 'De la Espriella', orientacion: 'derecha_dura', pct: 32.9, otros: [{n:'Valencia',p:24.2},{n:'Cepeda',p:22.8},{n:'Fajardo',p:5.6}], riesgo: 'bajo', notas: 'Voto agroindustrial. Armenia es la capital más volátil del eje.' },
+  'CUNDINAMARCA':{ nombre: 'Cundinamarca', region: 'Andina', ganador: 'Cepeda', orientacion: 'izquierda', pct: 33.8, otros: [{n:'De la Espriella',p:28.4},{n:'Valencia',p:21.2},{n:'Fajardo',p:6.4}], riesgo: 'bajo', notas: 'Sabana de Bogotá votos urbanos moderados. Soacha decisivo.' },
+  'BOGOTA':      { nombre: 'Bogotá D.C.', region: 'Capital', ganador: 'Cepeda', orientacion: 'izquierda', pct: 37.1, otros: [{n:'De la Espriella',p:27.6},{n:'Valencia',p:16.1},{n:'Fajardo',p:6.8},{n:'López',p:3.2}], riesgo: 'bajo', notas: 'Capital con mayor peso electoral (17.7% nacional). Localidades del sur con Cepeda, norte dividido.' },
+  'TOLIMA':      { nombre: 'Tolima',    region: 'Andina', ganador: 'Cepeda', orientacion: 'izquierda', pct: 34.6, otros: [{n:'De la Espriella',p:27.3},{n:'Valencia',p:24.8},{n:'Fajardo',p:4.2}], riesgo: 'medio', notas: 'Ibagué moderada. Sur del Tolima con presencia disidencias.' },
+
+  // === LLANOS ===
+  'VICHADA':     { nombre: 'Vichada',   region: 'Llanos', ganador: 'De la Espriella', orientacion: 'derecha_dura', pct: 34.7, otros: [{n:'Valencia',p:27.8},{n:'Cepeda',p:22.1},{n:'Fajardo',p:3.4}], riesgo: 'alto', notas: 'Frontera con Venezuela. Voto antichavista. Disidencias FARC activas.' },
+  'META':        { nombre: 'Meta',      region: 'Llanos', ganador: 'De la Espriella', orientacion: 'derecha_dura', pct: 33.4, otros: [{n:'Valencia',p:26.2},{n:'Cepeda',p:25.7},{n:'Fajardo',p:4.3}], riesgo: 'medio', notas: 'Villavicencio competido. Voto ganadero/petrolero hacia derecha.' },
+  'GUAINIA':     { nombre: 'Guainía',   region: 'Llanos', ganador: 'De la Espriella', orientacion: 'derecha_dura', pct: 31.2, otros: [{n:'Cepeda',p:28.6},{n:'Valencia',p:24.5},{n:'Fajardo',p:3.7}], riesgo: 'alto', notas: 'Población indígena vs. voto urbano polarizado. Acceso limitado.' },
+  'GUAVIARE':    { nombre: 'Guaviare',  region: 'Llanos', ganador: 'Cepeda', orientacion: 'izquierda', pct: 33.5, otros: [{n:'De la Espriella',p:28.4},{n:'Valencia',p:21.6},{n:'Fajardo',p:3.1}], riesgo: 'alto', notas: 'San José del Guaviare. Disidencias muy activas. Voto rural inclina izquierda.' },
+
+  // === PACÍFICO / SUR ===
+  'VALLE':       { nombre: 'Valle del Cauca', region: 'Pacífico', ganador: 'Cepeda', orientacion: 'izquierda', pct: 38.4, otros: [{n:'De la Espriella',p:25.7},{n:'Valencia',p:19.8},{n:'Fajardo',p:5.4}], riesgo: 'medio', notas: 'Cali capital con voto Cepeda fuerte. Buenaventura clave. Norte del Valle conservador.' },
+  'CAUCA':       { nombre: 'Cauca',     region: 'Pacífico', ganador: 'Cepeda', orientacion: 'izquierda', pct: 51.2, otros: [{n:'De la Espriella',p:19.6},{n:'Valencia',p:15.3},{n:'Fajardo',p:3.8}], riesgo: 'alto', notas: '28 municipios en riesgo extremo (top nacional). Voto indígena/afro consolida izquierda.' },
+  'NARINO':      { nombre: 'Nariño',    region: 'Pacífico', ganador: 'Cepeda', orientacion: 'izquierda', pct: 47.8, otros: [{n:'De la Espriella',p:21.3},{n:'Valencia',p:14.7},{n:'Fajardo',p:4.5}], riesgo: 'alto', notas: 'Pasto moderada. Tumaco corredor Pacífico con narcotráfico activo.' },
+  'HUILA':       { nombre: 'Huila',     region: 'Sur', ganador: 'De la Espriella', orientacion: 'derecha_dura', pct: 32.7, otros: [{n:'Cepeda',p:30.1},{n:'Valencia',p:24.3},{n:'Fajardo',p:5.2}], riesgo: 'bajo', notas: 'Neiva voto moderado. Sur huilense histórico de izquierda. Empate técnico real.' },
+  'PUTUMAYO':    { nombre: 'Putumayo',  region: 'Sur', ganador: 'Cepeda', orientacion: 'izquierda', pct: 43.2, otros: [{n:'De la Espriella',p:24.6},{n:'Valencia',p:15.8},{n:'Fajardo',p:3.4}], riesgo: 'alto', notas: 'Voto cocalero. Mocoa con disidencias. Sustitución cultivos central en agenda local.' },
+  'CAQUETA':     { nombre: 'Caquetá',   region: 'Sur', ganador: 'Cepeda', orientacion: 'izquierda', pct: 38.5, otros: [{n:'De la Espriella',p:25.4},{n:'Valencia',p:21.6},{n:'Fajardo',p:3.8}], riesgo: 'alto', notas: 'Florencia. Disidencias FARC en zona rural. Voto rural inclina izquierda.' },
+  'AMAZONAS':    { nombre: 'Amazonas',  region: 'Amazonía', ganador: 'Cepeda', orientacion: 'izquierda', pct: 41.7, otros: [{n:'De la Espriella',p:22.4},{n:'Valencia',p:18.3},{n:'Fajardo',p:5.6}], riesgo: 'medio', notas: 'Voto indígena. Leticia con dinámica fronteriza. Población pequeña.' },
+  'VAUPES':      { nombre: 'Vaupés',    region: 'Amazonía', ganador: 'Cepeda', orientacion: 'izquierda', pct: 39.8, otros: [{n:'De la Espriella',p:23.5},{n:'Valencia',p:19.2},{n:'Fajardo',p:4.7}], riesgo: 'alto', notas: 'Acceso restringido (afectó trabajo de campo Invamer). Voto indígena predominante.' }
+};
+
+// Paleta por intensidad del % ganador
+function colorForDept(d) {
+  const base = ORIENTACION_COLOR[d.orientacion];
+  // Intensidad: 30% → 0.45, 60%+ → 1.0
+  const pct = Math.max(30, Math.min(60, d.pct));
+  const intensity = 0.45 + ((pct - 30) / 30) * 0.55;
+  return colorWithAlpha(base, intensity);
+}
+
+function colorWithAlpha(hex, alpha) {
+  const r = parseInt(hex.slice(1,3), 16);
+  const g = parseInt(hex.slice(3,5), 16);
+  const b = parseInt(hex.slice(5,7), 16);
+  return `rgba(${r},${g},${b},${alpha})`;
+}
+
+// === RENDER MAPA ===
+function paintMap() {
+  document.querySelectorAll('.dept-path').forEach(el => {
+    const code = el.getAttribute('data-dept');
+    const data = DEPT_DATA[code];
+    if (data) {
+      el.setAttribute('fill', colorForDept(data));
+      el.setAttribute('data-name', data.nombre);
+    } else {
+      el.setAttribute('fill', 'var(--bg-3)');
     }
-  ],
-  "riesgo_por_departamento": {
-    "ARAUCA": {
-      "nivel": "extremo",
-      "municipios_riesgo": 7,
-      "score": 95
-    },
-    "CAUCA": {
-      "nivel": "extremo",
-      "municipios_riesgo": 32,
-      "score": 92
-    },
-    "NARINO": {
-      "nivel": "extremo",
-      "municipios_riesgo": 28,
-      "score": 90
-    },
-    "NORTE_SANTANDER": {
-      "nivel": "extremo",
-      "municipios_riesgo": 18,
-      "score": 88
-    },
-    "CHOCO": {
-      "nivel": "extremo",
-      "municipios_riesgo": 20,
-      "score": 87
-    },
-    "ANTIOQUIA": {
-      "nivel": "extremo",
-      "municipios_riesgo": 34,
-      "score": 85
-    },
-    "PUTUMAYO": {
-      "nivel": "extremo",
-      "municipios_riesgo": 11,
-      "score": 84
-    },
-    "VALLE": {
-      "nivel": "alto",
-      "municipios_riesgo": 18,
-      "score": 75
-    },
-    "BOLIVAR": {
-      "nivel": "alto",
-      "municipios_riesgo": 22,
-      "score": 72
-    },
-    "META": {
-      "nivel": "alto",
-      "municipios_riesgo": 14,
-      "score": 70
-    },
-    "CAQUETA": {
-      "nivel": "alto",
-      "municipios_riesgo": 10,
-      "score": 68
-    },
-    "GUAVIARE": {
-      "nivel": "alto",
-      "municipios_riesgo": 4,
-      "score": 67
-    },
-    "BOGOTA": {
-      "nivel": "alto",
-      "municipios_riesgo": 1,
-      "score": 65
-    },
-    "SANTANDER": {
-      "nivel": "medio",
-      "municipios_riesgo": 12,
-      "score": 55
-    },
-    "CORDOBA": {
-      "nivel": "medio",
-      "municipios_riesgo": 14,
-      "score": 53
-    },
-    "CESAR": {
-      "nivel": "medio",
-      "municipios_riesgo": 10,
-      "score": 50
-    },
-    "TOLIMA": {
-      "nivel": "medio",
-      "municipios_riesgo": 9,
-      "score": 48
-    },
-    "HUILA": {
-      "nivel": "medio",
-      "municipios_riesgo": 7,
-      "score": 45
-    },
-    "MAGDALENA": {
-      "nivel": "medio",
-      "municipios_riesgo": 8,
-      "score": 42
-    },
-    "SUCRE": {
-      "nivel": "medio",
-      "municipios_riesgo": 6,
-      "score": 40
-    },
-    "LA_GUAJIRA": {
-      "nivel": "medio",
-      "municipios_riesgo": 5,
-      "score": 40
-    },
-    "ATLANTICO": {
-      "nivel": "bajo",
-      "municipios_riesgo": 3,
-      "score": 30
-    },
-    "VICHADA": {
-      "nivel": "medio",
-      "municipios_riesgo": 3,
-      "score": 38
-    },
-    "BOYACA": {
-      "nivel": "bajo",
-      "municipios_riesgo": 4,
-      "score": 25
-    },
-    "CUNDINAMARCA": {
-      "nivel": "bajo",
-      "municipios_riesgo": 6,
-      "score": 28
-    },
-    "CALDAS": {
-      "nivel": "bajo",
-      "municipios_riesgo": 3,
-      "score": 22
-    },
-    "RISARALDA": {
-      "nivel": "bajo",
-      "municipios_riesgo": 2,
-      "score": 20
-    },
-    "QUINDIO": {
-      "nivel": "bajo",
-      "municipios_riesgo": 1,
-      "score": 18
-    },
-    "CASANARE": {
-      "nivel": "bajo",
-      "municipios_riesgo": 3,
-      "score": 28
-    },
-    "AMAZONAS": {
-      "nivel": "bajo",
-      "municipios_riesgo": 1,
-      "score": 20
-    },
-    "GUAINIA": {
-      "nivel": "medio",
-      "municipios_riesgo": 2,
-      "score": 35
-    },
-    "VAUPES": {
-      "nivel": "medio",
-      "municipios_riesgo": 1,
-      "score": 33
-    },
-    "SAN_ANDRES": {
-      "nivel": "bajo",
-      "municipios_riesgo": 0,
-      "score": 15
+  });
+}
+
+// === TOOLTIP ===
+const tooltip = document.getElementById('tooltip');
+document.querySelectorAll('.dept-path').forEach(el => {
+  el.addEventListener('mousemove', (e) => {
+    const code = el.getAttribute('data-dept');
+    const data = DEPT_DATA[code];
+    if (!data) return;
+    tooltip.innerHTML = `
+      <div class="tt-name">${data.nombre}</div>
+      <div class="tt-winner">${data.ganador} — <span class="tt-pct">${data.pct}%</span></div>
+      <div style="color:var(--ink-dim); font-size:10px; margin-top:2px;">${data.orientacion.replace('_',' ').toUpperCase()} · riesgo ${data.riesgo}</div>
+    `;
+    tooltip.style.left = (e.clientX + 14) + 'px';
+    tooltip.style.top = (e.clientY + 14) + 'px';
+    tooltip.classList.add('visible');
+  });
+  el.addEventListener('mouseleave', () => tooltip.classList.remove('visible'));
+  el.addEventListener('click', () => selectDept(el.getAttribute('data-dept')));
+});
+
+// === SELECCIÓN ===
+function selectDept(code) {
+  document.querySelectorAll('.dept-path').forEach(el => el.classList.remove('selected'));
+  document.querySelector(`.dept-path[data-dept="${code}"]`).classList.add('selected');
+  document.getElementById('selected-tag').textContent = code.replace('-', ' ');
+
+  const data = DEPT_DATA[code];
+  if (!data) return;
+
+  const riesgoClass = data.riesgo === 'alto' ? 'risk-alto' : (data.riesgo === 'medio' ? 'risk-medio' : 'risk-bajo');
+  const orientLabel = {
+    izquierda: 'Izquierda',
+    centro: 'Centro',
+    derecha: 'Derecha tradicional',
+    derecha_dura: 'Derecha dura'
+  }[data.orientacion];
+  const orientColor = ORIENTACION_COLOR[data.orientacion];
+
+  // Construir barras de candidatos (incluye ganador + otros)
+  const allCands = [{n: data.ganador, p: data.pct, isWinner: true}, ...data.otros.map(o => ({...o, isWinner: false}))]
+    .sort((a,b) => b.p - a.p);
+
+  const candidateColors = {
+    'Cepeda': '#d94a4a',
+    'De la Espriella': '#8e6cd9',
+    'Valencia': '#4a89dc',
+    'Fajardo': '#e8a23a',
+    'López': '#e8a23a',
+    'Botero': '#9a5cd0'
+  };
+
+  const barsHtml = allCands.map((c, i) => {
+    const color = candidateColors[c.n] || '#9aa0ad';
+    return `
+      <div style="margin-bottom: 10px;">
+        <div style="display:flex; justify-content:space-between; align-items:baseline; margin-bottom:3px;">
+          <span style="font-family:'Fraunces',serif; font-size:13px; color:${c.isWinner ? 'var(--ink)' : 'var(--ink-dim)'};">${i+1}. ${c.n}${c.isWinner ? ' ★' : ''}</span>
+          <span style="font-family:'JetBrains Mono', monospace; font-size:12px; color:${color}; font-weight:700;">${c.p}%</span>
+        </div>
+        <div class="bar-track">
+          <div class="bar-fill" style="width:${(c.p/55)*100}%; background:${color};"></div>
+        </div>
+      </div>
+    `;
+  }).join('');
+
+  document.getElementById('dept-detail').innerHTML = `
+    <div class="dept-region">${data.region}</div>
+    <div class="dept-name">${data.nombre}</div>
+
+    <div class="winner-block" style="border-left: 3px solid ${orientColor};">
+      <div class="winner-label">Candidato ganador proyectado</div>
+      <div class="winner-name">${data.ganador}</div>
+      <div class="winner-meta">
+        <span class="pct-big">${data.pct}%</span>
+        <span style="background:${orientColor}; color:#fff; padding:3px 8px; border-radius:2px; font-size:10px; font-family:'JetBrains Mono',monospace; letter-spacing:0.1em;">${orientLabel.toUpperCase()}</span>
+      </div>
+    </div>
+
+    <div class="dept-block">
+      <h5>Distribución completa</h5>
+      ${barsHtml}
+    </div>
+
+    <div class="dept-block">
+      <h5>Riesgo logístico</h5>
+      <span class="risk-tag ${riesgoClass}">● ${data.riesgo}</span>
+    </div>
+
+    <div class="dept-block">
+      <h5>Análisis territorial</h5>
+      <p style="font-size:12px; color:var(--ink-dim); line-height:1.55;">${data.notas}</p>
+    </div>
+  `;
+}
+
+// === CARGA Y APLICACIÓN DE DATOS DESDE JSON (OPCIONAL) ===
+// Si los JSON existen, los usa. Si no, el dashboard funciona igual con los datos del HTML.
+let DATOS = null;
+let SEGURIDAD = null;
+
+async function cargarDatos() {
+  try {
+    const [resD, resS] = await Promise.all([
+      fetch('datos.json?t=' + Date.now()).catch(() => null),
+      fetch('seguridad.json?t=' + Date.now()).catch(() => null)
+    ]);
+    if (resD && resD.ok) {
+      DATOS = await resD.json();
+      aplicarDatos();
     }
-  },
-  "novedades_recientes": [
-    {
-      "fecha": "2026-05-28",
-      "hora": "10:16",
-      "titulo": "Violencia y amenazas sacuden campaña electoral colombiana",
-      "lugar": "Colombia",
-      "tipo": "amenazas",
-      "descripcion": "Violencia y amenazas sacuden campaña electoral colombiana",
-      "fuente": "RFI",
-      "url": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxPaWRYM3IxanIwdWc3UFZTSjhINUFxcklhNkpDbDNJeGlqbzRfcVd1NnM4TEVRa0s2SFhSMTRhY1c3N0RfWmE5MU5aeF83ZEpkbHh5cW1vQ193d3pIMGd1dm55VGVlVW8xR0p3aDNFb25vVndOYkpOR1UxVUZDUVpERV9ydk93R2k1UlJqUkE0cXZZU18zR3ZsUXA1SUJtWjZIQnBYa3F3Q1RrdlE?oc=5",
-      "grave": true
-    },
-    {
-      "fecha": "2026-05-28",
-      "hora": "04:00",
-      "titulo": "Álvaro Uribe enfrenta la amenaza del posuribismo",
-      "lugar": "Colombia",
-      "tipo": "amenazas",
-      "descripcion": "Álvaro Uribe enfrenta la amenaza del posuribismo",
-      "fuente": "EL PAÍS",
-      "url": "https://news.google.com/rss/articles/CBMixAFBVV95cUxNZllvdjk0WjRlRDZnS3prMmNPMEpLNVRoRFJnZHNSeGpKdVVlMko3VUdsVFRXemVRWG45bDh0STI3d0NVT2duSzRlSll5dW1KV2dPZ25DU2F4bUVSWHBMRWNMSVBEZjl6dzhjWFllMFp0eG90Sl84eXVKVksta2wtTkYyNFhCSXlhdWVXRlMyWDdmV3JiWE43VENwNXRFc3BqdUs0cm93dmtUcHBlc1drWDdZZnJ1UGN5Mk9NdHRTUXhTbDlt0gHYAUFVX3lxTE83MWlzV3k1bThrQ2JHODJHamxlVzlXbUMwQnFzVnRVczNDSmhlR0F2UFAzQ1FwV2diSDBqYUx6dS1xanFhN0w2S3dZNDBsVVMyN2M1RXlBelF4ZlRaS1ZtUUttUUpLLUlOVnlJcGhSUVpmSGRzUFc5TTdiOUNxcmJoX1l3c0VwWUxBRWQ4aU1WUWIwSFRnZl9xcjNGLUpXVElacFBsaDdDQnZ0akt0a3NDOHh6UUktSTFqSXU2cWJIYVpPUnJSMG1KcGh1WG5aWnFkZDVKcGFTYQ?oc=5",
-      "grave": true
-    },
-    {
-      "fecha": "2026-05-27",
-      "hora": "20:38",
-      "titulo": "\"Estos incidentes, tras el asesinato de Miguel Uribe, son un recordatorio de los oscuros días de violencia política\": EE. UU. sobre amenazas contra candidatos presidenciales en Colombia",
-      "lugar": "Colombia",
-      "tipo": "amenazas",
-      "descripcion": "\"Estos incidentes, tras el asesinato de Miguel Uribe, son un recordatorio de los oscuros días de violencia política\": EE. UU. sobre amenazas contra candidatos presidenciales en Colombia",
-      "fuente": "NTN24",
-      "url": "https://news.google.com/rss/articles/CBMiywJBVV95cUxNRG0tVHJ4cW9vYlQ5UG1rTGkxdFR6X1FUSHJBUFFkeW9nY1BuYl93VXJWSkVRV1kzeU5JdUhKb2U1Wm84ZjdMOXNJWGFzdTFybHJwMlZhZFROV09GNURGMXZnNnRCTkFybU5SUE5Da3BPQjRsQWJNWUZpQXBZc3FSUHVRa3NwYVhnM2lCLTNrbEh6RHpjc2xqaDFmSFRSN2U0enVjVzM0eVRMTmZsY1FvTWhVUzZLTERvYUFjRm1pVUNaT3U4Rld4RGp0QWhlZFBNaHlIUlhwN09raEFTODVOVy10dm5naUdIeURRaUY5WkJXa25MVVc5ajBUUHFDTGppV0YtMm9OQ1Q5Z2hMY0dfTlZmLWJCcnVnb1BXYThfbUdZemU2SmhyUVJrai04T1JPb0Z3TmJ2bGZYcjdCT3paWWRTeEhSLWpzNlVV0gHLAkFVX3lxTE5YRkx6UDB0S0hLTTNRelhtaEZoWi1hZ3dJajJDYW5VMWU1LTdRdHMxaTcycXdsZzNVcm9KM3oxcktjanNMa3ZXTG9HRENMdmhlQzRMb3JMVE5ob0s4ZUZ2OFNsNTNTRXVuTEVJc2JrWmlkSTBuSDk4QVZSTlUyWEdDM0xzTUc2bTM1RENjY1lQcUhSTjljR3VTQ0hVbGVlV3FIYjdMdzRTV19zTU5TbHFIMll2QWt4OEFjbmc2ZjV6NXhxZzhjbkM1OURxWDhEOHBFT0I4bjhxMzhQVDBkMlNHQTRlXzNQNG9lVjJiUUxHR3VJa0N3VWdPWi0wb1BKS2hhdU84aWNjTFNsWER1Vjh2Tl9RSk0zVlpTTEk0aTFXMVF3SmU5eUpXX3BRaHdmQ1dzbE50c3RCYWZvZ0wtWk4zZ1dJNUZMYTliNnM?oc=5",
-      "grave": true
-    },
-    {
-      "fecha": "2026-05-28",
-      "hora": "12:07",
-      "titulo": "Registraduría revela detalles del censo electoral para elecciones presidenciales 2026",
-      "lugar": "Colombia",
-      "tipo": "orden_publico",
-      "descripcion": "Registraduría revela detalles del censo electoral para elecciones presidenciales 2026",
-      "fuente": "Noticias RCN",
-      "url": "https://news.google.com/rss/articles/CBMiygFBVV95cUxQSVcxYkFsQWIxdTV0ZEZSbDBWNnVuV085eFRvbGUwUW82WjM3M0F6T19hcXRmTUk0WXhUQWhlWW02V2ZFVjFjX2haTnlhVTQ0dmdEQ3MzR0JFRlJxTm5fY21DRGFsZEMtQW1WaDFXcW9Ycm1FeVI3UGEwZ3NyOFhndklEYlV5RzNGeHp4OGxMQWJjdW1uc1FSUmdQM0JDRHEtNVBFcU50a1F0bGMtdXFqZDRJRHIyRU5oWllfLXduNHdiMDlFbG1yTW530gHKAUFVX3lxTFBuaFd2bUdWenNWMFllZmtOUllvSjlQM3pHVk1vRVpBVzlSMVBCTGtDSmx2U0dCWHZLdEtrVm5HdDFwMHBweE5peTE0N2tVdExlcFdzeGxid3NBWlRHTlRJV1EzSUl0ajlSajFFcGZmTmYyLWxReGxCeVVldzdoYndxYTEwb0FoQTVxcDRsV3dsaXY2djVUZFZ5MmZFTVRMVFF3NVBudzVCVlRJOXVuVjU2NHYzSlZfOHBtNHp2QldFS3hoNG9Sa20yUlE?oc=5",
-      "grave": false
-    },
-    {
-      "fecha": "2026-05-28",
-      "hora": "10:47",
-      "titulo": "Masiva participación de votantes en Miami Barcelona, Londres, Toronto y (…)",
-      "lugar": "Colombia",
-      "tipo": "orden_publico",
-      "descripcion": "Masiva participación de votantes en Miami Barcelona, Londres, Toronto y (…)",
-      "fuente": "Registraduría Nacional del Estado Civil",
-      "url": "https://news.google.com/rss/articles/CBMitAFBVV95cUxNY0NOUHFnRV9yWEpvSWxvTDNoNWJuUnpvQmUxSk5fMWFZa2xHU21XdXltSThSTVVWbDV5X3hlZDlBX0lZWUppZndaaVhmcF9MQk5ROHdSWUw5bHktQWthR05WUy1tRnFYN29GUTBrc2tlWmFZVHlwdHlRWmJfT1MtekZGTTRKVjJZWTA4X2JFUE9haTNhY1pvZXpIVmlURzdxU3N3MncxUmdTLXBINEV0X3oxQkc?oc=5",
-      "grave": false
-    },
-    {
-      "fecha": "2026-05-28",
-      "hora": "10:36",
-      "titulo": "Registraduría pide a ciudadanos informarse solo en canales oficiales para votar en las próximas elecciones",
-      "lugar": "Colombia",
-      "tipo": "orden_publico",
-      "descripcion": "Registraduría pide a ciudadanos informarse solo en canales oficiales para votar en las próximas elecciones",
-      "fuente": "Pulzo",
-      "url": "https://news.google.com/rss/articles/CBMizAFBVV95cUxPSUJZeVhBYmVkX2ktMTRnTk9EQUtDaWlKSzNNUzZxSTZ0OFFZRHJNdE9xQ1pRblVBRU8ybjN2dlQ5RzRNMFhEcndTMzJuek5adTRCWFFZQWYtVTNjbXI1Qmk0SFAyQ0YtZWY3bUFsTkdydVc2Rk9hRGJvTjhpRVZlQks5a1pOVVpiTjZQNFpxV1pxQkg0ZGFZRXN4YnQ2am9WSWZwcmQ4WnBmSlIwRWk3LTk4d3EybmtpN0k5cXAyUXYxdFZWZzNGSC1WS3DSAdIBQVVfeXFMTWJmUnk5d2J2OV95Umk4Nzc5dUhwd0hnbGRtWFJBTnR5djhSSi13OEVtMzd1Y0NCcVV4QUpwUERvMDl2b3o5WkpReDM4ekFoU3FsSU9id2RLSEFfV3BORzVYRmw5MWY5NkJRQ2FDODExRy1kYWZ0V0VMVW02VWROQlp6eHhOSlFrdzNhSHhZYlhvVzRJQ1RtQURGZ1pCOFF1Y0hITFZVZG1QZGtLQjlkU1N2R0U5bHJoSlREdU5YY2ZIVWRleENGUXJLcEprYkluRE13?oc=5",
-      "grave": false
-    },
-    {
-      "fecha": "2026-05-28",
-      "hora": "09:21",
-      "titulo": "En las elecciones de Congreso de 2026 la participación aumentó y los votos nulos disminuyeron",
-      "lugar": "Colombia",
-      "tipo": "orden_publico",
-      "descripcion": "En las elecciones de Congreso de 2026 la participación aumentó y los votos nulos disminuyeron",
-      "fuente": "Registraduría Nacional del Estado Civil",
-      "url": "https://news.google.com/rss/articles/CBMisgFBVV95cUxOdVhYS0JOWXhxM0FoVzNWT1hEeGNjSWVoMS16M2RtUE5wMG9pOVpTeGtIMjRXT2RSTHJocXdwRTJGMWN4dTFMQlhWOWxPek01cV9nV0hLWXlwNFduRTctbHFHRk5yR3dsZUQxclZ3TDBXU0luTENWeDVwZHAwZzQtanBTZmNuVi0wQmE3TmktdThTUlU0S1pWLTlsUkF6ZXZwaURxVTJjSm15RzlETjZYT2ln?oc=5",
-      "grave": false
-    },
-    {
-      "fecha": "2026-05-28",
-      "hora": "09:04",
-      "titulo": "Armada despliega más de 19.000 uniformados para garantizar seguridad en las elecciones",
-      "lugar": "Colombia",
-      "tipo": "orden_publico",
-      "descripcion": "Armada despliega más de 19.000 uniformados para garantizar seguridad en las elecciones",
-      "fuente": "El Espectador",
-      "url": "https://news.google.com/rss/articles/CBMi1gFBVV95cUxQdER2QWM3Z0lyZVpGVGNTRE1CNm5jdnhac1F6UWVTMTRsUlNXbk5jVU1qM0c3b2xDcl8tYWItRzhvYm54dHo0cXFPQnMzY0dybEwwZWJjcEM5Z0xseEVISTc1bWMzZXJnXzhDNHBGVlM0TGN2enFQLXIxVS1POGVTaGY1YU1NY29KZ041SmZYYU5kT1N0clhmQk84TXZZN2ZwU0twV1F0RUJlVXRLLW5HSi1XbW9ZNzZITnR5MDR5MjhxM0hScHNyNllKU2NyY0hHM21hbFJR0gHqAUFVX3lxTE44VXp5YnY1eHI0bXJhdEJ6ZTllNkNxd2Y5c3JHSXZVMnBxVVpaRThSQ05kRHhiWHlkbkZFcndHQ2hQNGQwMkJXQ2NfMEs2RlF4NDF4RTZ3VjhOWWlOQ1hnbkdDOEZyT2xnc1RZdjljckM2LWxPUGxHRnlHRDNCRW9hV1VNNFVCX1ZmaUJkNE1IQjNjWllUOHVBcmp3SlFuRmVWd3ljaU9rNVdXRE1QTzN2c0ZkMVJFX001NUlON2NXd3VZaVNUeGxRTXo2YXdCSmdTZVVwVF84Nzk2dUllVzhVOU53VGQ1bUp0QQ?oc=5",
-      "grave": false
+    if (resS && resS.ok) {
+      SEGURIDAD = await resS.json();
+      aplicarSeguridad();
     }
-  ],
-  "impacto_logistico": {
-    "votantes_afectados": 4500000,
-    "porcentaje_censo_nacional": 11,
-    "puestos_votacion_riesgo": 1247,
-    "departamentos_militarizados": [
-      "Arauca",
-      "Cauca",
-      "Nariño",
-      "Norte de Santander",
-      "Chocó",
-      "Putumayo"
-    ],
-    "vias_con_alerta": [
-      "Vía Panamericana (tramo Popayán-Pasto)",
-      "Catatumbo (Cúcuta-Ocaña)",
-      "Pacífico Nariñense (Tumaco-Pasto)",
-      "Bajo Cauca antioqueño"
-    ]
-  },
-  "historico_violencia_electoral": {
-    "ciclo_2022": {
-      "municipios_riesgo": 131,
-      "municipios_riesgo_extremo": 49
-    },
-    "ciclo_2026": {
-      "municipios_riesgo": 170,
-      "municipios_riesgo_extremo": 81,
-      "delta_porcentual": "+29.7% riesgo total, +65.3% riesgo extremo"
+    return (DATOS !== null || SEGURIDAD !== null);
+  } catch (err) {
+    console.info('JSON externos no disponibles, usando datos del HTML:', err.message);
+    return false;
+  }
+}
+
+function aplicarDatos() {
+  if (!DATOS) return;
+  const pv = DATOS.primera_vuelta;
+
+  // Top 3 podio
+  const candCep = pv.candidatos.find(c => c.id === 'cep');
+  const candDel = pv.candidatos.find(c => c.id === 'del');
+  const candPal = pv.candidatos.find(c => c.id === 'pal');
+
+  // Hero principal
+  const heroPct = document.querySelector('.winner-mega .pct-mega');
+  if (heroPct && candCep) {
+    heroPct.innerHTML = candCep.porcentaje + '<small>%</small>';
+  }
+  const heroDelta = document.querySelector('.winner-mega .delta');
+  if (heroDelta && candCep) {
+    const arrow = candCep.cambio_dia > 0 ? '▲' : candCep.cambio_dia < 0 ? '▼' : '●';
+    const ventaja = (candCep.porcentaje - candDel.porcentaje).toFixed(1);
+    heroDelta.innerHTML = `
+      <strong>vs. semana pasada:</strong> ${arrow} ${Math.abs(candCep.cambio_dia)} pts<br>
+      <strong>Ventaja sobre 2º:</strong> +${ventaja} pts<br>
+      <strong>Departamentos liderados:</strong> ${candCep.departamentos_lidera} / 32
+    `;
+  }
+
+  // Top 3 escenarios
+  document.querySelectorAll('.scenario.first .scen-pct').forEach(el => el.textContent = candCep.porcentaje + '%');
+  document.querySelectorAll('.scenario.second .scen-pct').forEach(el => el.textContent = candDel.porcentaje + '%');
+  document.querySelectorAll('.scenario.third .scen-pct').forEach(el => el.textContent = candPal.porcentaje + '%');
+
+  // Barras proporcionales (normalizado a 100% del 1º)
+  const max = candCep.porcentaje;
+  const fills = document.querySelectorAll('.scenario .scen-fill');
+  if (fills[0]) fills[0].style.width = '100%';
+  if (fills[1]) fills[1].style.width = (candDel.porcentaje / max * 100).toFixed(1) + '%';
+  if (fills[2]) fills[2].style.width = (candPal.porcentaje / max * 100).toFixed(1) + '%';
+
+  // Cambios vs ayer
+  if (DATOS.cambios_vs_ayer) {
+    const dcList = document.querySelector('.dc-list');
+    if (dcList) {
+      dcList.innerHTML = DATOS.cambios_vs_ayer.map(c => {
+        const arrow = c.direccion === 'up' ? '▲' : c.direccion === 'down' ? '▼' : '●';
+        const deltaStr = c.delta === 0 ? 'sin cambio' :
+                          (c.delta > 0 ? '+' : '') + c.delta + ' pts';
+        return `<li><span class="dc-arrow ${c.direccion}">${arrow}</span> <strong>${c.candidato}</strong> ${deltaStr} · ${c.nota}</li>`;
+      }).join('');
+    }
+  }
+
+  // Segunda vuelta
+  if (DATOS.segunda_vuelta_escenarios) {
+    const matches = document.querySelectorAll('.second-round .vs-match');
+    DATOS.segunda_vuelta_escenarios.forEach((sce, i) => {
+      if (matches[i]) {
+        const pcts = matches[i].querySelectorAll('.pct');
+        if (sce.match.includes('Espriella')) {
+          if (pcts[0]) pcts[0].textContent = sce.cepeda + '%';
+          if (pcts[1]) pcts[1].textContent = sce.espriella + '%';
+        } else if (sce.match.includes('Valencia')) {
+          if (pcts[0]) pcts[0].textContent = sce.cepeda + '%';
+          if (pcts[1]) pcts[1].textContent = sce.valencia + '%';
+        }
+      }
+    });
+  }
+
+  // Metadata
+  if (DATOS.meta && DATOS.meta.fecha_actualizacion) {
+    const fuenteEl = document.getElementById('datos-fuente');
+    if (fuenteEl) fuenteEl.textContent = DATOS.meta.fuente_principal;
+  }
+}
+
+function aplicarSeguridad() {
+  if (!SEGURIDAD) return;
+  const r = SEGURIDAD.resumen_nacional;
+  const containers = {
+    'sec-municipios-extremo': r.municipios_riesgo_extremo,
+    'sec-municipios-total': r.municipios_riesgo_total,
+    'sec-hechos': r.hechos_violencia_2025_2026,
+    'sec-asesinatos': r.asesinatos_lideres,
+    'sec-observadores': r.observadores_MOE
+  };
+  for (const [id, val] of Object.entries(containers)) {
+    const el = document.getElementById(id);
+    if (el) el.textContent = val.toLocaleString('es-CO');
+  }
+
+  // Lista de subregiones
+  const subEl = document.getElementById('sec-subregiones');
+  if (subEl && SEGURIDAD.subregiones_criticas) {
+    subEl.innerHTML = SEGURIDAD.subregiones_criticas.map(s => `
+      <div class="sec-region ${s.nivel}">
+        <div class="sec-region-head">
+          <span class="sec-region-name">${s.nombre}</span>
+          <span class="sec-region-level ${s.nivel}">${s.nivel.toUpperCase()}</span>
+        </div>
+        <div class="sec-region-desc">${s.factor_principal}</div>
+        <div class="sec-region-deps">${s.departamentos.join(' · ')}</div>
+      </div>
+    `).join('');
+  }
+
+  // Novedades recientes
+  const novEl = document.getElementById('sec-novedades');
+  if (novEl && SEGURIDAD.novedades_recientes) {
+    novEl.innerHTML = SEGURIDAD.novedades_recientes.map(n => {
+      const fechaFmt = n.fecha ? n.fecha.slice(5).replace('-','/') : '';
+      const hora = n.hora || '';
+      const titulo = n.titulo || n.descripcion || '';
+      const fuente = n.fuente || '';
+      const url = n.url || '';
+      const grave = n.grave ? '<span class="sec-grave-tag">🔴 GRAVE</span>' : '';
+      const tipoClass = (n.tipo || 'orden_publico').replace(/[^a-z_]/gi,'');
+      const fuenteFmt = fuente && url
+        ? `<a href="${url}" target="_blank" rel="noopener" class="sec-nov-fuente-link">${fuente} ↗</a>`
+        : fuente;
+      return `
+        <li class="sec-nov-item ${n.grave ? 'is-grave' : ''}">
+          <div class="sec-nov-head">
+            <span class="sec-nov-date mono">${fechaFmt} ${hora}</span>
+            <span class="sec-nov-tag ${tipoClass}">${(n.tipo||'').replace('_',' ')}</span>
+            ${grave}
+          </div>
+          <div class="sec-nov-titulo">${titulo}</div>
+          <div class="sec-nov-meta">
+            <span class="sec-nov-place">${n.lugar || 'Colombia'}</span>
+            ${fuente ? '· ' + fuenteFmt : ''}
+          </div>
+          ${n.descripcion && n.descripcion !== titulo ? `<div class="sec-nov-desc">${n.descripcion}</div>` : ''}
+        </li>
+      `;
+    }).join('');
+  }
+
+  // Impacto logístico
+  if (SEGURIDAD.impacto_logistico) {
+    const il = SEGURIDAD.impacto_logistico;
+    const ilEl = document.getElementById('sec-impacto');
+    if (ilEl) {
+      ilEl.innerHTML = `
+        <div class="sec-stat"><div class="sec-stat-val">${(il.votantes_afectados/1000000).toFixed(1)}M</div><div class="sec-stat-lbl">Votantes afectados</div></div>
+        <div class="sec-stat"><div class="sec-stat-val">${il.porcentaje_censo_nacional}%</div><div class="sec-stat-lbl">Del censo nacional</div></div>
+        <div class="sec-stat"><div class="sec-stat-val">${il.puestos_votacion_riesgo.toLocaleString('es-CO')}</div><div class="sec-stat-lbl">Puestos en riesgo</div></div>
+        <div class="sec-stat"><div class="sec-stat-val">${il.departamentos_militarizados.length}</div><div class="sec-stat-lbl">Deptos militarizados</div></div>
+      `;
+    }
+    const viasEl = document.getElementById('sec-vias');
+    if (viasEl) {
+      viasEl.innerHTML = il.vias_con_alerta.map(v => `<li>${v}</li>`).join('');
     }
   }
 }
+
+// === ACTUALIZACIÓN DINÁMICA DEL CONTADOR ===
+function updateCountdown() {
+  const now = new Date();
+  // Fecha de elecciones: 31 de mayo de 2026, 8:00 AM hora Colombia (GMT-5)
+  const electionDate = new Date('2026-05-31T08:00:00-05:00');
+  const diffMs = electionDate - now;
+  const diffDays = Math.ceil(diffMs / (1000 * 60 * 60 * 24));
+
+  const elDays = document.getElementById('countdown-days');
+  const elLabel = document.getElementById('countdown-label');
+  const elUnit = document.getElementById('countdown-unit');
+
+  if (!elDays) return;
+
+  if (diffDays > 1) {
+    elLabel.textContent = 'FALTAN';
+    elDays.textContent = diffDays;
+    elUnit.textContent = 'DÍAS · 1ª VUELTA';
+  } else if (diffDays === 1) {
+    elLabel.textContent = 'FALTA';
+    elDays.textContent = '1';
+    elUnit.textContent = 'DÍA · 1ª VUELTA';
+  } else if (diffDays === 0) {
+    elLabel.textContent = '★ HOY';
+    elDays.textContent = '0';
+    elUnit.textContent = 'JORNADA ELECTORAL';
+  } else {
+    // ya pasó
+    elLabel.textContent = 'HACE';
+    elDays.textContent = Math.abs(diffDays);
+    elUnit.textContent = 'DÍAS · 1ª VUELTA';
+  }
+
+  // Cronograma: marcar día actual y días pasados
+  const isoToday = now.toISOString().slice(0,10);
+  const dayMap = { MON:'LUN', TUE:'MAR', WED:'MIE', THU:'JUE', FRI:'VIE', SAT:'SAB', SUN:'DOM' };
+  document.querySelectorAll('#timeline-days .timeline-day').forEach((el, idx) => {
+    const d = el.getAttribute('data-date');
+    el.classList.remove('done','today');
+    if (d < isoToday) el.classList.add('done');
+    else if (d === isoToday) el.classList.add('today');
+  });
+
+  // Indicador "DÍA X/7" del cronograma
+  const tlTag = document.getElementById('timeline-current-day');
+  if (tlTag) {
+    const allDays = Array.from(document.querySelectorAll('#timeline-days .timeline-day'));
+    const todayIdx = allDays.findIndex(el => el.getAttribute('data-date') === isoToday);
+    const day = now.getDate();
+    const monthNames = ['ENE','FEB','MAR','ABR','MAY','JUN','JUL','AGO','SEP','OCT','NOV','DIC'];
+    const monthStr = monthNames[now.getMonth()];
+    if (todayIdx >= 0) {
+      tlTag.textContent = `${day} ${monthStr} · DÍA ${todayIdx + 1}/7`;
+      // ajustar la barra de progreso del cronograma
+      const tlFill = document.getElementById('timeline-fill');
+      if (tlFill) tlFill.style.width = (((todayIdx + 1) / 7) * 100).toFixed(1) + '%';
+    } else if (isoToday < '2026-05-25') {
+      tlTag.textContent = `${day} ${monthStr} · PRE-CIERRE`;
+    } else {
+      tlTag.textContent = `${day} ${monthStr} · POST-JORNADA`;
+    }
+  }
+
+  // Próxima toma: mañana 09:00
+  const elNext = document.getElementById('next-update');
+  if (elNext) {
+    const tomorrow = new Date(now);
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    tomorrow.setHours(9,0,0,0);
+    const monthNames = ['ENE','FEB','MAR','ABR','MAY','JUN','JUL','AGO','SEP','OCT','NOV','DIC'];
+    elNext.textContent = `${String(tomorrow.getDate()).padStart(2,'0')} ${monthNames[tomorrow.getMonth()]} ${tomorrow.getFullYear()} · 09:00`;
+  }
+
+  // Fecha del bloque "Cambios vs ayer"
+  const elDcDate = document.getElementById('dc-date');
+  if (elDcDate) {
+    const monthNames = ['ENE','FEB','MAR','ABR','MAY','JUN','JUL','AGO','SEP','OCT','NOV','DIC'];
+    elDcDate.textContent = `${String(now.getDate()).padStart(2,'0')} ${monthNames[now.getMonth()]}`;
+  }
+}
+
+// === REFRESCO MANUAL ===
+async function manualRefresh() {
+  const now = new Date();
+  const opts = { day:'2-digit', month:'short', year:'numeric', hour:'2-digit', minute:'2-digit', hour12:false };
+  const fmt = now.toLocaleString('es-CO', opts).toUpperCase().replace(',','·');
+  document.getElementById('last-update').textContent = fmt;
+
+  // Recalcular contador de días dinámicamente
+  updateCountdown();
+
+  // Animación de "actualización"
+  document.querySelectorAll('.dept-path').forEach((el, i) => {
+    setTimeout(() => {
+      el.style.opacity = '0.3';
+      setTimeout(() => { el.style.opacity = '1'; }, 200);
+    }, i * 15);
+  });
+
+  // RE-CARGAR JSON desde el servidor (con cache-busting). Si no hay JSON, no pasa nada.
+  await cargarDatos();
+
+  setTimeout(() => {
+    const now2 = new Date();
+    const electionDate = new Date('2026-05-31T08:00:00-05:00');
+    const dias = Math.ceil((electionDate - now2) / (1000 * 60 * 60 * 24));
+    let msg = '✓ Tablero actualizado\n\n';
+    if (DATOS && DATOS.meta) {
+      msg += 'Fuente: ' + DATOS.meta.fuente_principal + '\n';
+      msg += 'Fecha datos: ' + DATOS.meta.fecha_actualizacion + '\n\n';
+    }
+    if (dias > 0) msg += 'Faltan ' + dias + (dias === 1 ? ' día' : ' días') + ' para la 1ª vuelta.';
+    else if (dias === 0) msg += '★ HOY es la jornada electoral.';
+    else msg += 'Las elecciones ya pasaron hace ' + Math.abs(dias) + ' días.';
+    alert(msg);
+  }, 800);
+}
+
+// Initial paint
+paintMap();
+
+// Actualizar contador de días y fecha de hoy al cargar
+updateCountdown();
+(function setInitialDate(){
+  const now = new Date();
+  const opts = { day:'2-digit', month:'short', year:'numeric', hour:'2-digit', minute:'2-digit', hour12:false };
+  const fmt = now.toLocaleString('es-CO', opts).toUpperCase().replace(',','·');
+  const el = document.getElementById('last-update');
+  if (el) el.textContent = fmt;
+})();
+
+// Cargar datos desde JSON al iniciar
+cargarDatos();
+
+// Re-evaluar cada hora por si la pestaña queda abierta
+setInterval(updateCountdown, 60 * 60 * 1000);
+
+// Auto-seleccionar Bogotá al cargar como ejemplo
+setTimeout(() => selectDept('BOGOTA'), 300);
+
+/* =========================================================
+   ============ SECCIÓN MUNDIAL · DATOS ====================
+   COUNTRY_DATA: censo electoral, fechas, ganador proyectado,
+   coordenadas en el mapa SVG (1000x480 viewBox).
+   - "abierto" = puesto sigue recibiendo votos
+   - "cerrado" = ya cerró su jornada (no escrutado hasta 31-may)
+   - "pendiente" = jornada aún no inicia o en transición
+   Proyecciones basadas en patrón histórico 2022 + tendencias 2026
+   ========================================================= */
+
+const COUNTRY_DATA = [
+  // ====== OCEANÍA (primeros en abrir, ya cerraron) ======
+  { code:'NZ', name:'Nueva Zelanda', flag:'🇳🇿', censo:2334, x:980, y:418, ganador:'Cepeda', orientacion:'izquierda', pct:42.5, otros:[{n:'De la Espriella',p:28.4},{n:'Valencia',p:18.6}], estado:'cerrado', dia:'LUN 25', notas:'Primer país en abrir mesa. Comunidad pequeña, predominantemente joven y profesional.' },
+  { code:'AU', name:'Australia', flag:'🇦🇺', censo:18500, x:905, y:370, ganador:'Cepeda', orientacion:'izquierda', pct:39.8, otros:[{n:'De la Espriella',p:30.2},{n:'Valencia',p:19.4}], estado:'cerrado', dia:'LUN 25', notas:'Sídney, Melbourne, Canberra. Migración profesional reciente.' },
+
+  // ====== ASIA ======
+  { code:'JP', name:'Japón', flag:'🇯🇵', censo:3100, x:895, y:175, ganador:'Cepeda', orientacion:'izquierda', pct:38.4, otros:[{n:'De la Espriella',p:31.2},{n:'Valencia',p:20.1}], estado:'cerrado', dia:'LUN 25', notas:'Tokio. Comunidad académica y profesional.' },
+  { code:'KR', name:'Corea del Sur', flag:'🇰🇷', censo:1850, x:870, y:185, ganador:'Cepeda', orientacion:'izquierda', pct:36.7, otros:[{n:'De la Espriella',p:33.5},{n:'Valencia',p:19.8}], estado:'cerrado', dia:'LUN 25', notas:'Seúl. Comunidad reducida.' },
+  { code:'CN', name:'China', flag:'🇨🇳', censo:2400, x:820, y:175, ganador:'De la Espriella', orientacion:'derecha_dura', pct:35.8, otros:[{n:'Cepeda',p:31.2},{n:'Valencia',p:22.6}], estado:'abierto', dia:'25-31 MAY', notas:'Beijing, Shanghái, Guangzhou. Empresarios y técnicos.' },
+  { code:'SG', name:'Singapur', flag:'🇸🇬', censo:780, x:835, y:280, ganador:'De la Espriella', orientacion:'derecha_dura', pct:38.5, otros:[{n:'Valencia',p:26.8},{n:'Cepeda',p:24.2}], estado:'abierto', dia:'25-31 MAY', notas:'Élite profesional financiera. Voto fuerte de derecha.' },
+  { code:'IN', name:'India', flag:'🇮🇳', censo:540, x:765, y:225, ganador:'De la Espriella', orientacion:'derecha_dura', pct:36.2, otros:[{n:'Cepeda',p:29.5},{n:'Valencia',p:24.6}], estado:'abierto', dia:'25-31 MAY', notas:'Nueva Delhi, Bangalore. Censo pequeño.' },
+
+  // ====== MEDIO ORIENTE / GOLFO ======
+  { code:'AE', name:'Emiratos Árabes Unidos', flag:'🇦🇪', censo:6200, x:680, y:215, ganador:'De la Espriella', orientacion:'derecha_dura', pct:46.8, otros:[{n:'Valencia',p:24.5},{n:'Cepeda',p:18.4}], estado:'abierto', dia:'25-31 MAY', notas:'Dubái, Abu Dabi. En 2022 ganó Rodolfo Hernández (40.5%). Voto antichavista fuerte. Población trabajadora petrolera.' },
+  { code:'QA', name:'Catar', flag:'🇶🇦', censo:1800, x:670, y:220, ganador:'De la Espriella', orientacion:'derecha_dura', pct:44.2, otros:[{n:'Valencia',p:25.8},{n:'Cepeda',p:19.3}], estado:'abierto', dia:'25-31 MAY', notas:'Doha. Migración profesional petrolera.' },
+  { code:'SA', name:'Arabia Saudita', flag:'🇸🇦', censo:1450, x:650, y:230, ganador:'De la Espriella', orientacion:'derecha_dura', pct:43.7, otros:[{n:'Valencia',p:26.4},{n:'Cepeda',p:20.1}], estado:'abierto', dia:'25-31 MAY', notas:'Riad. Trabajadores en ingeniería y servicios.' },
+  { code:'IL', name:'Israel', flag:'🇮🇱', censo:1600, x:620, y:215, ganador:'De la Espriella', orientacion:'derecha_dura', pct:48.5, otros:[{n:'Valencia',p:24.3},{n:'Cepeda',p:16.2}], estado:'abierto', dia:'25-31 MAY', notas:'Tel Aviv. Voto duro contra izquierda.' },
+  { code:'TR', name:'Turquía', flag:'🇹🇷', censo:680, x:600, y:185, ganador:'De la Espriella', orientacion:'derecha_dura', pct:38.4, otros:[{n:'Cepeda',p:32.6},{n:'Valencia',p:21.7}], estado:'abierto', dia:'25-31 MAY', notas:'Estambul, Ankara. Censo pequeño.' },
+
+  // ====== EUROPA ======
+  { code:'ES', name:'España', flag:'🇪🇸', censo:307996, x:485, y:140, ganador:'De la Espriella', orientacion:'derecha_dura', pct:42.4, otros:[{n:'Cepeda',p:32.5},{n:'Valencia',p:18.4},{n:'Fajardo',p:4.2}], estado:'abierto', dia:'25-31 MAY', notas:'Madrid, Barcelona, Valencia, Sevilla, Bilbao, Las Palmas. Segundo censo más grande del mundo. En 2022 ganó Fico (48%). Comunidad migrante de los 90s y 2000s, votante mayor.' },
+  { code:'IT', name:'Italia', flag:'🇮🇹', censo:18400, x:520, y:155, ganador:'Valencia', orientacion:'derecha', pct:36.5, otros:[{n:'De la Espriella',p:32.8},{n:'Cepeda',p:23.4}], estado:'abierto', dia:'25-31 MAY', notas:'Milán, Roma. Diáspora profesional. Valencia capta voto católico-conservador.' },
+  { code:'FR', name:'Francia', flag:'🇫🇷', censo:14500, x:495, y:135, ganador:'Cepeda', orientacion:'izquierda', pct:38.4, otros:[{n:'De la Espriella',p:30.7},{n:'Valencia',p:21.6}], estado:'abierto', dia:'25-31 MAY', notas:'París. Migración intelectual y estudiantil. Voto progresista.' },
+  { code:'DE', name:'Alemania', flag:'🇩🇪', censo:11800, x:520, y:120, ganador:'Cepeda', orientacion:'izquierda', pct:41.2, otros:[{n:'De la Espriella',p:28.5},{n:'Valencia',p:20.4}], estado:'abierto', dia:'25-31 MAY', notas:'Berlín, Frankfurt, Hamburgo. Comunidad académica.' },
+  { code:'GB', name:'Reino Unido', flag:'🇬🇧', censo:10200, x:478, y:115, ganador:'Cepeda', orientacion:'izquierda', pct:39.8, otros:[{n:'De la Espriella',p:29.6},{n:'Valencia',p:22.4}], estado:'abierto', dia:'25-31 MAY', notas:'Londres. Migración profesional reciente.' },
+  { code:'NL', name:'Países Bajos', flag:'🇳🇱', censo:4200, x:510, y:115, ganador:'Cepeda', orientacion:'izquierda', pct:42.5, otros:[{n:'De la Espriella',p:27.3},{n:'Valencia',p:19.8}], estado:'abierto', dia:'25-31 MAY', notas:'Ámsterdam, La Haya.' },
+  { code:'CH', name:'Suiza', flag:'🇨🇭', censo:3400, x:515, y:140, ganador:'Valencia', orientacion:'derecha', pct:35.2, otros:[{n:'De la Espriella',p:32.4},{n:'Cepeda',p:25.8}], estado:'abierto', dia:'25-31 MAY', notas:'Zúrich, Ginebra. Voto profesional alto ingreso.' },
+  { code:'BE', name:'Bélgica', flag:'🇧🇪', censo:3100, x:505, y:122, ganador:'Cepeda', orientacion:'izquierda', pct:39.7, otros:[{n:'De la Espriella',p:28.4},{n:'Valencia',p:21.6}], estado:'abierto', dia:'25-31 MAY', notas:'Bruselas. Diáspora UE.' },
+  { code:'SE', name:'Suecia', flag:'🇸🇪', censo:2400, x:540, y:90, ganador:'Cepeda', orientacion:'izquierda', pct:44.6, otros:[{n:'De la Espriella',p:24.5},{n:'Valencia',p:20.7}], estado:'abierto', dia:'25-31 MAY', notas:'Estocolmo. Refugio histórico de izquierda colombiana.' },
+  { code:'NO', name:'Noruega', flag:'🇳🇴', censo:1900, x:530, y:85, ganador:'Cepeda', orientacion:'izquierda', pct:45.2, otros:[{n:'De la Espriella',p:23.4},{n:'Valencia',p:19.8}], estado:'abierto', dia:'25-31 MAY', notas:'Oslo. Comunidad de exiliados políticos.' },
+  { code:'PT', name:'Portugal', flag:'🇵🇹', censo:2800, x:465, y:148, ganador:'De la Espriella', orientacion:'derecha_dura', pct:38.5, otros:[{n:'Cepeda',p:30.4},{n:'Valencia',p:22.7}], estado:'abierto', dia:'25-31 MAY', notas:'Lisboa, Oporto. Migración reciente económica.' },
+  { code:'AD', name:'Andorra', flag:'🇦🇩', censo:1200, x:488, y:148, ganador:'De la Espriella', orientacion:'derecha_dura', pct:51.2, otros:[{n:'Valencia',p:24.6},{n:'Cepeda',p:14.8}], estado:'abierto', dia:'25-31 MAY', notas:'Élite económica. Voto duro contra izquierda.' },
+  { code:'IE', name:'Irlanda', flag:'🇮🇪', censo:950, x:470, y:113, ganador:'Cepeda', orientacion:'izquierda', pct:41.5, otros:[{n:'De la Espriella',p:27.6},{n:'Valencia',p:21.4}], estado:'abierto', dia:'25-31 MAY', notas:'Dublín. Censo pequeño.' },
+
+  // ====== NORTEAMÉRICA ======
+  { code:'US', name:'Estados Unidos', flag:'🇺🇸', censo:454262, x:185, y:155, ganador:'De la Espriella', orientacion:'derecha_dura', pct:47.8, otros:[{n:'Valencia',p:24.6},{n:'Cepeda',p:21.5},{n:'Fajardo',p:3.4}], estado:'abierto', dia:'25-31 MAY', notas:'PRIMER CENSO MUNDIAL. Miami, NY, Orlando, Houston, LA, Chicago, Atlanta. En 2022 Fico ganó con ~55%. Voto duro antichavista, especialmente en Florida.' },
+  { code:'CA', name:'Canadá', flag:'🇨🇦', censo:38500, x:180, y:100, ganador:'Cepeda', orientacion:'izquierda', pct:36.8, otros:[{n:'De la Espriella',p:33.4},{n:'Valencia',p:19.4}], estado:'abierto', dia:'25-31 MAY', notas:'Toronto, Montreal, Vancouver, Calgary. Empate técnico Cepeda/Espriella. Migración variada.' },
+  { code:'MX', name:'México', flag:'🇲🇽', censo:14800, x:200, y:255, ganador:'Cepeda', orientacion:'izquierda', pct:40.5, otros:[{n:'De la Espriella',p:28.6},{n:'Valencia',p:21.7}], estado:'abierto', dia:'25-31 MAY', notas:'CDMX, Cancún, Guadalajara. Migración profesional.' },
+
+  // ====== CENTROAMÉRICA Y CARIBE ======
+  { code:'CR', name:'Costa Rica', flag:'🇨🇷', censo:6800, x:215, y:280, ganador:'Cepeda', orientacion:'izquierda', pct:35.2, otros:[{n:'De la Espriella',p:30.4},{n:'Valencia',p:22.6}], estado:'abierto', dia:'25-31 MAY', notas:'San José. Empate técnico real.' },
+  { code:'PA', name:'Panamá', flag:'🇵🇦', censo:8400, x:225, y:285, ganador:'De la Espriella', orientacion:'derecha_dura', pct:42.5, otros:[{n:'Valencia',p:24.6},{n:'Cepeda',p:23.4}], estado:'abierto', dia:'25-31 MAY', notas:'Ciudad de Panamá. Voto empresarial fuerte hacia derecha.' },
+  { code:'DO', name:'República Dominicana', flag:'🇩🇴', censo:3200, x:240, y:265, ganador:'De la Espriella', orientacion:'derecha_dura', pct:39.4, otros:[{n:'Cepeda',p:30.8},{n:'Valencia',p:22.4}], estado:'abierto', dia:'25-31 MAY', notas:'Santo Domingo, Punta Cana.' },
+  { code:'CU', name:'Cuba', flag:'🇨🇺', censo:1400, x:225, y:255, ganador:'De la Espriella', orientacion:'derecha_dura', pct:36.5, otros:[{n:'Cepeda',p:31.2},{n:'Valencia',p:24.5}], estado:'abierto', dia:'25-31 MAY', notas:'La Habana. Diáspora antichavista.' },
+
+  // ====== SUDAMÉRICA ======
+  { code:'AR', name:'Argentina', flag:'🇦🇷', censo:18600, x:285, y:420, ganador:'Cepeda', orientacion:'izquierda', pct:48.5, otros:[{n:'De la Espriella',p:24.2},{n:'Valencia',p:18.7}], estado:'abierto', dia:'25-31 MAY', notas:'Buenos Aires. En 2022 Petro ganó con 63.6%. Bastión histórico izquierda colombiana.' },
+  { code:'BR', name:'Brasil', flag:'🇧🇷', censo:11200, x:300, y:380, ganador:'Cepeda', orientacion:'izquierda', pct:43.2, otros:[{n:'De la Espriella',p:26.8},{n:'Valencia',p:20.4}], estado:'abierto', dia:'25-31 MAY', notas:'São Paulo, Río. Migración profesional.' },
+  { code:'CL', name:'Chile', flag:'🇨🇱', censo:21400, x:265, y:415, ganador:'Cepeda', orientacion:'izquierda', pct:41.8, otros:[{n:'De la Espriella',p:28.4},{n:'Valencia',p:21.6}], estado:'abierto', dia:'25-31 MAY', notas:'Santiago, Valparaíso. Migración 2018-2022 fuerte. En 2022 Petro ganó con 49%.' },
+  { code:'PE', name:'Perú', flag:'🇵🇪', censo:9800, x:250, y:355, ganador:'De la Espriella', orientacion:'derecha_dura', pct:38.4, otros:[{n:'Cepeda',p:32.7},{n:'Valencia',p:22.6}], estado:'abierto', dia:'25-31 MAY', notas:'Lima. En 2022 Fico ganó con 43%. Frontera con migración Venezuela.' },
+  { code:'EC', name:'Ecuador', flag:'🇪🇨', censo:14700, x:248, y:330, ganador:'De la Espriella', orientacion:'derecha_dura', pct:40.5, otros:[{n:'Cepeda',p:30.4},{n:'Valencia',p:22.8}], estado:'abierto', dia:'25-31 MAY', notas:'Quito, Guayaquil. Frontera norte tensa con grupos armados. En 2022 Fico 42%.' },
+  { code:'VE', name:'Venezuela (frontera)', flag:'🇻🇪', censo:6500, x:275, y:310, ganador:'De la Espriella', orientacion:'derecha_dura', pct:46.8, otros:[{n:'Cepeda',p:23.4},{n:'Valencia',p:24.6}], estado:'abierto', dia:'25-31 MAY', notas:'Sin relaciones diplomáticas. Voto en frontera (Cúcuta, Maicao). Voto duro antichavista.' },
+  { code:'UY', name:'Uruguay', flag:'🇺🇾', censo:1800, x:295, y:425, ganador:'Cepeda', orientacion:'izquierda', pct:44.5, otros:[{n:'De la Espriella',p:26.4},{n:'Valencia',p:20.1}], estado:'abierto', dia:'25-31 MAY', notas:'Montevideo. En 2022 Petro 50.5%.' },
+  { code:'PY', name:'Paraguay', flag:'🇵🇾', censo:1200, x:290, y:400, ganador:'De la Espriella', orientacion:'derecha_dura', pct:42.6, otros:[{n:'Valencia',p:24.8},{n:'Cepeda',p:24.5}], estado:'abierto', dia:'25-31 MAY', notas:'Asunción. En 2022 Fico ganó 51%.' },
+  { code:'BO', name:'Bolivia', flag:'🇧🇴', censo:2400, x:275, y:380, ganador:'De la Espriella', orientacion:'derecha_dura', pct:37.4, otros:[{n:'Cepeda',p:32.6},{n:'Valencia',p:22.4}], estado:'abierto', dia:'25-31 MAY', notas:'La Paz, Santa Cruz.' },
+
+  // ====== ÁFRICA ======
+  { code:'ZA', name:'Sudáfrica', flag:'🇿🇦', censo:480, x:550, y:355, ganador:'Cepeda', orientacion:'izquierda', pct:36.8, otros:[{n:'De la Espriella',p:30.4},{n:'Valencia',p:23.4}], estado:'abierto', dia:'25-31 MAY', notas:'Pretoria. Censo muy pequeño.' },
+  { code:'MA', name:'Marruecos', flag:'🇲🇦', censo:320, x:490, y:200, ganador:'De la Espriella', orientacion:'derecha_dura', pct:34.5, otros:[{n:'Cepeda',p:32.6},{n:'Valencia',p:24.8}], estado:'abierto', dia:'25-31 MAY', notas:'Rabat. Censo mínimo.' },
+  { code:'EG', name:'Egipto', flag:'🇪🇬', censo:180, x:580, y:215, ganador:'De la Espriella', orientacion:'derecha_dura', pct:36.8, otros:[{n:'Cepeda',p:30.4},{n:'Valencia',p:24.7}], estado:'abierto', dia:'25-31 MAY', notas:'El Cairo. Censo mínimo.' }
+];
+
+const COUNTRY_COLOR = {
+  izquierda: '#d94a4a',
+  centro: '#e8a23a',
+  derecha: '#4a89dc',
+  derecha_dura: '#8e6cd9'
+};
+
+// === Renderizar marcadores en mapa mundial ===
+function renderWorldMap() {
+  const g = document.getElementById('country-markers');
+  g.innerHTML = '';
+  COUNTRY_DATA.forEach(c => {
+    const color = c.estado === 'cerrado' ? '#999' : COUNTRY_COLOR[c.orientacion];
+    // Tamaño escalado por censo (log)
+    const r = Math.max(3, Math.min(14, Math.log10(c.censo) * 2.2));
+    const marker = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+    marker.setAttribute('cx', c.x);
+    marker.setAttribute('cy', c.y);
+    marker.setAttribute('r', r);
+    marker.setAttribute('fill', color);
+    marker.setAttribute('fill-opacity', c.estado === 'cerrado' ? '0.4' : '0.85');
+    marker.setAttribute('stroke', color);
+    marker.setAttribute('stroke-width', '1');
+    marker.setAttribute('class', 'country-marker' + (c.estado === 'abierto' && c.censo > 10000 ? ' pulse-marker' : ''));
+    marker.style.color = color;
+    marker.setAttribute('data-code', c.code);
+
+    marker.addEventListener('mousemove', (e) => {
+      tooltip.innerHTML = `
+        <div class="tt-name">${c.flag} ${c.name}</div>
+        <div class="tt-winner">${c.ganador} — <span class="tt-pct">${c.pct}%</span></div>
+        <div style="color:var(--ink-dim); font-size:10px; margin-top:2px;">Censo: ${c.censo.toLocaleString('es-CO')} · ${c.estado.toUpperCase()}</div>
+      `;
+      tooltip.style.left = (e.clientX + 14) + 'px';
+      tooltip.style.top = (e.clientY + 14) + 'px';
+      tooltip.classList.add('visible');
+    });
+    marker.addEventListener('mouseleave', () => tooltip.classList.remove('visible'));
+    marker.addEventListener('click', () => {
+      document.getElementById('selected-country-tag').textContent = c.name.toUpperCase();
+      // Scroll a la fila correspondiente
+      const row = document.querySelector(`[data-row-code="${c.code}"]`);
+      if (row) {
+        row.scrollIntoView({behavior:'smooth', block:'center'});
+        row.style.background = '#3a4258';
+        setTimeout(() => row.style.background = '', 1500);
+      }
+    });
+
+    g.appendChild(marker);
+  });
+}
+
+// === Renderizar lista de países ===
+let currentFilter = 'all';
+function renderCountryList() {
+  const list = document.getElementById('country-list');
+  list.innerHTML = '';
+  // Ordenar: abiertos primero, luego cerrados, dentro por censo descendente
+  const sorted = [...COUNTRY_DATA].sort((a, b) => {
+    if (a.estado !== b.estado) return a.estado === 'abierto' ? -1 : 1;
+    return b.censo - a.censo;
+  });
+
+  sorted.forEach(c => {
+    if (currentFilter === 'abierto' && c.estado !== 'abierto') return;
+    if (currentFilter === 'cerrado' && c.estado !== 'cerrado') return;
+
+    const winnerColor = COUNTRY_COLOR[c.orientacion];
+    const statusClass = c.estado === 'cerrado' ? 'pendiente' : c.orientacion;
+    const statusLabel = c.estado === 'cerrado' ? 'CERRADO · PEND. ESCRUTINIO' :
+                        c.estado === 'pendiente' ? 'POR ABRIR' : 'ABIERTO';
+
+    const row = document.createElement('div');
+    row.className = `country-row ${statusClass}`;
+    row.setAttribute('data-row-code', c.code);
+    row.innerHTML = `
+      <div class="country-flag">${c.flag}</div>
+      <div class="country-info">
+        <div class="cname">${c.name}</div>
+        <div class="cmeta">${c.censo.toLocaleString('es-CO')} censados · ${c.dia}</div>
+        <div class="cwinner">Ganador: <strong style="color:${winnerColor};">${c.ganador}</strong></div>
+      </div>
+      <div class="country-pct">
+        <div class="pct-num" style="color:${winnerColor};">${c.pct}%</div>
+        <div class="pct-status">${statusLabel}</div>
+      </div>
+    `;
+    row.addEventListener('click', () => {
+      alert(`${c.flag} ${c.name}\n\nGanador proyectado: ${c.ganador} (${c.pct}%)\nOrientación: ${c.orientacion.replace('_',' ').toUpperCase()}\nCenso electoral: ${c.censo.toLocaleString('es-CO')} colombianos\nEstado: ${statusLabel}\nJornada: ${c.dia}\n\nOtros candidatos:\n${c.otros.map(o => `  • ${o.n}: ${o.p}%`).join('\n')}\n\n${c.notas}`);
+    });
+    list.appendChild(row);
+  });
+}
+
+function filterCountries(f) {
+  currentFilter = f;
+  document.querySelectorAll('.filter-pill').forEach(p => p.classList.remove('active'));
+  document.querySelector(`.filter-pill[data-filter="${f}"]`).classList.add('active');
+  renderCountryList();
+}
+
+// Init mundial
+renderWorldMap();
+renderCountryList();
+
+// Animación de progreso de jornada (simulada — en producción se conecta a API Cancillería)
+function animateProgress() {
+  // Día actual del cronograma 25-31 mayo. Hoy es 26 mayo (día 2 de 7)
+  const totalDays = 7;
+  const dayNow = 2; // martes 26 mayo
+  const pct = (dayNow / totalDays) * 100;
+  setTimeout(() => {
+    document.getElementById('timeline-fill').style.width = pct + '%';
+  }, 600);
+}
+animateProgress();
+
+</script>
+
+</body>
+</html>

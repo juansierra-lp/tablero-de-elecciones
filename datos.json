@@ -1,124 +1,362 @@
-{
-  "meta": {
-    "fecha_actualizacion": "2026-05-27",
-    "hora_actualizacion": "09:00",
-    "fuente_principal": "Consolidado AtlasIntel/Invamer/Guarumo/CNC (última publicación 24 may 2026)",
-    "fase": "veda_encuestas",
-    "notas": "Veda legal de encuestas del 25 may al 1 jun 2026 mediodía. Datos congelados hasta resultados oficiales."
-  },
-  "primera_vuelta": {
-    "candidatos": [
-      {
-        "id": "cep",
-        "nombre": "Iván Cepeda",
-        "partido": "Pacto Histórico",
-        "tendencia": "izquierda",
-        "porcentaje": 38.5,
-        "cambio_dia": -0.4,
-        "departamentos_lidera": 18,
-        "color": "izquierda"
-      },
-      {
-        "id": "del",
-        "nombre": "Abelardo de la Espriella",
-        "partido": "Defensores de la Patria",
-        "tendencia": "derecha_dura",
-        "porcentaje": 26.8,
-        "cambio_dia": 0.6,
-        "departamentos_lidera": 12,
-        "color": "derecha_dura"
-      },
-      {
-        "id": "pal",
-        "nombre": "Paloma Valencia",
-        "partido": "Centro Democrático",
-        "tendencia": "derecha",
-        "porcentaje": 18.4,
-        "cambio_dia": 0.0,
-        "departamentos_lidera": 2,
-        "color": "derecha"
-      }
-    ],
-    "indecisos_blanco": {
-      "porcentaje": 16.3,
-      "cambio_dia": 0.3
-    }
-  },
-  "segunda_vuelta_escenarios": [
-    {
-      "match": "Cepeda vs De la Espriella",
-      "cepeda": 42.0,
-      "espriella": 43.0,
-      "ganador": "del",
-      "fuente": "AtlasIntel 18-21 may"
-    },
-    {
-      "match": "Cepeda vs Valencia",
-      "cepeda": 43.0,
-      "valencia": 44.0,
-      "ganador": "pal",
-      "fuente": "Guarumo 11-19 may"
-    }
-  ],
-  "cambios_vs_ayer": [
-    {
-      "candidato": "Cepeda",
-      "delta": -0.4,
-      "direccion": "down",
-      "nota": "pierde fuerza en Antioquia y Eje Cafetero"
-    },
-    {
-      "candidato": "De la Espriella",
-      "delta": 0.6,
-      "direccion": "up",
-      "nota": "gana terreno en Caribe y Llanos"
-    },
-    {
-      "candidato": "Paloma Valencia",
-      "delta": 0.0,
-      "direccion": "flat",
-      "nota": "estancada tras pico post-consulta"
-    },
-    {
-      "candidato": "Indecisos",
-      "delta": 0.3,
-      "direccion": "up",
-      "nota": "sube ruido por veda de encuestas"
-    }
-  ],
-  "departamentos": {
-    "ATLANTICO":      { "ganador": "del", "pct": 43.8, "competitividad": "fuerte" },
-    "BOLIVAR":        { "ganador": "del", "pct": 43.8, "competitividad": "fuerte" },
-    "MAGDALENA":      { "ganador": "del", "pct": 43.8, "competitividad": "fuerte" },
-    "CESAR":          { "ganador": "del", "pct": 43.8, "competitividad": "fuerte" },
-    "LA_GUAJIRA":     { "ganador": "del", "pct": 41.0, "competitividad": "media" },
-    "CORDOBA":        { "ganador": "del", "pct": 48.0, "competitividad": "muy_fuerte" },
-    "SUCRE":          { "ganador": "del", "pct": 43.0, "competitividad": "fuerte" },
-    "SAN_ANDRES":     { "ganador": "del", "pct": 38.0, "competitividad": "media" },
-    "ANTIOQUIA":      { "ganador": "del", "pct": 44.0, "competitividad": "fuerte" },
-    "CALDAS":         { "ganador": "del", "pct": 35.0, "competitividad": "media" },
-    "RISARALDA":      { "ganador": "del", "pct": 35.0, "competitividad": "media" },
-    "QUINDIO":        { "ganador": "del", "pct": 35.0, "competitividad": "media" },
-    "VALLE":          { "ganador": "cep", "pct": 43.4, "competitividad": "fuerte" },
-    "CAUCA":          { "ganador": "cep", "pct": 48.0, "competitividad": "muy_fuerte" },
-    "NARINO":         { "ganador": "cep", "pct": 47.0, "competitividad": "fuerte" },
-    "CHOCO":          { "ganador": "cep", "pct": 52.0, "competitividad": "muy_fuerte" },
-    "BOGOTA":         { "ganador": "cep", "pct": 44.1, "competitividad": "fuerte" },
-    "CUNDINAMARCA":   { "ganador": "cep", "pct": 39.0, "competitividad": "media" },
-    "SANTANDER":      { "ganador": "del", "pct": 33.0, "competitividad": "competitivo" },
-    "NORTE_SANTANDER":{ "ganador": "del", "pct": 36.0, "competitividad": "media" },
-    "BOYACA":         { "ganador": "cep", "pct": 32.0, "competitividad": "competitivo" },
-    "TOLIMA":         { "ganador": "cep", "pct": 35.0, "competitividad": "competitivo" },
-    "HUILA":          { "ganador": "cep", "pct": 38.0, "competitividad": "media" },
-    "META":           { "ganador": "del", "pct": 50.0, "competitividad": "muy_fuerte" },
-    "CASANARE":       { "ganador": "del", "pct": 52.0, "competitividad": "muy_fuerte" },
-    "ARAUCA":         { "ganador": "del", "pct": 38.0, "competitividad": "competitivo" },
-    "VICHADA":        { "ganador": "del", "pct": 50.0, "competitividad": "fuerte" },
-    "GUAINIA":        { "ganador": "del", "pct": 42.0, "competitividad": "media" },
-    "GUAVIARE":       { "ganador": "del", "pct": 41.0, "competitividad": "media" },
-    "VAUPES":         { "ganador": "del", "pct": 40.0, "competitividad": "media" },
-    "AMAZONAS":       { "ganador": "del", "pct": 39.0, "competitividad": "competitivo" },
-    "CAQUETA":        { "ganador": "cep", "pct": 36.0, "competitividad": "competitivo" },
-    "PUTUMAYO":       { "ganador": "cep", "pct": 42.0, "competitividad": "media" }
-  }
+#!/usr/bin/env python3
+"""
+Scraper de resultados electorales — Registraduría Nacional de Colombia
+Elecciones Presidenciales 2026 · Mercado Libre
+
+Estrategia: probar múltiples patrones de URL conocidos de elecciones pasadas,
+descubrir el endpoint JSON automáticamente, transformar al formato esperado por
+el dashboard (datos.json).
+
+Si todo falla, deja datos.json sin tocar y registra el error en logs/scrape.log
+para que el operador humano pueda actuar.
+"""
+import json
+import os
+import re
+import sys
+import time
+import logging
+from datetime import datetime
+from pathlib import Path
+from urllib.request import Request, urlopen
+from urllib.error import URLError, HTTPError
+
+# ============================================================
+# CONFIGURACIÓN
+# ============================================================
+ROOT_DIR    = Path(__file__).resolve().parent.parent
+DATOS_PATH  = ROOT_DIR / "datos.json"
+LOG_DIR     = ROOT_DIR / "logs"
+LOG_FILE    = LOG_DIR / "scrape.log"
+
+# Patrones de URL conocidos de elecciones colombianas (2018, 2022, marzo 2026)
+# Se prueban en orden hasta que uno funcione. La Registraduría suele republicar
+# en el mismo dominio cambiando el path por año/tipo.
+URL_PATTERNS = [
+    "https://resultados.registraduria.gov.co/data/PRE/00/00/00/00/00/00/000_000_000_000.json",
+    "https://resultados.registraduria.gov.co/2026/presidente/data/00/00/00/00/000.json",
+    "https://wapp.registraduria.gov.co/electoral/2026/presidente-de-la-republica/data/resultados.json",
+    "https://resultados.registraduria.gov.co/api/v1/presidente/2026/nacional",
+    "https://resultados.registraduria.gov.co/presidente/2026/nacional.json",
+]
+
+# Patrón por departamento (códigos DIVIPOLA del DANE)
+DEP_URL_PATTERN = "https://resultados.registraduria.gov.co/data/PRE/{dep_code}/00/00/00/00/00/000_000_000_000.json"
+
+# Códigos DIVIPOLA (DANE) de los 33 departamentos + 1 exterior
+DEPARTAMENTOS_DIVIPOLA = {
+    "05": "ANTIOQUIA",     "08": "ATLANTICO",  "11": "BOGOTA",     "13": "BOLIVAR",
+    "15": "BOYACA",        "17": "CALDAS",     "18": "CAQUETA",    "19": "CAUCA",
+    "20": "CESAR",         "23": "CORDOBA",    "25": "CUNDINAMARCA","27": "CHOCO",
+    "41": "HUILA",         "44": "LA_GUAJIRA", "47": "MAGDALENA",  "50": "META",
+    "52": "NARINO",        "54": "NORTE_SANTANDER", "63": "QUINDIO","66": "RISARALDA",
+    "68": "SANTANDER",     "70": "SUCRE",      "73": "TOLIMA",     "76": "VALLE",
+    "81": "ARAUCA",        "85": "CASANARE",   "86": "PUTUMAYO",   "88": "SAN_ANDRES",
+    "91": "AMAZONAS",      "94": "GUAINIA",    "95": "GUAVIARE",   "97": "VAUPES",
+    "99": "VICHADA",       "00": "EXTERIOR"
 }
+
+# IDs canonicos de candidatos en nuestro dashboard
+# (la Registraduría usa nombres oficiales; los mapeamos a nuestros IDs cortos)
+CANDIDATOS_MAPEO = {
+    "IVAN CEPEDA":          "cep",
+    "ABELARDO DE LA ESPRIELLA": "del",
+    "PALOMA VALENCIA":      "pal",
+    "SERGIO FAJARDO":       "faj",
+    "CLAUDIA LOPEZ":        "lop",
+    "MIGUEL URIBE LONDOÑO": "uri",
+    "ROY BARRERAS":         "bar",
+    "SANTIAGO BOTERO":      "bot",
+}
+
+USER_AGENT = "Mozilla/5.0 (compatible; MELI-DashboardElectoral/1.0)"
+TIMEOUT_SEG = 15
+REINTENTOS  = 3
+
+# ============================================================
+# LOGGING
+# ============================================================
+LOG_DIR.mkdir(exist_ok=True)
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s [%(levelname)s] %(message)s",
+    handlers=[
+        logging.FileHandler(LOG_FILE, encoding="utf-8"),
+        logging.StreamHandler(sys.stdout)
+    ]
+)
+log = logging.getLogger(__name__)
+
+
+# ============================================================
+# UTILIDADES DE RED
+# ============================================================
+def fetch_json(url, intentos=REINTENTOS):
+    """Descarga un JSON. Retorna None si falla después de N intentos."""
+    for i in range(intentos):
+        try:
+            req = Request(url, headers={"User-Agent": USER_AGENT})
+            with urlopen(req, timeout=TIMEOUT_SEG) as resp:
+                if resp.status == 200:
+                    raw = resp.read().decode("utf-8", errors="replace")
+                    return json.loads(raw)
+                else:
+                    log.warning(f"  HTTP {resp.status} en {url}")
+        except HTTPError as e:
+            log.warning(f"  HTTPError {e.code} en {url}")
+            if e.code == 404:
+                return None  # 404 no se reintenta
+        except (URLError, json.JSONDecodeError, Exception) as e:
+            log.warning(f"  Intento {i+1}/{intentos} falló: {type(e).__name__}: {e}")
+            if i < intentos - 1:
+                time.sleep(2 ** i)
+    return None
+
+
+def descubrir_endpoint_nacional():
+    """Prueba los patrones conocidos hasta encontrar uno que devuelva JSON válido."""
+    log.info("Buscando endpoint válido de resultados nacionales...")
+    for url in URL_PATTERNS:
+        log.info(f"  Probando: {url}")
+        data = fetch_json(url, intentos=1)
+        if data and isinstance(data, dict):
+            log.info(f"  ✓ Endpoint encontrado: {url}")
+            return url, data
+    log.error("✗ Ningún patrón de URL funcionó.")
+    return None, None
+
+
+# ============================================================
+# PARSER DE RESPUESTAS
+# ============================================================
+def extraer_candidatos(data_json):
+    """
+    Extrae lista de candidatos con votos desde la respuesta JSON.
+    La estructura de Registraduría varía; intentamos varias rutas conocidas.
+    Retorna lista de dicts: [{nombre, votos, porcentaje}, ...]
+    """
+    candidatos = []
+
+    # Estrategia 1: lista directa en data["candidatos"] o similar
+    for key in ("candidatos", "Candidatos", "results", "data", "resultados"):
+        if key in data_json and isinstance(data_json[key], list):
+            for c in data_json[key]:
+                if isinstance(c, dict):
+                    nombre = (c.get("nombre") or c.get("name") or
+                              c.get("candidato") or "").upper().strip()
+                    votos  = c.get("votos") or c.get("total") or c.get("VOTOS") or 0
+                    pct    = c.get("porcentaje") or c.get("pct") or 0
+                    if nombre and votos:
+                        candidatos.append({
+                            "nombre_raw": nombre,
+                            "votos": int(votos),
+                            "porcentaje": float(pct) if pct else 0.0
+                        })
+            if candidatos:
+                return candidatos
+
+    # Estrategia 2: estructura anidada (común en 2022)
+    # data["estadistica"]["candidatos"][...]
+    nivel = data_json
+    for k in ("estadistica", "preconteo", "resumen"):
+        if isinstance(nivel, dict) and k in nivel:
+            nivel = nivel[k]
+    if isinstance(nivel, dict) and "candidatos" in nivel:
+        for c in nivel["candidatos"]:
+            nombre = (c.get("nombre") or "").upper().strip()
+            votos  = c.get("votos", 0)
+            if nombre and votos:
+                candidatos.append({
+                    "nombre_raw": nombre,
+                    "votos": int(votos),
+                    "porcentaje": float(c.get("porcentaje", 0))
+                })
+
+    return candidatos
+
+
+def normalizar_candidato(nombre_raw):
+    """Mapea nombre crudo al ID canonico de nuestro dashboard."""
+    nombre = re.sub(r"\s+", " ", nombre_raw.strip().upper())
+    nombre = nombre.replace("Á","A").replace("É","E").replace("Í","I")
+    nombre = nombre.replace("Ó","O").replace("Ú","U")
+    for clave, cid in CANDIDATOS_MAPEO.items():
+        clave_norm = clave.replace("Á","A").replace("É","E").replace("Í","I").replace("Ó","O").replace("Ú","U").replace("Ñ","N")
+        if clave_norm in nombre or nombre in clave_norm:
+            return cid
+    return None
+
+
+# ============================================================
+# CONSTRUCCIÓN DE datos.json
+# ============================================================
+def cargar_datos_existentes():
+    """Carga el datos.json actual para preservar campos no scrapeados."""
+    try:
+        with open(DATOS_PATH, "r", encoding="utf-8") as f:
+            return json.load(f)
+    except (FileNotFoundError, json.JSONDecodeError):
+        log.warning("datos.json no existe o es inválido; se creará uno nuevo.")
+        return None
+
+
+def construir_datos_actualizados(candidatos_nacionales, depto_resultados, fuente_url):
+    """
+    Toma los candidatos parseados y construye el datos.json para el dashboard.
+    Conserva la estructura esperada por el frontend.
+    """
+    base = cargar_datos_existentes() or {
+        "meta": {},
+        "primera_vuelta": {"candidatos": [], "indecisos_blanco": {"porcentaje": 0, "cambio_dia": 0}},
+        "segunda_vuelta_escenarios": [],
+        "cambios_vs_ayer": [],
+        "departamentos": {}
+    }
+
+    # Calcular porcentajes si la fuente no los trae
+    total_votos = sum(c["votos"] for c in candidatos_nacionales)
+    if total_votos > 0:
+        for c in candidatos_nacionales:
+            if c["porcentaje"] == 0:
+                c["porcentaje"] = round(c["votos"] / total_votos * 100, 2)
+
+    # Construir lista de candidatos en orden de votación
+    candidatos_nacionales.sort(key=lambda x: x["votos"], reverse=True)
+    nuevos_candidatos = []
+
+    # Mantener tendencias y colores del archivo previo si existen
+    candidatos_prev = {c["id"]: c for c in base.get("primera_vuelta", {}).get("candidatos", [])}
+
+    for c in candidatos_nacionales:
+        cid = normalizar_candidato(c["nombre_raw"])
+        if not cid:
+            log.warning(f"  Candidato no mapeado: {c['nombre_raw']}")
+            continue
+        prev = candidatos_prev.get(cid, {})
+        nuevo = {
+            "id": cid,
+            "nombre": prev.get("nombre", c["nombre_raw"].title()),
+            "partido": prev.get("partido", ""),
+            "tendencia": prev.get("tendencia", ""),
+            "porcentaje": round(c["porcentaje"], 1),
+            "cambio_dia": round(c["porcentaje"] - prev.get("porcentaje", c["porcentaje"]), 1),
+            "departamentos_lidera": prev.get("departamentos_lidera", 0),
+            "color": prev.get("color", "")
+        }
+        nuevos_candidatos.append(nuevo)
+
+    # Contar departamentos donde lidera cada candidato
+    dep_ganadores = {}
+    for dep_code, dep_data in depto_resultados.items():
+        if dep_data:
+            ganador = dep_data[0]["id"] if dep_data else None
+            if ganador:
+                dep_ganadores[ganador] = dep_ganadores.get(ganador, 0) + 1
+                dep_nombre = DEPARTAMENTOS_DIVIPOLA.get(dep_code, dep_code)
+                base["departamentos"][dep_nombre] = {
+                    "ganador": ganador,
+                    "pct": dep_data[0]["porcentaje"],
+                    "competitividad": clasificar_competitividad(dep_data)
+                }
+    for c in nuevos_candidatos:
+        c["departamentos_lidera"] = dep_ganadores.get(c["id"], 0)
+
+    base["primera_vuelta"]["candidatos"] = nuevos_candidatos
+
+    # Metadata: cuándo y de dónde
+    now = datetime.now()
+    base["meta"] = {
+        "fecha_actualizacion": now.strftime("%Y-%m-%d"),
+        "hora_actualizacion": now.strftime("%H:%M"),
+        "fuente_principal": "Registraduría Nacional · Preconteo",
+        "fase": "resultados_oficiales",
+        "endpoint_origen": fuente_url,
+        "notas": f"Boletín cargado automáticamente. Generado {now.isoformat()}."
+    }
+
+    return base
+
+
+def clasificar_competitividad(candidatos_depto):
+    """Devuelve 'muy_fuerte', 'fuerte', 'media' o 'competitivo' según margen."""
+    if len(candidatos_depto) < 2:
+        return "muy_fuerte"
+    margen = candidatos_depto[0]["porcentaje"] - candidatos_depto[1]["porcentaje"]
+    if margen >= 20: return "muy_fuerte"
+    if margen >= 10: return "fuerte"
+    if margen >= 5:  return "media"
+    return "competitivo"
+
+
+# ============================================================
+# MAIN
+# ============================================================
+def main():
+    log.info("=" * 60)
+    log.info(f"INICIO scrape — {datetime.now().isoformat()}")
+    log.info("=" * 60)
+
+    # 1) Descubrir endpoint que sirva datos
+    url_nacional, data_nacional = descubrir_endpoint_nacional()
+    if not data_nacional:
+        log.error("FATAL: No se pudo descubrir el endpoint. Revisa manualmente.")
+        log.error("Posibles causas:")
+        log.error("  - La página de resultados aún no se ha activado (antes del 31 may 5 PM).")
+        log.error("  - Cambió el patrón de URL. Inspecciona resultados.registraduria.gov.co manualmente.")
+        sys.exit(1)
+
+    # 2) Parsear candidatos nacionales
+    candidatos = extraer_candidatos(data_nacional)
+    if not candidatos:
+        log.error("FATAL: El JSON se descargó pero no se pudieron extraer candidatos.")
+        log.error("Estructura recibida (primeras claves): %s",
+                  list(data_nacional.keys()) if isinstance(data_nacional, dict) else type(data_nacional))
+        sys.exit(2)
+
+    log.info(f"✓ Candidatos extraídos: {len(candidatos)}")
+    for c in sorted(candidatos, key=lambda x: x["votos"], reverse=True)[:5]:
+        log.info(f"    {c['nombre_raw']}: {c['votos']:,} votos ({c['porcentaje']:.1f}%)")
+
+    # 3) Scraping por departamento (opcional, puede fallar parcialmente)
+    log.info("Scrapeando resultados por departamento...")
+    depto_resultados = {}
+    for dep_code in DEPARTAMENTOS_DIVIPOLA:
+        if dep_code == "00":
+            continue
+        url_dep = DEP_URL_PATTERN.format(dep_code=dep_code)
+        data_dep = fetch_json(url_dep, intentos=1)
+        if data_dep:
+            cands_dep = extraer_candidatos(data_dep)
+            normalizados = []
+            for c in cands_dep:
+                cid = normalizar_candidato(c["nombre_raw"])
+                if cid:
+                    normalizados.append({
+                        "id": cid,
+                        "porcentaje": c["porcentaje"]
+                    })
+            normalizados.sort(key=lambda x: x["porcentaje"], reverse=True)
+            depto_resultados[dep_code] = normalizados
+            log.info(f"    ✓ {DEPARTAMENTOS_DIVIPOLA[dep_code]}: {len(normalizados)} candidatos")
+        time.sleep(0.3)  # politeness — no bombardear el servidor
+
+    log.info(f"  Departamentos scrapeados: {len(depto_resultados)}/33")
+
+    # 4) Construir nuevo datos.json
+    datos_actualizados = construir_datos_actualizados(candidatos, depto_resultados, url_nacional)
+
+    # 5) Guardar
+    with open(DATOS_PATH, "w", encoding="utf-8") as f:
+        json.dump(datos_actualizados, f, ensure_ascii=False, indent=2)
+    log.info(f"✓ datos.json actualizado en {DATOS_PATH}")
+    log.info("=" * 60)
+    log.info("FIN scrape — éxito")
+    log.info("=" * 60)
+
+
+if __name__ == "__main__":
+    try:
+        main()
+    except Exception as e:
+        log.exception(f"ERROR no manejado: {e}")
+        sys.exit(99)
