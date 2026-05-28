@@ -1335,17 +1335,60 @@
   }
   .sec-novedades { list-style: none; padding: 0; margin: 0; }
   .sec-nov-item {
-    padding: 10px 0;
+    padding: 12px 0;
     border-bottom: 1px dashed var(--line);
     font-size: 12.5px;
   }
   .sec-nov-item:last-child { border-bottom: none; }
+  .sec-nov-item.is-grave {
+    background: rgba(255, 80, 80, 0.04);
+    border-left: 3px solid #ff5050;
+    padding-left: 10px;
+    margin-left: -10px;
+    padding-right: 10px;
+    margin-right: -10px;
+  }
+  .sec-nov-head {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 6px;
+    flex-wrap: wrap;
+  }
   .sec-nov-date {
     color: var(--accent);
     font-size: 10px;
-    margin-right: 8px;
     letter-spacing: 0.08em;
   }
+  .sec-grave-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    background: rgba(255, 80, 80, 0.15);
+    color: #ff5050;
+    padding: 2px 6px;
+    border-radius: 2px;
+    letter-spacing: 0.1em;
+    font-weight: 700;
+  }
+  .sec-nov-titulo {
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-size: 13.5px;
+    line-height: 1.4;
+    color: var(--ink);
+    margin-bottom: 4px;
+  }
+  .sec-nov-meta {
+    font-size: 11px;
+    color: var(--ink-dim);
+    margin-bottom: 4px;
+  }
+  .sec-nov-fuente-link {
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: 500;
+  }
+  .sec-nov-fuente-link:hover { text-decoration: underline; }
   .sec-nov-tag {
     display: inline-block;
     font-family: 'JetBrains Mono', monospace;
@@ -1358,10 +1401,14 @@
   }
   .sec-nov-tag.homicidio  { background: var(--izquierda-soft); color: var(--izquierda); }
   .sec-nov-tag.masacre    { background: var(--izquierda-soft); color: var(--izquierda); }
+  .sec-nov-tag.atentado   { background: var(--izquierda-soft); color: var(--izquierda); }
   .sec-nov-tag.agresión   { background: var(--centro-soft); color: var(--centro); }
   .sec-nov-tag.agresion   { background: var(--centro-soft); color: var(--centro); }
   .sec-nov-tag.amenazas   { background: var(--centro-soft); color: var(--centro); }
   .sec-nov-tag.vandalismo { background: var(--derecha-soft); color: var(--derecha); }
+  .sec-nov-tag.protesta   { background: var(--derecha-soft); color: var(--derecha); }
+  .sec-nov-tag.orden_publico,
+  .sec-nov-tag\.orden { background: rgba(150,150,150,0.15); color: var(--ink-dim); }
   .sec-nov-place { color: var(--ink); font-weight: 600; font-size: 12px; }
   .sec-nov-desc { color: var(--ink-dim); margin-top: 4px; font-size: 11.5px; line-height: 1.5; }
 
@@ -2542,14 +2589,33 @@ function aplicarSeguridad() {
   // Novedades recientes
   const novEl = document.getElementById('sec-novedades');
   if (novEl && SEGURIDAD.novedades_recientes) {
-    novEl.innerHTML = SEGURIDAD.novedades_recientes.map(n => `
-      <li class="sec-nov-item">
-        <span class="sec-nov-date mono">${n.fecha.slice(5).replace('-','/')}</span>
-        <span class="sec-nov-tag ${n.tipo}">${n.tipo}</span>
-        <span class="sec-nov-place">${n.lugar}</span>
-        <div class="sec-nov-desc">${n.descripcion}</div>
-      </li>
-    `).join('');
+    novEl.innerHTML = SEGURIDAD.novedades_recientes.map(n => {
+      const fechaFmt = n.fecha ? n.fecha.slice(5).replace('-','/') : '';
+      const hora = n.hora || '';
+      const titulo = n.titulo || n.descripcion || '';
+      const fuente = n.fuente || '';
+      const url = n.url || '';
+      const grave = n.grave ? '<span class="sec-grave-tag">🔴 GRAVE</span>' : '';
+      const tipoClass = (n.tipo || 'orden_publico').replace(/[^a-z_]/gi,'');
+      const fuenteFmt = fuente && url
+        ? `<a href="${url}" target="_blank" rel="noopener" class="sec-nov-fuente-link">${fuente} ↗</a>`
+        : fuente;
+      return `
+        <li class="sec-nov-item ${n.grave ? 'is-grave' : ''}">
+          <div class="sec-nov-head">
+            <span class="sec-nov-date mono">${fechaFmt} ${hora}</span>
+            <span class="sec-nov-tag ${tipoClass}">${(n.tipo||'').replace('_',' ')}</span>
+            ${grave}
+          </div>
+          <div class="sec-nov-titulo">${titulo}</div>
+          <div class="sec-nov-meta">
+            <span class="sec-nov-place">${n.lugar || 'Colombia'}</span>
+            ${fuente ? '· ' + fuenteFmt : ''}
+          </div>
+          ${n.descripcion && n.descripcion !== titulo ? `<div class="sec-nov-desc">${n.descripcion}</div>` : ''}
+        </li>
+      `;
+    }).join('');
   }
 
   // Impacto logístico

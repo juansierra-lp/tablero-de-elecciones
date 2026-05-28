@@ -1,13 +1,15 @@
 {
   "meta": {
-    "fecha_actualizacion": "2026-05-27",
+    "fecha_actualizacion": "2026-05-28",
     "fuente_principal": "MOE - Misión de Observación Electoral",
     "fuentes_secundarias": [
       "Defensoría del Pueblo - Alertas Tempranas",
       "Asocapitales",
       "Policía Nacional"
     ],
-    "url_informe": "https://moe.org.co/mapa-de-riesgo-por-factores-de-violencia-actualizacion-eleccion-presidencial-2026/"
+    "url_informe": "https://moe.org.co/mapa-de-riesgo-por-factores-de-violencia-actualizacion-eleccion-presidencial-2026/",
+    "hora_actualizacion": "12:36",
+    "fuente_noticias": "Google News RSS · auto-update cada hora"
   },
   "resumen_nacional": {
     "municipios_riesgo_extremo": 139,
@@ -25,117 +27,334 @@
       "nombre": "Arauca",
       "nivel": "extremo",
       "factor_principal": "Disidencias FARC + ELN. Frontera con Venezuela.",
-      "departamentos": ["Arauca"]
+      "departamentos": [
+        "Arauca"
+      ]
     },
     {
       "nombre": "Nordeste antioqueño y sur de Bolívar",
       "nivel": "extremo",
       "factor_principal": "Clan del Golfo. Economías ilegales (minería, coca).",
-      "departamentos": ["Antioquia", "Bolívar"]
+      "departamentos": [
+        "Antioquia",
+        "Bolívar"
+      ]
     },
     {
       "nombre": "Andén Pacífico",
       "nivel": "extremo",
       "factor_principal": "Frente Comuneros del Sur, ELN, narcotráfico.",
-      "departamentos": ["Chocó", "Valle", "Cauca", "Nariño"]
+      "departamentos": [
+        "Chocó",
+        "Valle",
+        "Cauca",
+        "Nariño"
+      ]
     },
     {
       "nombre": "Norte del Cauca",
       "nivel": "extremo",
       "factor_principal": "Disidencias EMC. Territorio indígena.",
-      "departamentos": ["Cauca"]
+      "departamentos": [
+        "Cauca"
+      ]
     },
     {
       "nombre": "Suroriente colombiano",
       "nivel": "alto",
       "factor_principal": "Estado Mayor Central. Zonas rurales dispersas.",
-      "departamentos": ["Meta", "Caquetá", "Guaviare"]
+      "departamentos": [
+        "Meta",
+        "Caquetá",
+        "Guaviare"
+      ]
     },
     {
       "nombre": "Medio y bajo Putumayo",
       "nivel": "extremo",
       "factor_principal": "Carolina Ramírez + Comandos de Frontera.",
-      "departamentos": ["Putumayo"]
+      "departamentos": [
+        "Putumayo"
+      ]
     },
     {
       "nombre": "Catatumbo",
       "nivel": "extremo",
       "factor_principal": "ELN. Crisis humanitaria reciente.",
-      "departamentos": ["Norte de Santander"]
+      "departamentos": [
+        "Norte de Santander"
+      ]
     }
   ],
   "riesgo_por_departamento": {
-    "ARAUCA":          { "nivel": "extremo",     "municipios_riesgo": 7,  "score": 95 },
-    "CAUCA":           { "nivel": "extremo",     "municipios_riesgo": 32, "score": 92 },
-    "NARINO":          { "nivel": "extremo",     "municipios_riesgo": 28, "score": 90 },
-    "NORTE_SANTANDER": { "nivel": "extremo",     "municipios_riesgo": 18, "score": 88 },
-    "CHOCO":           { "nivel": "extremo",     "municipios_riesgo": 20, "score": 87 },
-    "ANTIOQUIA":       { "nivel": "extremo",     "municipios_riesgo": 34, "score": 85 },
-    "PUTUMAYO":        { "nivel": "extremo",     "municipios_riesgo": 11, "score": 84 },
-    "VALLE":           { "nivel": "alto",        "municipios_riesgo": 18, "score": 75 },
-    "BOLIVAR":         { "nivel": "alto",        "municipios_riesgo": 22, "score": 72 },
-    "META":            { "nivel": "alto",        "municipios_riesgo": 14, "score": 70 },
-    "CAQUETA":         { "nivel": "alto",        "municipios_riesgo": 10, "score": 68 },
-    "GUAVIARE":        { "nivel": "alto",        "municipios_riesgo": 4,  "score": 67 },
-    "BOGOTA":          { "nivel": "alto",        "municipios_riesgo": 1,  "score": 65 },
-    "SANTANDER":       { "nivel": "medio",       "municipios_riesgo": 12, "score": 55 },
-    "CORDOBA":         { "nivel": "medio",       "municipios_riesgo": 14, "score": 53 },
-    "CESAR":           { "nivel": "medio",       "municipios_riesgo": 10, "score": 50 },
-    "TOLIMA":          { "nivel": "medio",       "municipios_riesgo": 9,  "score": 48 },
-    "HUILA":           { "nivel": "medio",       "municipios_riesgo": 7,  "score": 45 },
-    "MAGDALENA":       { "nivel": "medio",       "municipios_riesgo": 8,  "score": 42 },
-    "SUCRE":           { "nivel": "medio",       "municipios_riesgo": 6,  "score": 40 },
-    "LA_GUAJIRA":      { "nivel": "medio",       "municipios_riesgo": 5,  "score": 40 },
-    "ATLANTICO":       { "nivel": "bajo",        "municipios_riesgo": 3,  "score": 30 },
-    "VICHADA":         { "nivel": "medio",       "municipios_riesgo": 3,  "score": 38 },
-    "BOYACA":          { "nivel": "bajo",        "municipios_riesgo": 4,  "score": 25 },
-    "CUNDINAMARCA":    { "nivel": "bajo",        "municipios_riesgo": 6,  "score": 28 },
-    "CALDAS":          { "nivel": "bajo",        "municipios_riesgo": 3,  "score": 22 },
-    "RISARALDA":       { "nivel": "bajo",        "municipios_riesgo": 2,  "score": 20 },
-    "QUINDIO":         { "nivel": "bajo",        "municipios_riesgo": 1,  "score": 18 },
-    "CASANARE":        { "nivel": "bajo",        "municipios_riesgo": 3,  "score": 28 },
-    "AMAZONAS":        { "nivel": "bajo",        "municipios_riesgo": 1,  "score": 20 },
-    "GUAINIA":         { "nivel": "medio",       "municipios_riesgo": 2,  "score": 35 },
-    "VAUPES":          { "nivel": "medio",       "municipios_riesgo": 1,  "score": 33 },
-    "SAN_ANDRES":      { "nivel": "bajo",        "municipios_riesgo": 0,  "score": 15 }
+    "ARAUCA": {
+      "nivel": "extremo",
+      "municipios_riesgo": 7,
+      "score": 95
+    },
+    "CAUCA": {
+      "nivel": "extremo",
+      "municipios_riesgo": 32,
+      "score": 92
+    },
+    "NARINO": {
+      "nivel": "extremo",
+      "municipios_riesgo": 28,
+      "score": 90
+    },
+    "NORTE_SANTANDER": {
+      "nivel": "extremo",
+      "municipios_riesgo": 18,
+      "score": 88
+    },
+    "CHOCO": {
+      "nivel": "extremo",
+      "municipios_riesgo": 20,
+      "score": 87
+    },
+    "ANTIOQUIA": {
+      "nivel": "extremo",
+      "municipios_riesgo": 34,
+      "score": 85
+    },
+    "PUTUMAYO": {
+      "nivel": "extremo",
+      "municipios_riesgo": 11,
+      "score": 84
+    },
+    "VALLE": {
+      "nivel": "alto",
+      "municipios_riesgo": 18,
+      "score": 75
+    },
+    "BOLIVAR": {
+      "nivel": "alto",
+      "municipios_riesgo": 22,
+      "score": 72
+    },
+    "META": {
+      "nivel": "alto",
+      "municipios_riesgo": 14,
+      "score": 70
+    },
+    "CAQUETA": {
+      "nivel": "alto",
+      "municipios_riesgo": 10,
+      "score": 68
+    },
+    "GUAVIARE": {
+      "nivel": "alto",
+      "municipios_riesgo": 4,
+      "score": 67
+    },
+    "BOGOTA": {
+      "nivel": "alto",
+      "municipios_riesgo": 1,
+      "score": 65
+    },
+    "SANTANDER": {
+      "nivel": "medio",
+      "municipios_riesgo": 12,
+      "score": 55
+    },
+    "CORDOBA": {
+      "nivel": "medio",
+      "municipios_riesgo": 14,
+      "score": 53
+    },
+    "CESAR": {
+      "nivel": "medio",
+      "municipios_riesgo": 10,
+      "score": 50
+    },
+    "TOLIMA": {
+      "nivel": "medio",
+      "municipios_riesgo": 9,
+      "score": 48
+    },
+    "HUILA": {
+      "nivel": "medio",
+      "municipios_riesgo": 7,
+      "score": 45
+    },
+    "MAGDALENA": {
+      "nivel": "medio",
+      "municipios_riesgo": 8,
+      "score": 42
+    },
+    "SUCRE": {
+      "nivel": "medio",
+      "municipios_riesgo": 6,
+      "score": 40
+    },
+    "LA_GUAJIRA": {
+      "nivel": "medio",
+      "municipios_riesgo": 5,
+      "score": 40
+    },
+    "ATLANTICO": {
+      "nivel": "bajo",
+      "municipios_riesgo": 3,
+      "score": 30
+    },
+    "VICHADA": {
+      "nivel": "medio",
+      "municipios_riesgo": 3,
+      "score": 38
+    },
+    "BOYACA": {
+      "nivel": "bajo",
+      "municipios_riesgo": 4,
+      "score": 25
+    },
+    "CUNDINAMARCA": {
+      "nivel": "bajo",
+      "municipios_riesgo": 6,
+      "score": 28
+    },
+    "CALDAS": {
+      "nivel": "bajo",
+      "municipios_riesgo": 3,
+      "score": 22
+    },
+    "RISARALDA": {
+      "nivel": "bajo",
+      "municipios_riesgo": 2,
+      "score": 20
+    },
+    "QUINDIO": {
+      "nivel": "bajo",
+      "municipios_riesgo": 1,
+      "score": 18
+    },
+    "CASANARE": {
+      "nivel": "bajo",
+      "municipios_riesgo": 3,
+      "score": 28
+    },
+    "AMAZONAS": {
+      "nivel": "bajo",
+      "municipios_riesgo": 1,
+      "score": 20
+    },
+    "GUAINIA": {
+      "nivel": "medio",
+      "municipios_riesgo": 2,
+      "score": 35
+    },
+    "VAUPES": {
+      "nivel": "medio",
+      "municipios_riesgo": 1,
+      "score": 33
+    },
+    "SAN_ANDRES": {
+      "nivel": "bajo",
+      "municipios_riesgo": 0,
+      "score": 15
+    }
   },
   "novedades_recientes": [
     {
-      "fecha": "2026-05-26",
-      "lugar": "Cubarral, Meta",
-      "tipo": "homicidio",
-      "descripcion": "Asesinado coordinador de campaña de De la Espriella en el municipio."
-    },
-    {
-      "fecha": "2026-05-25",
-      "lugar": "Rionegro, Antioquia",
-      "tipo": "agresión",
-      "descripcion": "Agresión al expresidente Álvaro Uribe y su familia en su finca."
-    },
-    {
-      "fecha": "2026-05-24",
-      "lugar": "Bogotá",
-      "tipo": "vandalismo",
-      "descripcion": "Vandalizada sede de campaña de Paloma Valencia."
-    },
-    {
-      "fecha": "2026-05-23",
-      "lugar": "Varios municipios",
+      "fecha": "2026-05-28",
+      "hora": "10:16",
+      "titulo": "Violencia y amenazas sacuden campaña electoral colombiana",
+      "lugar": "Colombia",
       "tipo": "amenazas",
-      "descripcion": "De la Espriella canceló manifestaciones por amenazas de atentado."
+      "descripcion": "Violencia y amenazas sacuden campaña electoral colombiana",
+      "fuente": "RFI",
+      "url": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxPaWRYM3IxanIwdWc3UFZTSjhINUFxcklhNkpDbDNJeGlqbzRfcVd1NnM4TEVRa0s2SFhSMTRhY1c3N0RfWmE5MU5aeF83ZEpkbHh5cW1vQ193d3pIMGd1dm55VGVlVW8xR0p3aDNFb25vVndOYkpOR1UxVUZDUVpERV9ydk93R2k1UlJqUkE0cXZZU18zR3ZsUXA1SUJtWjZIQnBYa3F3Q1RrdlE?oc=5",
+      "grave": true
     },
     {
-      "fecha": "2026-05-22",
-      "lugar": "Norte de Santander",
-      "tipo": "masacre",
-      "descripcion": "Ataque armado deja 6 víctimas, entre ellas un líder social."
+      "fecha": "2026-05-28",
+      "hora": "04:00",
+      "titulo": "Álvaro Uribe enfrenta la amenaza del posuribismo",
+      "lugar": "Colombia",
+      "tipo": "amenazas",
+      "descripcion": "Álvaro Uribe enfrenta la amenaza del posuribismo",
+      "fuente": "EL PAÍS",
+      "url": "https://news.google.com/rss/articles/CBMixAFBVV95cUxNZllvdjk0WjRlRDZnS3prMmNPMEpLNVRoRFJnZHNSeGpKdVVlMko3VUdsVFRXemVRWG45bDh0STI3d0NVT2duSzRlSll5dW1KV2dPZ25DU2F4bUVSWHBMRWNMSVBEZjl6dzhjWFllMFp0eG90Sl84eXVKVksta2wtTkYyNFhCSXlhdWVXRlMyWDdmV3JiWE43VENwNXRFc3BqdUs0cm93dmtUcHBlc1drWDdZZnJ1UGN5Mk9NdHRTUXhTbDlt0gHYAUFVX3lxTE83MWlzV3k1bThrQ2JHODJHamxlVzlXbUMwQnFzVnRVczNDSmhlR0F2UFAzQ1FwV2diSDBqYUx6dS1xanFhN0w2S3dZNDBsVVMyN2M1RXlBelF4ZlRaS1ZtUUttUUpLLUlOVnlJcGhSUVpmSGRzUFc5TTdiOUNxcmJoX1l3c0VwWUxBRWQ4aU1WUWIwSFRnZl9xcjNGLUpXVElacFBsaDdDQnZ0akt0a3NDOHh6UUktSTFqSXU2cWJIYVpPUnJSMG1KcGh1WG5aWnFkZDVKcGFTYQ?oc=5",
+      "grave": true
+    },
+    {
+      "fecha": "2026-05-27",
+      "hora": "20:38",
+      "titulo": "\"Estos incidentes, tras el asesinato de Miguel Uribe, son un recordatorio de los oscuros días de violencia política\": EE. UU. sobre amenazas contra candidatos presidenciales en Colombia",
+      "lugar": "Colombia",
+      "tipo": "amenazas",
+      "descripcion": "\"Estos incidentes, tras el asesinato de Miguel Uribe, son un recordatorio de los oscuros días de violencia política\": EE. UU. sobre amenazas contra candidatos presidenciales en Colombia",
+      "fuente": "NTN24",
+      "url": "https://news.google.com/rss/articles/CBMiywJBVV95cUxNRG0tVHJ4cW9vYlQ5UG1rTGkxdFR6X1FUSHJBUFFkeW9nY1BuYl93VXJWSkVRV1kzeU5JdUhKb2U1Wm84ZjdMOXNJWGFzdTFybHJwMlZhZFROV09GNURGMXZnNnRCTkFybU5SUE5Da3BPQjRsQWJNWUZpQXBZc3FSUHVRa3NwYVhnM2lCLTNrbEh6RHpjc2xqaDFmSFRSN2U0enVjVzM0eVRMTmZsY1FvTWhVUzZLTERvYUFjRm1pVUNaT3U4Rld4RGp0QWhlZFBNaHlIUlhwN09raEFTODVOVy10dm5naUdIeURRaUY5WkJXa25MVVc5ajBUUHFDTGppV0YtMm9OQ1Q5Z2hMY0dfTlZmLWJCcnVnb1BXYThfbUdZemU2SmhyUVJrai04T1JPb0Z3TmJ2bGZYcjdCT3paWWRTeEhSLWpzNlVV0gHLAkFVX3lxTE5YRkx6UDB0S0hLTTNRelhtaEZoWi1hZ3dJajJDYW5VMWU1LTdRdHMxaTcycXdsZzNVcm9KM3oxcktjanNMa3ZXTG9HRENMdmhlQzRMb3JMVE5ob0s4ZUZ2OFNsNTNTRXVuTEVJc2JrWmlkSTBuSDk4QVZSTlUyWEdDM0xzTUc2bTM1RENjY1lQcUhSTjljR3VTQ0hVbGVlV3FIYjdMdzRTV19zTU5TbHFIMll2QWt4OEFjbmc2ZjV6NXhxZzhjbkM1OURxWDhEOHBFT0I4bjhxMzhQVDBkMlNHQTRlXzNQNG9lVjJiUUxHR3VJa0N3VWdPWi0wb1BKS2hhdU84aWNjTFNsWER1Vjh2Tl9RSk0zVlpTTEk0aTFXMVF3SmU5eUpXX3BRaHdmQ1dzbE50c3RCYWZvZ0wtWk4zZ1dJNUZMYTliNnM?oc=5",
+      "grave": true
+    },
+    {
+      "fecha": "2026-05-28",
+      "hora": "12:07",
+      "titulo": "Registraduría revela detalles del censo electoral para elecciones presidenciales 2026",
+      "lugar": "Colombia",
+      "tipo": "orden_publico",
+      "descripcion": "Registraduría revela detalles del censo electoral para elecciones presidenciales 2026",
+      "fuente": "Noticias RCN",
+      "url": "https://news.google.com/rss/articles/CBMiygFBVV95cUxQSVcxYkFsQWIxdTV0ZEZSbDBWNnVuV085eFRvbGUwUW82WjM3M0F6T19hcXRmTUk0WXhUQWhlWW02V2ZFVjFjX2haTnlhVTQ0dmdEQ3MzR0JFRlJxTm5fY21DRGFsZEMtQW1WaDFXcW9Ycm1FeVI3UGEwZ3NyOFhndklEYlV5RzNGeHp4OGxMQWJjdW1uc1FSUmdQM0JDRHEtNVBFcU50a1F0bGMtdXFqZDRJRHIyRU5oWllfLXduNHdiMDlFbG1yTW530gHKAUFVX3lxTFBuaFd2bUdWenNWMFllZmtOUllvSjlQM3pHVk1vRVpBVzlSMVBCTGtDSmx2U0dCWHZLdEtrVm5HdDFwMHBweE5peTE0N2tVdExlcFdzeGxid3NBWlRHTlRJV1EzSUl0ajlSajFFcGZmTmYyLWxReGxCeVVldzdoYndxYTEwb0FoQTVxcDRsV3dsaXY2djVUZFZ5MmZFTVRMVFF3NVBudzVCVlRJOXVuVjU2NHYzSlZfOHBtNHp2QldFS3hoNG9Sa20yUlE?oc=5",
+      "grave": false
+    },
+    {
+      "fecha": "2026-05-28",
+      "hora": "10:47",
+      "titulo": "Masiva participación de votantes en Miami Barcelona, Londres, Toronto y (…)",
+      "lugar": "Colombia",
+      "tipo": "orden_publico",
+      "descripcion": "Masiva participación de votantes en Miami Barcelona, Londres, Toronto y (…)",
+      "fuente": "Registraduría Nacional del Estado Civil",
+      "url": "https://news.google.com/rss/articles/CBMitAFBVV95cUxNY0NOUHFnRV9yWEpvSWxvTDNoNWJuUnpvQmUxSk5fMWFZa2xHU21XdXltSThSTVVWbDV5X3hlZDlBX0lZWUppZndaaVhmcF9MQk5ROHdSWUw5bHktQWthR05WUy1tRnFYN29GUTBrc2tlWmFZVHlwdHlRWmJfT1MtekZGTTRKVjJZWTA4X2JFUE9haTNhY1pvZXpIVmlURzdxU3N3MncxUmdTLXBINEV0X3oxQkc?oc=5",
+      "grave": false
+    },
+    {
+      "fecha": "2026-05-28",
+      "hora": "10:36",
+      "titulo": "Registraduría pide a ciudadanos informarse solo en canales oficiales para votar en las próximas elecciones",
+      "lugar": "Colombia",
+      "tipo": "orden_publico",
+      "descripcion": "Registraduría pide a ciudadanos informarse solo en canales oficiales para votar en las próximas elecciones",
+      "fuente": "Pulzo",
+      "url": "https://news.google.com/rss/articles/CBMizAFBVV95cUxPSUJZeVhBYmVkX2ktMTRnTk9EQUtDaWlKSzNNUzZxSTZ0OFFZRHJNdE9xQ1pRblVBRU8ybjN2dlQ5RzRNMFhEcndTMzJuek5adTRCWFFZQWYtVTNjbXI1Qmk0SFAyQ0YtZWY3bUFsTkdydVc2Rk9hRGJvTjhpRVZlQks5a1pOVVpiTjZQNFpxV1pxQkg0ZGFZRXN4YnQ2am9WSWZwcmQ4WnBmSlIwRWk3LTk4d3EybmtpN0k5cXAyUXYxdFZWZzNGSC1WS3DSAdIBQVVfeXFMTWJmUnk5d2J2OV95Umk4Nzc5dUhwd0hnbGRtWFJBTnR5djhSSi13OEVtMzd1Y0NCcVV4QUpwUERvMDl2b3o5WkpReDM4ekFoU3FsSU9id2RLSEFfV3BORzVYRmw5MWY5NkJRQ2FDODExRy1kYWZ0V0VMVW02VWROQlp6eHhOSlFrdzNhSHhZYlhvVzRJQ1RtQURGZ1pCOFF1Y0hITFZVZG1QZGtLQjlkU1N2R0U5bHJoSlREdU5YY2ZIVWRleENGUXJLcEprYkluRE13?oc=5",
+      "grave": false
+    },
+    {
+      "fecha": "2026-05-28",
+      "hora": "09:21",
+      "titulo": "En las elecciones de Congreso de 2026 la participación aumentó y los votos nulos disminuyeron",
+      "lugar": "Colombia",
+      "tipo": "orden_publico",
+      "descripcion": "En las elecciones de Congreso de 2026 la participación aumentó y los votos nulos disminuyeron",
+      "fuente": "Registraduría Nacional del Estado Civil",
+      "url": "https://news.google.com/rss/articles/CBMisgFBVV95cUxOdVhYS0JOWXhxM0FoVzNWT1hEeGNjSWVoMS16M2RtUE5wMG9pOVpTeGtIMjRXT2RSTHJocXdwRTJGMWN4dTFMQlhWOWxPek01cV9nV0hLWXlwNFduRTctbHFHRk5yR3dsZUQxclZ3TDBXU0luTENWeDVwZHAwZzQtanBTZmNuVi0wQmE3TmktdThTUlU0S1pWLTlsUkF6ZXZwaURxVTJjSm15RzlETjZYT2ln?oc=5",
+      "grave": false
+    },
+    {
+      "fecha": "2026-05-28",
+      "hora": "09:04",
+      "titulo": "Armada despliega más de 19.000 uniformados para garantizar seguridad en las elecciones",
+      "lugar": "Colombia",
+      "tipo": "orden_publico",
+      "descripcion": "Armada despliega más de 19.000 uniformados para garantizar seguridad en las elecciones",
+      "fuente": "El Espectador",
+      "url": "https://news.google.com/rss/articles/CBMi1gFBVV95cUxQdER2QWM3Z0lyZVpGVGNTRE1CNm5jdnhac1F6UWVTMTRsUlNXbk5jVU1qM0c3b2xDcl8tYWItRzhvYm54dHo0cXFPQnMzY0dybEwwZWJjcEM5Z0xseEVISTc1bWMzZXJnXzhDNHBGVlM0TGN2enFQLXIxVS1POGVTaGY1YU1NY29KZ041SmZYYU5kT1N0clhmQk84TXZZN2ZwU0twV1F0RUJlVXRLLW5HSi1XbW9ZNzZITnR5MDR5MjhxM0hScHNyNllKU2NyY0hHM21hbFJR0gHqAUFVX3lxTE44VXp5YnY1eHI0bXJhdEJ6ZTllNkNxd2Y5c3JHSXZVMnBxVVpaRThSQ05kRHhiWHlkbkZFcndHQ2hQNGQwMkJXQ2NfMEs2RlF4NDF4RTZ3VjhOWWlOQ1hnbkdDOEZyT2xnc1RZdjljckM2LWxPUGxHRnlHRDNCRW9hV1VNNFVCX1ZmaUJkNE1IQjNjWllUOHVBcmp3SlFuRmVWd3ljaU9rNVdXRE1QTzN2c0ZkMVJFX001NUlON2NXd3VZaVNUeGxRTXo2YXdCSmdTZVVwVF84Nzk2dUllVzhVOU53VGQ1bUp0QQ?oc=5",
+      "grave": false
     }
   ],
   "impacto_logistico": {
     "votantes_afectados": 4500000,
     "porcentaje_censo_nacional": 11,
     "puestos_votacion_riesgo": 1247,
-    "departamentos_militarizados": ["Arauca", "Cauca", "Nariño", "Norte de Santander", "Chocó", "Putumayo"],
+    "departamentos_militarizados": [
+      "Arauca",
+      "Cauca",
+      "Nariño",
+      "Norte de Santander",
+      "Chocó",
+      "Putumayo"
+    ],
     "vias_con_alerta": [
       "Vía Panamericana (tramo Popayán-Pasto)",
       "Catatumbo (Cúcuta-Ocaña)",
